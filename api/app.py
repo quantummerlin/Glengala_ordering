@@ -12,7 +12,7 @@ app = Flask(__name__)
 CORS(app)
 
 # Database path
-DB_PATH = os.path.join(os.path.dirname(__file__), 'glengala.db')
+DB_PATH = os.environ.get('DATABASE_PATH', os.path.join(os.path.dirname(__file__), 'glengala.db'))
 
 # Initialize database
 def init_db():
