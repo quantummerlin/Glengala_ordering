@@ -115,7 +115,23 @@ class LivePricingSystem {
         if (product.hasSpecial) {
             return `$${product.specialPrice.toFixed(2)} (${product.specialQuantity} ${product.specialUnit})`;
         }
-        return `$${product.price.toFixed(2)}/${product.unit}`;
+        const unitDisplay = this.getUnitDisplay(product.unit);
+        return `$${product.price.toFixed(2)} ${unitDisplay}`;
+    }
+
+    getUnitDisplay(unit) {
+        switch (unit) {
+            case 'kg':
+                return 'per kg';
+            case 'each':
+                return 'each';
+            case 'bunch':
+                return 'per bunch';
+            case 'punnet':
+                return 'per punnet';
+            default:
+                return unit;
+        }
     }
 
     displaySpecial(element, product) {
