@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Complete Customization</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #1a1a1a;
+            color: #ffffff;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .section {
+            background: #2d2d2d;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid #4a4a4a;
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            color: #2FA44F;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #b0b0b0;
+            font-size: 0.9rem;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #1a1a1a;
+            border: 1px solid #4a4a4a;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            font-family: inherit;
+        }
+
+            categoryActiveStatus: {
+
+        .form-group textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .form-group input[type="color"] {
+            width: 60px;
+            height: 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .color-input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .color-input-group input[type="text"] {
+            flex: 1;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: #2FA44F;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #258a3f;
+        }
+
+        .btn-secondary {
+            background: #3A6FD8;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #2f5bb4;
+        }
+
+        .btn-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: #c53030;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 24px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .preview-link {
+            display: inline-block;
+            margin-top: 12px;
+            color: #2FA44F;
+            text-decoration: none;
+        }
+
+        .preview-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- ...existing code... -->
+    <script src="customization-system.js"></script>
+    <div class="container">
+        <h1>🎨 Complete Shop Customization</h1>
+
+        <!-- Trust Ribbon -->
+    <div class="section collapsed">
+            <h2>Trust Ribbon (Top Banner)</h2>
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="trustRibbonEnabled" checked onchange="updateSetting('trustRibbon.enabled', this.checked)">
+                    <label for="trustRibbonEnabled">Enable Trust Ribbon</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Text Content</label>
+                <input type="text" id="trustRibbonText" placeholder="🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you." onchange="updateSetting('trustRibbon.text', this.value)">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="color-input-group">
+                        <input type="color" id="trustRibbonBg" onchange="updateSetting('trustRibbon.backgroundColor', this.value)">
+                        <input type="text" id="trustRibbonBgText" onchange="updateSetting('trustRibbon.backgroundColor', this.value)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Text Color</label>
+                    <div class="color-input-group">
+                        <input type="color" id="trustRibbonColor" onchange="updateSetting('trustRibbon.textColor', this.value)">
+                        <input type="text" id="trustRibbonColorText" onchange="updateSetting('trustRibbon.textColor', this.value)">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Font Size</label>
+                    <input type="text" id="trustRibbonFontSize" onchange="updateSetting('trustRibbon.fontSize', this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Font Family</label>
+                    <select id="trustRibbonFont" onchange="updateSetting('trustRibbon.fontFamily', this.value)">
+                        <option value="inherit">Default</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Georgia', serif">Georgia</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Verdana', sans-serif">Verdana</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shop Header -->
+    <div class="section collapsed">
+            <h2>Shop Header</h2>
+            <div class="form-group">
+                <label>Shop Name (as shown on page)</label>
+                <input type="text" id="shopName" placeholder="Glengala Fresh" onchange="updateSetting('shopHeader.shopName', this.value)">
+            </div>
+            <div class="form-group">
+
+               <div class="form-group">\n                   <label>Shop Logo</label>\n                   <input type="file" id="shopLogoUpload" accept="image/*" onchange="handleLogoUpload(event)">\n                   <div id="logoPreview" style="margin-top: 10px;">\n                       <img id="logoPreviewImg" src="Glengala Logo.png" alt="Logo Preview" style="max-height: 60px; max-width: 200px; border-radius: 8px; border: 1px solid #4a4a4a;">\n                   </div>\n                   <small style="color:#b0b0b0;display:block;margin-top:6px;">Upload a custom logo to replace the default Glengala logo.</small>\n               </div>
+                <label>Shop Details / Tagline (as shown on page)</label>
+                <input type="text" id="shopDetails" placeholder="Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50" onchange="updateSetting('shopHeader.shopDetails', this.value)">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Banner Ombre Gradient (background colors)</label>
+                    <div class="color-input-group">
+                        <input type="color" id="shopHeaderOmbre1">
+                        <input type="color" id="shopHeaderOmbre2">
+                        <div id="shopHeaderGradientPreview" style="width:60px;height:40px;border-radius:8px;border:1px solid #4a4a4a;margin-left:10px;"></div>
+                    </div>
+                    <small style="color:#b0b0b0;display:block;margin-top:6px;">These two colors control the shop header background ombre gradient.</small>
+                </div>
+                <div class="form-group">
+                    <label>Text Color</label>
+                    <div class="color-input-group">
+                        <input type="color" id="shopHeaderColor" onchange="updateSetting('shopHeader.textColor', this.value)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Font Size</label>
+                    <select id="shopHeaderFontSize" onchange="updateSetting('shopHeader.fontSize', this.value)">
+                        <option value="12px">12</option>
+                        <option value="14px">14</option>
+                        <option value="16px">16</option>
+                        <option value="18px">18</option>
+                        <option value="20px">20</option>
+                        <option value="24px">24</option>
+                        <option value="32px">32</option>
+                        <option value="40px">40</option>
+                        <option value="48px">48</option>
+                    </select>
+                    <label>Font Type</label>
+                    <select id="shopHeaderFont" onchange="updateSetting('shopHeader.fontFamily', this.value)">
+                        <option value="inherit">Default</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Georgia', serif">Georgia</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Verdana', sans-serif">Verdana</option>
+                        <option value="'Tahoma', sans-serif">Tahoma</option>
+                        <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Lucida Console', monospace">Lucida Console</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+           <!-- Cart Customization -->\n       <div class="section collapsed">\n               <h2>Cart Customization</h2>\n               <div class="form-group">\n                   <label>Cart Background Color</label>\n                   <div class="color-input-group">\n                       <input type="color" id="cartBgColor" onchange="updateSetting("cart.backgroundColor", this.value)">\n                       <input type="text" id="cartBgColorText" onchange="updateSetting("cart.backgroundColor", this.value)">\n                   </div>\n               </div>\n               <div class="form-group">\n                   <label>Cart Button Color</label>\n                   <div class="color-input-group">\n                       <input type="color" id="cartButtonColor" onchange="updateSetting("cart.buttonColor", this.value)">\n                       <input type="text" id="cartButtonColorText" onchange="updateSetting("cart.buttonColor", this.value)">\n                   </div>\n               </div>\n               <div class="form-group">\n                   <label>Cart Text Color</label>\n                   <div class="color-input-group">\n                       <input type="color" id="cartTextColor" onchange="updateSetting("cart.textColor", this.value)">\n                       <input type="text" id="cartTextColorText" onchange="updateSetting("cart.textColor", this.value)">\n                   </div>\n               </div>\n           </div>
+        <!-- Category Names -->
+    <div class="section collapsed">
+            <h2>Category Names & Emojis</h2>
+            <div id="categoryNamesContainer"></div>
+            <div id="categoryStylesContainer"></div>
+            <script>
+            // Render editable controls for each category's color, font, and emoji
+            let categoryControlsRetryCount = 0;
+            function renderCategoryControls() {
+                try {
+                    if (!window.customizationSystem || !customizationSystem.settings) {
+                        categoryControlsRetryCount++;
+                        if (categoryControlsRetryCount > 30) {
+                            const container = document.getElementById('categoryStylesContainer');
+                            if (container) {
+                                container.innerHTML = '<div style="color:red; padding:12px;">Error: Customization system failed to load. Please reload the page.</div>';
+                            }
+                            return;
+                        }
+                        setTimeout(renderCategoryControls, 100);
+                        return;
+                    }
+                    const categories = customizationSystem.settings.categoryNames;
+                    const styles = customizationSystem.settings.categoryHeaders;
+                    const container = document.getElementById('categoryStylesContainer');
+                    if (!container) return;
+                    container.innerHTML = '';
+                    Object.keys(categories).forEach(key => {
+                        const cat = categories[key];
+                        const div = document.createElement('div');
+                        div.className = 'grid-2';
+                        div.style.marginBottom = '16px';
+                        div.innerHTML = `
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Name</label>
+                                <input type="text" value="${cat.name}" onchange="updateSetting('categoryNames.${key}.name', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Emoji</label>
+                                <input type="text" value="${cat.emoji}" onchange="updateSetting('categoryNames.${key}.emoji', this.value)">
+
+                               <div class="form-group">\n                                   <label>Active Status</label>\n                                   <label style="display: flex; align-items: center; gap: 10px;">\n                                       <input type="checkbox" ${cat.active !== false ? "checked" : ""} onchange="updateSetting(\categoryActiveStatus., this.checked)">\n                                       <span>Show this category in shop</span>\n                                   </label>\n                               </div>
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Background Color</label>
+                                <input type="color" value="${styles.backgroundColor}" onchange="updateSetting('categoryHeaders.backgroundColor', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Text Color</label>
+                                <input type="color" value="${styles.textColor}" onchange="updateSetting('categoryHeaders.textColor', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Font Size</label>
+                                <input type="text" value="${styles.fontSize}" onchange="updateSetting('categoryHeaders.fontSize', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Font Family</label>
+                                <input type="text" value="${styles.fontFamily}" onchange="updateSetting('categoryHeaders.fontFamily', this.value)">
+                            </div>
+                        `;
+                        container.appendChild(div);
+                    });
+                } catch (e) {
+                    const container = document.getElementById('categoryStylesContainer');
+                    if (container) {
+                        container.innerHTML = `<div style="color:red; padding:12px;">Error: ${e.message}</div>`;
+                    }
+                    console.error('Category controls error:', e);
+                }
+            }
+            function waitForCustomizationSystem() {
+                if (window.customizationSystem && customizationSystem.settings) {
+                    renderCategoryControls();
+                } else {
+                    setTimeout(waitForCustomizationSystem, 100);
+                }
+            }
+                document.addEventListener('DOMContentLoaded', waitForCustomizationSystem);
+            </script>
+        </div>
+
+        <!-- Our Story -->
+    <div class="section collapsed">
+            <h2>Our Story Section</h2>
+            <div class="form-group">
+                <div class="checkbox-group">
+                    <input type="checkbox" id="ourStoryEnabled" checked onchange="updateSetting('ourStory.enabled', this.checked)">
+                    <label for="ourStoryEnabled">Enable Our Story Section</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="ourStoryTitle" placeholder="Our Story" onchange="updateSetting('ourStory.title', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" id="ourStoryContent" placeholder="We're a family-run fresh produce market in Albion, Melbourne. Every morning, Wayne personally selects the best produce from Epping Market to bring you the freshest fruits, vegetables, and more." onchange="updateSetting('ourStory.content', this.value)">
+            </div>
+        </div>
+
+        <!-- Pricing Info Section -->
+    <div class="section collapsed">
+            <h2>How Pricing Works Tab</h2>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="pricingInfoTitle" placeholder="How Pricing Works" onchange="updateSetting('pricingInfo.title', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" id="pricingInfoContent" placeholder="Freshness first. We buy tightly at Melbourne's Epping Market so stock turns fast and your order is as fresh as possible. Wayne reviews every order. If today's market shifts (quality or availability), Wayne will text you options and confirm the best choice before payment. Quality grades: Premium — Best appearance and size, peak flavour. First — Great everyday quality and value. Second — Cosmetic marks, still great eating, sharp price." onchange="updateSetting('pricingInfo.content', this.value)">
+            </div>
+        </div>
+
+        <!-- Contact Info Section -->
+    <div class="section collapsed">
+            <h2>Contact Info Tab</h2>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="contactInfoTitle" placeholder="Contact Info" onchange="updateSetting('contactInfo.title', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" id="contactInfoContent" placeholder="Phone: 0400 000 000 | Email: info@glengalafresh.com.au | Address: Albion, Melbourne VIC 3020" onchange="updateSetting('contactInfo.content', this.value)">
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="saveAndPreview()">💾 Save & Preview</button>
+            <button class="btn btn-danger" onclick="resetToDefaults()">🔄 Reset to Defaults</button>
+        </div>
+
+        <a href="shop.html" target="_blank" class="preview-link">👁️ Preview Shop Page</a>
+    </div>
+
+    <script>
+    // Collapse all menus on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.section').forEach(function(section) {
+            section.classList.add('collapsed');
+            section.querySelector('h2').addEventListener('click', function() {
+                section.classList.toggle('collapsed');
+            });
+        });
+    });
+    function saveAndPreview() {
+        customizationSystem.saveSettings();
+        alert('✅ Settings saved! Open the shop page to see changes.');
+    }
+    function updateShopHeaderGradient() {
+        const color1 = document.getElementById('shopHeaderOmbre1').value;
+        const color2 = document.getElementById('shopHeaderOmbre2').value;
+        const gradient = `linear-gradient(135deg, ${color1}, ${color2})`;
+        if (typeof updateSetting === 'function') {
+            updateSetting('shopHeader.backgroundColor', gradient);
+        } else {
+            // Wait for customization-system.js to load, then retry
+            setTimeout(() => {
+                if (typeof updateSetting === 'function') {
+                    updateSetting('shopHeader.backgroundColor', gradient);
+                }
+            }, 200);
+        }
+        updateShopHeaderGradientPreview();
+    }
+    function updateShopHeaderGradientPreview() {
+        const color1 = document.getElementById('shopHeaderOmbre1').value;
+        const color2 = document.getElementById('shopHeaderOmbre2').value;
+        const preview = document.getElementById('shopHeaderGradientPreview');
+        if (preview) {
+            preview.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+        }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+        if (document.getElementById('shopHeaderOmbre1')) {
+            document.getElementById('shopHeaderOmbre1').addEventListener('input', updateShopHeaderGradient);
+        }
+        if (document.getElementById('shopHeaderOmbre2')) {
+            document.getElementById('shopHeaderOmbre2').addEventListener('input', updateShopHeaderGradient);
+        }
+        updateShopHeaderGradientPreview();
+    });
+    </script>
+                loadFormValues();
+                alert('✅ Reset to defaults!');
+            }
+        }
+
+        // Load form values when page loads
+        window.addEventListener('load', () => {
+
+           // Handle logo upload\n           function handleLogoUpload(event) {\n               const file = event.target.files[0];\n               if (file && file.type.startsWith("image/")) {\n                   const reader = new FileReader();\n                   reader.onload = function(e) {\n                       const logoData = e.target.result;\n                       document.getElementById("logoPreviewImg").src = logoData;\n                       updateSetting("shopHeader.logo", logoData);\n                   };\n                   reader.readAsDataURL(file);\n               } else {\n                   alert("Please select a valid image file.");\n               }\n           }\n
+            setTimeout(loadFormValues, 500);
+        });
+    </script>
+</body>
+    <script src="customization-system.js"></script>
+</body>
+</html>

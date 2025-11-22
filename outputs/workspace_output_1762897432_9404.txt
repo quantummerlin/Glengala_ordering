@@ -1,0 +1,21 @@
+    <div class="section collapsed">
+            <h2>Shop Header</h2>
+            <div class="form-group">
+                <label>Shop Name (as shown on page)</label>
+                <input type="text" id="shopName" placeholder="Glengala Fresh" onchange="updateSetting('shopHeader.shopName', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Shop Details / Tagline (as shown on page)</label>
+                <input type="text" id="shopDetails" placeholder="Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50" onchange="updateSetting('shopHeader.shopDetails', this.value)">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Banner Ombre Gradient (background colors)</label>
+                    <div class="color-input-group">
+                        <input type="color" id="shopHeaderOmbre1">
+                        <input type="color" id="shopHeaderOmbre2">
+                        <div id="shopHeaderGradientPreview" style="width:60px;height:40px;border-radius:8px;border:1px solid #4a4a4a;margin-left:10px;"></div>
+                    </div>
+                    <small style="color:#b0b0b0;display:block;margin-top:6px;">These two colors control the shop header background ombre gradient.</small>
+                </div>
+                <div class="form-group">

@@ -1,0 +1,2 @@
+168:        <button class="checkout-btn" style="margin:0 16px 8px 16px;" onclick="shop.checkout()">Confirm Order</button>
+184:        <button class="checkout-btn" style="max-width:320px;width:90%;font-size:1.2rem;box-shadow:0 2px 8px #0003;" onclick="toggleCart()">🛒 View Cart</button>

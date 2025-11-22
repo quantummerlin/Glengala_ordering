@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Shop Loading</title>
+</head>
+<body>
+    <h1>Testing Shop Scripts</h1>
+    <div id="test-output"></div>
+    
+    <script src="products-data.js"></script>
+    <script>
+        const output = document.getElementById('test-output');
+        output.innerHTML = `
+            <p>Products loaded: ${products ? products.length : 'ERROR'}</p>
+            <p>First product: ${products && products[0] ? products[0].name : 'ERROR'}</p>
+        `;
+    </script>
+</body>
+</html>

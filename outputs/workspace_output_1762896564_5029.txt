@@ -1,0 +1,17 @@
+                </div>
+            </div>
+        </div>
+
+        <!-- Cart Summary -->
+        <!-- Cart summary removed; use fixed cart button below -->
+    <!-- Minimal Cart Overlay (fixed above footer) -->
+    <div id="cartContent" style="position:fixed;bottom:140px;left:0;width:100%;z-index:1000;background:#222;border-radius:16px 16px 0 0;box-shadow:0 2px 8px #0003;padding:16px 0;display:none;">
+        <div id="cartItems" class="cart-items" style="padding:0 16px;"></div>
+        <div id="cartTotal" class="cart-total" style="padding:0 16px 8px 16px;color:#fff;font-weight:bold;"></div>
+        <button class="checkout-btn" style="margin:0 16px 8px 16px;" onclick="shop.checkout()">Confirm Order</button>
+        <button style="margin:0 16px 8px 16px;background:#444;color:#fff;border:none;padding:8px 0;border-radius:8px;cursor:pointer;" onclick="document.getElementById('cartContent').style.display='none'">Close</button>
+    </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">

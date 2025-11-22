@@ -1,0 +1,33 @@
+17:            color: #ffffff;
+41:            color: #2FA44F;
+52:            color: #b0b0b0;
+65:            color: #ffffff;
+75:        .form-group input[type="color"] {
+83:        .color-input-group {
+89:        .color-input-group input[type="text"] {
+117:            color: white;
+126:            color: white;
+135:            color: white;
+164:            color: #2FA44F;
+196:                    <div class="color-input-group">
+197:                        <input type="color" id="trustRibbonBg" onchange="updateSetting('trustRibbon.backgroundColor', this.value)">
+203:                    <div class="color-input-group">
+204:                        <input type="color" id="trustRibbonColor" onchange="updateSetting('trustRibbon.textColor', this.value)">
+240:                    <label>Banner Ombre Gradient (background colors)</label>
+241:                    <div class="color-input-group">
+242:                        <input type="color" id="shopHeaderOmbre1">
+243:                        <input type="color" id="shopHeaderOmbre2">
+246:                    <small style="color:#b0b0b0;display:block;margin-top:6px;">These two colors control the shop header background ombre gradient.</small>
+250:                    <div class="color-input-group">
+251:                        <input type="color" id="shopHeaderColor" onchange="updateSetting('shopHeader.textColor', this.value)">
+289:            // Render editable controls for each category's color, font, and emoji
+298:                                container.innerHTML = '<div style="color:red; padding:12px;">Error: Customization system failed to load. Please reload the page.</div>';
+326:                                <input type="color" value="${styles.backgroundColor}" onchange="updateSetting('categoryHeaders.backgroundColor', this.value)">
+330:                                <input type="color" value="${styles.textColor}" onchange="updateSetting('categoryHeaders.textColor', this.value)">
+346:                        container.innerHTML = `<div style="color:red; padding:12px;">Error: ${e.message}</div>`;
+431:        const color1 = document.getElementById('shopHeaderOmbre1').value;
+432:        const color2 = document.getElementById('shopHeaderOmbre2').value;
+433:        const gradient = `linear-gradient(135deg, ${color1}, ${color2})`;
+447:        const color1 = document.getElementById('shopHeaderOmbre1').value;
+448:        const color2 = document.getElementById('shopHeaderOmbre2').value;
+451:            preview.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;

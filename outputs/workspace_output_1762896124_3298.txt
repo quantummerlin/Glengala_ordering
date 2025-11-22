@@ -1,0 +1,35 @@
+# Ordering System Implementation
+
+## Core System Setup
+- [ ] Create shop.html with full ordering functionality
+- [ ] Create admin.html with customization panel
+- [ ] Implement dark mode for both pages
+- [ ] Set up product data structure
+
+## Shop Page Features
+- [ ] Header with customizable colors
+- [ ] Product catalog with categories
+- [ ] Shopping cart with item counter
+- [ ] Delivery pricing logic ($0-30=$10, $30-50=$5, over $50=free)
+- [ ] Unit pricing logic (100g = 0.1kg, 500g = 0.5kg, etc.)
+
+## Admin Page Features
+- [ ] Password protection system
+- [ ] Header color customization
+- [ ] Cart tab color customization
+- [ ] Logo upload functionality
+- [ ] Font size options (10, 12, 14, etc.)
+- [ ] Category management with emoji selector
+- [ ] Active/inactive category toggles
+- [ ] Emoji menu with "none" option
+
+## Data Synchronization
+- [ ] Shop and admin header color sync
+- [ ] Customization data persistence
+- [ ] Real-time updates between pages
+
+## Testing & Debugging
+- [ ] Test all functionality
+- [ ] Verify cart calculations
+- [ ] Test admin customization
+- [ ] Validate unit pricing logic

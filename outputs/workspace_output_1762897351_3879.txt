@@ -1,0 +1,5 @@
+113:                    p.category === category && p.active
+149:            content.classList.add('active');
+156:            content.classList.remove('active');
+169:            content.classList.remove('active');
+257:            const isActive = cartContent.classList.toggle('active');

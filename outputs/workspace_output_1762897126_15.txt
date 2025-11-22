@@ -1,0 +1,15 @@
+
+        if (header) {
+            header.style.background = settings.backgroundColor;
+        }
+        // Also update shop banner if present
+        const shopBanner = document.getElementById('shopBanner');
+        if (shopBanner) {
+            shopBanner.style.background = settings.backgroundColor;
+        }
+    }
+
+    // Apply category header customization
+    applyCategoryHeaders() {
+        const headers = document.querySelectorAll('.category-header');
+        const settings = this.settings.categoryHeaders;

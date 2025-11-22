@@ -1,0 +1,2 @@
+219:        let total = 0;
+271:        let total = 0;

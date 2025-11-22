@@ -1,0 +1,20 @@
+// Glengala Fresh Admin - Simple Product Management
+let allProducts = [];
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Admin page loaded');
+    console.log('Products available:', typeof products !== 'undefined');
+    if (typeof products !== 'undefined') {
+        console.log('Number of products:', products.length);
+    }
+    loadProducts();
+});
+
+// Load products from products-data.js
+function loadProducts() {
+    console.log('loadProducts called');
+    if (typeof products !== 'undefined') {
+        console.log('Products found, loading...');
+        allProducts = [...products];
+        displayProducts(allProducts);

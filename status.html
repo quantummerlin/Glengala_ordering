@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - System Status</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #000000;
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: #ffffff;
+        }
+        .container {
+            background: #ffffff;
+            border-radius: 0;
+            box-shadow: 0 0 0 1px #e5e5e5;
+            max-width: 900px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 60px 50px;
+        }
+        .logo-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #000000;
+        }
+        .logo-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #000000;
+            margin-bottom: 8px;
+            letter-spacing: -1px;
+        }
+        .logo-subtitle {
+            color: #666666;
+            font-size: 0.9rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666666;
+            margin-bottom: 40px;
+            font-size: 0.95rem;
+        }
+        .status-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        .status-card {
+            background: #ffffff;
+            border: 2px solid #e5e5e5;
+            padding: 30px;
+            transition: all 0.2s ease;
+        }
+        .status-card.success {
+            border-color: #000000;
+            background: #000000;
+            color: #ffffff;
+        }
+        .status-card.success h3,
+        .status-card.success p {
+            color: #ffffff;
+        }
+        .status-card.error {
+            border-color: #000000;
+            background: #ffffff;
+        }
+        .status-card.warning {
+            border-color: #666666;
+            background: #f5f5f5;
+        }
+        .status-card:hover {
+            border-color: #000000;
+        }
+        .status-card h3 {
+            margin-bottom: 12px;
+            color: #000000;
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+        .status-card p {
+            color: #666666;
+            line-height: 1.6;
+            font-size: 0.95rem;
+            margin-left: 40px;
+        }
+        .status-card.success p {
+            margin-left: 40px;
+        }
+        .status-icon {
+            font-size: 1.5rem;
+            margin-right: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+        }
+        .action-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 50px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #e5e5e5;
+        }
+        .btn {
+            padding: 20px 30px;
+            border: 2px solid #000000;
+            background: #000000;
+            color: #ffffff;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            text-align: center;
+            transition: all 0.2s ease;
+        }
+        .btn:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn-primary {
+            background: #000000;
+            color: #ffffff;
+        }
+        .btn-success {
+            background: #ffffff;
+            color: #000000;
+        }
+        .btn-success:hover {
+            background: #000000;
+            color: #ffffff;
+        }
+        .btn-info {
+            background: #000000;
+            color: #ffffff;
+        }
+        .loading {
+            text-align: center;
+            color: #666666;
+            padding: 60px 20px;
+        }
+        .spinner {
+            border: 3px solid #e5e5e5;
+            border-top: 3px solid #000000;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .refresh-badge {
+            display: inline-block;
+            background: #f5f5f5;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            color: #666666;
+            margin-top: 15px;
+            border: 1px solid #e5e5e5;
+        }
+        code {
+            background: #000000;
+            color: #ffffff;
+            padding: 8px 16px;
+            display: inline-block;
+            margin-top: 12px;
+            font-family: 'Courier New', monospace;
+        }
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 30px;
+            }
+            .logo-title {
+                font-size: 2rem;
+            }
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-header">
+            <div class="logo-title">Glengala Fresh</div>
+            <div class="logo-subtitle">System Diagnostics</div>
+        </div>
+
+        <div class="action-buttons" id="actionButtons">
+            <a href="shop.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary">🛒 Open Shop</a>
+            <a href="admin.html" target="_blank" rel="noopener noreferrer" class="btn btn-success">⚙️ Admin Panel</a>
+            <a href="test-admin-api.html" target="_blank" rel="noopener noreferrer" class="btn btn-info">🧪 Test API</a>
+        </div>
+        
+        <p class="subtitle" style="margin-top: 40px;">Verifying backend services and API connectivity</p>
+        
+        <div id="statusContent" class="loading">
+            <div class="spinner"></div>
+            <p style="font-weight: 500; color: #666666;">Running system diagnostics...</p>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://127.0.0.1:5000/api';
+
+        async function checkSystemStatus() {
+            const results = {
+                api: { status: 'checking', message: 'Connecting to Flask API...' },
+                products: { status: 'checking', message: 'Loading products...' },
+                settings: { status: 'checking', message: 'Loading settings...' },
+                database: { status: 'checking', message: 'Checking database...' }
+            };
+
+            // Check API connectivity
+            try {
+                const response = await fetch(`${API_BASE}/products`);
+                if (response.ok) {
+                    const data = await response.json();
+                    const productCount = data.products ? data.products.length : 0;
+                    results.api.status = 'success';
+                    results.api.message = '✓ Flask API is running on http://127.0.0.1:5000';
+                    results.products.status = 'success';
+                    results.products.message = `✓ ${productCount} products loaded from database`;
+                    results.database.status = 'success';
+                    results.database.message = '✓ SQLite database is accessible';
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                results.api.status = 'error';
+                results.api.message = `✗ Flask API not responding: ${error.message}`;
+                results.products.status = 'error';
+                results.products.message = '✗ Cannot load products - API offline';
+                results.database.status = 'error';
+                results.database.message = '✗ Database not accessible';
+            }
+
+            // Check settings
+            try {
+                const response = await fetch(`${API_BASE}/settings`);
+                if (response.ok) {
+                    const data = await response.json();
+                    results.settings.status = 'success';
+                    results.settings.message = `✓ Shop settings loaded (${data.shop_name || 'Glengala Fresh'})`;
+                } else {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+            } catch (error) {
+                results.settings.status = 'error';
+                results.settings.message = `✗ Settings not available: ${error.message}`;
+            }
+
+            displayResults(results);
+        }
+
+        function displayResults(results) {
+            const content = document.getElementById('statusContent');
+            const buttons = document.getElementById('actionButtons');
+            
+            let html = '<div class="status-grid">';
+            
+            // API Status
+            html += `
+                <div class="status-card ${results.api.status}">
+                    <h3><span class="status-icon">${results.api.status === 'success' ? '✅' : '❌'}</span>Flask API Server</h3>
+                    <p>${results.api.message}</p>
+                </div>
+            `;
+            
+            // Products Status
+            html += `
+                <div class="status-card ${results.products.status}">
+                    <h3><span class="status-icon">${results.products.status === 'success' ? '✅' : '❌'}</span>Products System</h3>
+                    <p>${results.products.message}</p>
+                </div>
+            `;
+            
+            // Settings Status
+            html += `
+                <div class="status-card ${results.settings.status}">
+                    <h3><span class="status-icon">${results.settings.status === 'success' ? '✅' : '❌'}</span>Customization Settings</h3>
+                    <p>${results.settings.message}</p>
+                </div>
+            `;
+            
+            // Database Status
+            html += `
+                <div class="status-card ${results.database.status}">
+                    <h3><span class="status-icon">${results.database.status === 'success' ? '✅' : '❌'}</span>Database</h3>
+                    <p>${results.database.message}</p>
+                </div>
+            `;
+            
+            html += '</div>';
+            
+            // Overall status
+            const allSuccess = Object.values(results).every(r => r.status === 'success');
+            if (allSuccess) {
+                html += `
+                    <div class="status-card success" style="text-align: center; margin-top: 30px;">
+                        <h3 style="justify-content: center; font-size: 1.3rem; margin-bottom: 12px;">✓ ALL SYSTEMS OPERATIONAL</h3>
+                        <p style="margin-left: 0; font-size: 1rem;">Your Glengala Fresh shop is ready to launch.</p>
+                        <div class="refresh-badge">
+                            Auto-refresh enabled
+                        </div>
+                    </div>
+                `;
+            }
+            
+            content.innerHTML = html;
+        }
+
+        // Run checks on page load
+        checkSystemStatus();
+
+        // Auto-refresh status every 30 seconds
+        setInterval(() => {
+            checkSystemStatus();
+        }, 30000);
+
+        // Update timestamp display
+        setInterval(() => {
+            const subtitle = document.querySelector('.subtitle');
+            const now = new Date();
+            subtitle.textContent = `Last checked: ${now.toLocaleTimeString()} • Auto-refresh enabled`;
+        }, 1000);
+    </script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+                </div>
+                <div class='order-actions'>
+                    <button onclick="navigator.clipboard.writeText(orderText);alert('Order copied to clipboard!')">📋 Copy Order</button>
+                    <button onclick="(function(){window.location.href='sms:0434694141?body='+encodeURIComponent(orderText);setTimeout(function(){alert('If your SMS app did not open, copy your order and paste it into a text message to 0434694141.');}, 1200);})()">📱 Send via Text</button>
+                </div>
+                <div style='margin-top:10px;color:#888;font-size:0.95em;'>Send your order before 8pm for next-day review and payment link.</div>
+            </div>
+        `;
+        Object.assign(modal.style, {
+            position: 'fixed', top: 0, left: 0, width: '100%', height: '100%', background: 'rgba(0,0,0,0.5)', zIndex: 9999,
+            display: 'flex', justifyContent: 'center', alignItems: 'center'
+        });
+        document.body.appendChild(modal);
+    },
+
+    // Search functionality
+    setupSearch() {
+        const searchInput = document.getElementById('shopSearch');
+        if (searchInput) {
+            searchInput.addEventListener('input', () => this.searchProducts());
+        }
+    },
+
+    searchProducts() {
+        const searchTerm = document.getElementById('shopSearch').value.toLowerCase();
+        const productCards = document.querySelectorAll('.product-card');
+        
+        productCards.forEach(card => {
+            const productName = card.querySelector('.product-name').textContent.toLowerCase();
+            if (productName.includes(searchTerm)) {
+                card.style.display = 'block';

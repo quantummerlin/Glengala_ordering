@@ -1,0 +1,11 @@
+            </div>
+        </div>
+
+        <!-- Category Names -->
+    <div class="section collapsed">
+            <h2>Category Names & Emojis</h2>
+            <div id="categoryNamesContainer"></div>
+            <div id="categoryStylesContainer"></div>
+            <script>
+            // Render editable controls for each category's color, font, and emoji
+            let categoryControlsRetryCount = 0;

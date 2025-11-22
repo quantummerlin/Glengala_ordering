@@ -1,0 +1,100 @@
+// Glengala Fresh Shop Functions - Original 6 Tab System with Collapsible Menus
+const shop = {
+    cart: [],
+    isDarkMode: false,
+    currentLanguage: 'en',
+    collapsedCategories: new Set(['vegetables', 'fruits', 'herbs', 'juices', 'nuts', 'flowers']),
+
+    // Language translations
+    translations: {
+        en: {
+            shopName: "Glengala Fresh",
+            shopSlogan: "Your local fresh produce market",
+            bannerTitle: "Fresh Produce Delivered",
+            bannerSubtitle: "Order online for next day pickup or delivery",
+            searchPlaceholder: "🔍 Search for fresh produce...",
+            categories: {
+                vegetables: "Fresh Vegetables",
+                fruits: "Fresh Fruits", 
+                herbs: "Herbs, Salads & Greens",
+                juices: "Fresh Juices & Beverages",
+                nuts: "Nuts, Dried Fruit & Legumes",
+                flowers: "Fresh Flowers"
+            },
+            addToCart: "Add to Cart",
+            confirmOrder: "Confirm Order",
+            darkMode: "☀️ Light Mode",
+            lightMode: "🌙 Dark Mode"
+        },
+        zh: {
+            shopName: "格林加拉生鲜",
+            shopSlogan: "您本地的生鲜市场",
+            bannerTitle: "新鲜农产品配送",
+            bannerSubtitle: "在线订购，次日自提或配送",
+            searchPlaceholder: "🔍 搜索新鲜农产品...",
+            categories: {
+                vegetables: "新鲜蔬菜",
+                fruits: "新鲜水果",
+                herbs: "香草沙拉蔬菜",
+                juices: "新鲜果汁饮料",
+                nuts: "坚果干果豆类",
+                flowers: "鲜花"
+            },
+            addToCart: "加入购物车",
+            confirmOrder: "确认订单",
+            darkMode: "☀️ 浅色模式",
+            lightMode: "🌙 深色模式"
+        },
+        vi: {
+            shopName: "Glengala Tươi",
+            shopSlogan: "Chợ nông sản địa phương của bạn",
+            bannerTitle: "Nông Sản Tươi Giao Tận Nơi",
+            bannerSubtitle: "Đặt hàng online để nhận hàng ngày mai",
+            searchPlaceholder: "🔍 Tìm kiếm nông sản tươi...",
+            categories: {
+                vegetables: "Rau Củ Tươi",
+                fruits: "Trái Cây Tươi",
+                herbs: "Rau Thơm Salad",
+                juices: "Nước Ép Tươi & Đồ Uống",
+                nuts: "Hạt & Hạt Dầu",
+                flowers: "Hoa Tươi"
+            },
+            addToCart: "Thêm Vào Giỏ",
+            confirmOrder: "Xác Nhận Đơn Hàng",
+            darkMode: "☀️ Chế Độ Sáng",
+            lightMode: "🌙 Chế Độ Tối"
+        },
+        ar: {
+            shopName: "جلينجالا الطازج",
+            shopSlogan: "سوق المنتجات الطازجة المحلي الخاص بك",
+            bannerTitle: "توصيل المنتجات الطازجة",
+            bannerSubtitle: "اطلب عبر الإنترنت للتسليم أو الاستلام في اليوم التالي",
+            searchPlaceholder: "🔍 ابحث عن المنتجات الطازجة...",
+            categories: {
+                vegetables: "خضروات طازجة",
+                fruits: "فواكه طازجة",
+                herbs: "أعشاب وسلطات",
+                juices: "عصائر ومشروبات طازجة",
+                nuts: "مكسرات ومنتجات مجففة",
+                flowers: "زهور طازجة"
+            },
+            addToCart: "أضف إلى السلة",
+            confirmOrder: "تأكيد الطلب",
+            darkMode: "☀️ الوضع النهاري",
+            lightMode: "🌙 الوضع الليلي"
+        }
+    },
+
+    // Initialize shop
+    init() {
+        this.loadCart();
+        this.loadProducts();
+        this.loadDarkMode();
+        this.loadLanguage();
+        this.setupAutoSave();
+        this.setupSearch();
+        
+        // Start all categories collapsed
+        this.collapsedCategories.forEach(category => {
+            this.collapseCategory(category);
+        });

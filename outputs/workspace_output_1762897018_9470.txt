@@ -1,0 +1,50 @@
+// Glengala Fresh - Complete Customization System
+// Makes everything customizable: fonts, colors, text, sizes, etc.
+
+class CustomizationSystem {
+    constructor() {
+        this.settings = this.loadSettings();
+    }
+
+    // Default settings
+    getDefaultSettings() {
+        return {
+            // Trust Ribbon
+            trustRibbon: {
+                text: "🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you.",
+                backgroundColor: "#f6fdf7",
+                textColor: "#1f4d2c",
+                borderColor: "#e3f2e6",
+                fontSize: "0.95rem",
+                fontFamily: "inherit",
+                padding: "10px 16px",
+                borderRadius: "10px",
+                enabled: true
+            },
+            
+            // Shop Header
+            shopHeader: {
+                shopName: "Glengala Fresh",
+                shopDetails: "Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50",
+                backgroundColor: "linear-gradient(135deg, #2FA44F, #3A6FD8)",
+                textColor: "#ffffff",
+                fontSize: "1rem",
+                fontFamily: "inherit"
+            },
+            
+            // Category Headers
+            categoryHeaders: {
+                backgroundColor: "linear-gradient(135deg, #2FA44F, #3A6FD8)",
+                textColor: "#ffffff",
+                fontSize: "1.1rem",
+                fontFamily: "inherit",
+                padding: "1rem"
+            },
+            
+            // Product Cards
+            productCards: {
+                backgroundColor: "#ffffff",
+                textColor: "#333333",
+                borderColor: "#e5e7eb",
+                fontSize: "1rem",
+                fontFamily: "inherit",

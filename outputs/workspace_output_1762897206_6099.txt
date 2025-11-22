@@ -1,0 +1,21 @@
+                fontFamily: "inherit",
+                padding: "1rem"
+            },
+            
+            // Product Cards
+            productCards: {
+                backgroundColor: "#ffffff",
+                textColor: "#333333",
+                borderColor: "#e5e7eb",
+                fontSize: "1rem",
+                fontFamily: "inherit",
+                borderRadius: "12px"
+            },
+            
+            // Buttons
+            buttons: {
+                primaryColor: "#2FA44F",
+                primaryTextColor: "#ffffff",
+                secondaryColor: "#3A6FD8",
+                secondaryTextColor: "#ffffff",
+                fontSize: "1rem",

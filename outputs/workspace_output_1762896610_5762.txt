@@ -1,0 +1,4 @@
+197:        this.updateCart();
+204:    updateCart() {
+248:        this.updateCart();
+463:    shop.updateCart();

@@ -1,0 +1,27 @@
+    checkout() {
+        if (this.cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+
+        let orderText = 'Glengala Fresh Order:\n\n';
+        let total = 0;
+        this.cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            orderText += `${item.name} - ${item.quantity} ${item.unit} @ $${item.price.toFixed(2)} each = $${itemTotal.toFixed(2)}\n`;
+        });
+        orderText += `\nTotal: $${total.toFixed(2)}`;
+
+        // Create modal
+        const modal = document.createElement('div');
+        modal.className = 'order-summary-overlay';
+        modal.innerHTML = `
+            <div class='order-summary-container'>
+                <div class='order-summary-header'>
+                    <h2>🌱 Glengala Fresh - Order Summary</h2>
+                    <button class='close-btn' onclick='this.parentElement.parentElement.parentElement.remove()'>✕</button>
+                </div>
+                <div class='order-items'>
+                    <pre style='white-space:pre-wrap;'>${orderText}</pre>
+                </div>

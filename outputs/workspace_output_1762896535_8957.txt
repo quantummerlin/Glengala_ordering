@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Fresh Produce Online</title>
+    <link rel="stylesheet" href="shop-styles.css">
+    <link rel="stylesheet" href="checkout-styles.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="shop-container">
+        <!-- Trust Ribbon -->
+        <div class="trust-ribbon">
+            🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you.
+        </div>
+
+        <div class="header">
+            <!-- Language Toggle Above Logo -->
+            <div class="language-toggle-container">
+                <div class="language-selector">
+                    <select id="languageSelect" class="language-select">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="el">🇬🇷 Ελληνικά</option>
+                        <option value="vi">🇻🇳 Tiếng Việt</option>
+                        <option value="ar">AR العربية</option>
+                        <option value="it">🇮🇹 Italiano</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="header-content">
+                <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+                <h1 data-translate="shopTitle">Glengala Fresh</h1>
+                <p class="shop-details" data-translate="shopDetails">Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50</p>
+            </div>
+        </div>
+
+        <!-- Shop Banner Section -->
+        <div class="shop-banner" id="shopBanner" style="display: none;">
+            <img id="bannerImage" src="" alt="Shop Banner">
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="shopSearch" class="search-input" placeholder="🔍 Search for fresh produce...">
+        </div>
+
+        <div class="categories-container">
+            <!-- Vegetables Tab -->
+            <div class="category-tab">

@@ -1,0 +1,10 @@
+.data-controls h3 {
+    color: #2FA44F;
+    margin-bottom: 10px;
+}
+
+.preview-controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}

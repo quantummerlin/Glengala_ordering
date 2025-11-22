@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Translations</title>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <h1>Translation Test</h1>
+    
+    <select id="languageSelect">
+        <option value="en">English</option>
+        <option value="el">Greek</option>
+        <option value="vi">Vietnamese</option>
+        <option value="ar">Arabic</option>
+        <option value="it">Italian</option>
+    </select>
+    
+    <h2 data-translate="shopTitle">Shop Title</h2>
+    <p data-translate="vegetables">Vegetables</p>
+    <p data-translate="fruits">Fruits</p>
+    <p data-translate="specials">Specials</p>
+    
+    <div id="debug"></div>
+    
+    <script src="translations.js"></script>
+    <script>
+        document.getElementById('debug').innerHTML = `
+            <h3>Debug Info:</h3>
+            <p>Translations object exists: ${typeof translations !== 'undefined'}</p>
+            <p>English available: ${translations.en !== undefined}</p>
+            <p>Arabic available: ${translations.ar !== undefined}</p>
+            <p>Italian available: ${translations.it !== undefined}</p>
+            <p>LocalizationManager exists: ${typeof LocalizationManager !== 'undefined'}</p>
+        `;
+    </script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+        this.cart.forEach(item => {$
+            const itemTotal = item.price * item.quantity;$
+            total += itemTotal;$
+            orderText += `${item.name} - ${item.quantity} ${item.unit} @ $${item.price.toFixed(2)} each = $${itemTotal.toFixed(2)}\n`;$

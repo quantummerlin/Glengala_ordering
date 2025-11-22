@@ -1,0 +1,302 @@
+/* Checkout System Styles */
+
+.checkout-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.checkout-modal {
+    background: white;
+    border-radius: 16px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-header {
+    padding: 24px;
+    border-bottom: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
+}
+
+.checkout-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1f2937;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #6b7280;
+    padding: 4px 8px;
+    line-height: 1;
+}
+
+.close-btn:hover {
+    color: #1f2937;
+}
+
+.checkout-content {
+    padding: 24px;
+}
+
+.trust-message {
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    color: #166534;
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.form-section {
+    margin-bottom: 24px;
+}
+
+.form-section h3 {
+    margin: 0 0 12px 0;
+    font-size: 1.1rem;
+    color: #374151;
+}
+
+.form-section input,
+.form-section select,
+.form-section textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 1rem;
+    margin-bottom: 12px;
+    font-family: inherit;
+}
+
+body.theme-dark .checkout-modal .form-section input,
+body.theme-dark .checkout-modal .form-section select,
+body.theme-dark .checkout-modal .form-section textarea {
+    background: #222 !important;
+    color: #fff !important;
+    border: 1px solid #444 !important;
+}
+
+.form-section input:focus,
+.form-section select:focus,
+.form-section textarea:focus {
+    outline: none;
+    border-color: #2FA44F;
+    box-shadow: 0 0 0 3px rgba(47, 164, 79, 0.1);
+}
+
+.radio-group {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.radio-label {
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 16px;
+        border: 2px solid #d1d5db;
+        border-radius: 8px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.2s;
+    }
+
+    body.theme-dark .checkout-modal .radio-label {
+        background: #222 !important;
+        color: #fff !important;
+    }
+/* Removed stray properties outside of selector. All properties are now inside valid blocks. */
+
+.radio-label:hover {
+    border-color: #2FA44F;
+    background: #f0fdf4;
+}
+
+.radio-label input[type="radio"] {
+    margin: 0;
+    width: auto;
+}
+
+.radio-label input[type="radio"]:checked + span {
+    font-weight: 600;
+}
+
+.radio-label:has(input:checked) {
+    border-color: #2FA44F;
+    background: #f0fdf4;
+}
+
+.delivery-msg {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+    background: #f9fafb;
+    margin-top: -8px;
+}
+
+.cutoff-banner {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.order-summary-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+        padding: 20px;
+        margin-bottom: 24px;
+    }
+
+    body.theme-dark .checkout-modal .order-summary-box {
+        background: #222 !important;
+        color: #fff !important;
+    }
+    body.theme-dark .checkout-modal .order-summary-box * {
+        color: #fff !important;
+}
+
+.order-summary-box h3 {
+    margin: 0 0 16px 0;
+    font-size: 1.1rem;
+    color: #374151;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    font-size: 1rem;
+}
+
+.summary-line.total-line {
+    border-top: 2px solid #d1d5db;
+    margin-top: 8px;
+    padding-top: 12px;
+    font-size: 1.2rem;
+}
+
+.summary-line strong {
+    color: #1f2937;
+}
+
+.earliest-info {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    color: #6b7280;
+}
+
+.checkout-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.btn-primary,
+.btn-secondary {
+    flex: 1;
+    min-width: 140px;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #2FA44F, #25843f);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(47, 164, 79, 0.3);
+}
+
+.btn-secondary {
+    background: white;
+    color: #374151;
+    border: 2px solid #d1d5db;
+}
+
+.btn-secondary:hover {
+    border-color: #2FA44F;
+    color: #2FA44F;
+}
+
+.btn-large {
+    font-size: 1.1rem;
+    padding: 16px 32px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 640px) {
+    .checkout-modal {
+        max-height: 95vh;
+        border-radius: 16px 16px 0 0;
+    }
+
+    .checkout-header {
+        padding: 16px;
+    }
+
+    .checkout-content {
+        padding: 16px;
+    }
+
+    .radio-group {
+        flex-direction: column;
+    }
+
+    .radio-label {
+        min-width: 100%;
+    }
+
+    .checkout-actions {
+        flex-direction: column;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        min-width: 100%;
+    }
+}
+
+/* Hide delivery section when pickup is selected */
+input[name="fulfilment"][value="pickup"]:checked ~ #delivery-section,
+body:has(input[name="fulfilment"][value="pickup"]:checked) #delivery-section {
+    display: none;
+}

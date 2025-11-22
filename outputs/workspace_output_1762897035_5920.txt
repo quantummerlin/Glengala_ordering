@@ -1,0 +1,22 @@
+    applyCustomizations() {
+    this.applyTrustRibbon();
+    this.applyShopHeader();
+    this.applyCategoryHeaders();
+    this.applyProductCards();
+    this.applyButtons();
+    this.applyCategoryNames();
+    this.applyOurStory();
+    this.applyPricingInfo();
+    this.applyContactInfo();
+    }
+
+    // Apply trust ribbon customization
+    applyTrustRibbon() {
+        const ribbon = document.querySelector('.trust-ribbon');
+        if (!ribbon) return;
+
+        const settings = this.settings.trustRibbon;
+        
+        if (!settings.enabled) {
+            ribbon.style.display = 'none';
+            return;

@@ -1,0 +1,7 @@
+            subtotal += itemTotal;
+            orderText += `${item.name} - ${item.quantity} ${item.unit} @ $${item.price.toFixed(2)} each = $${itemTotal.toFixed(2)}\n`;
+        });
+        orderText += `\nTotal: $${total.toFixed(2)}`;
+
+        // Create modal
+        const modal = document.createElement('div');

@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+    <div class="admin-header">
+            <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+            <h1>Glengala Fresh Admin</h1>
+            <p>Product Management System</p>
+        </div>
+
+        <!-- Main Product Table (Collapsible) -->
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleMenu('products')">
+                <span>🛒 Product Management</span>
+                <span class="toggle-icon" id="products-icon">▼</span>
+            </div>
+            <div class="menu-content" id="products-content" style="display: block;">
+                <div class="controls">
+                    <button class="btn" onclick="addProduct()">➕ Add Product</button>
+                    <button class="btn" onclick="saveProducts()">💾 Save All</button>
+                    <button class="btn danger" onclick="clearAll()">🗑️ Clear All</button>
+                </div>
+
+                <div class="search-controls">
+                    <input type="text" id="searchInput" placeholder="🔍 Search products..." onkeyup="searchProducts()">
+                    <select id="categoryFilter" onchange="filterByCategory()">
+                        <option value="all">All Categories</option>
+                        <option value="vegetables">🥕 Vegetables</option>
+                        <option value="fruits">🍎 Fruits</option>
+                        <option value="herbs">🌿 Herbs</option>
+                        <option value="juices">🧃 Juices</option>
+                        <option value="nuts">🥜 Nuts</option>
+                        <option value="flowers">🌸 Flowers</option>
+                        <option value="specials">⭐ Specials</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>

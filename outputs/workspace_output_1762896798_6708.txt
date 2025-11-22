@@ -1,0 +1,20 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="admin-container">
+    <div class="admin-header">
+            <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+            <h1>Glengala Fresh Admin</h1>
+            <p>Product Management System</p>
+        </div>
+
+        <!-- Main Product Table (Collapsible) -->
+        <div class="menu-item">

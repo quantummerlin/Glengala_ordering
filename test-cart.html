@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cart Debug Test</title>
+</head>
+<body>
+    <h1>Cart Debug Test</h1>
+    <button id="clearStorage">Clear Storage</button>
+    <button id="testAdd">Add Test Item</button>
+    <div id="output" style="margin-top: 20px; font-family: monospace; white-space: pre;"></div>
+    
+    <script src="products-data.js"></script>
+    <script>
+        const output = document.getElementById('output');
+        
+        function log(msg) {
+            output.textContent += msg + '\n';
+            console.log(msg);
+        }
+        
+        // Simple cart implementation
+        let testCart = [];
+        
+        function loadCart() {
+            const saved = localStorage.getItem('glengalaShopData');
+            log('Raw localStorage data: ' + saved);
+            
+            if (saved) {
+                const data = JSON.parse(saved);
+                testCart = data.cart || [];
+                log('Loaded cart: ' + JSON.stringify(testCart, null, 2));
+                log('Cart length: ' + testCart.length);
+                log('Total items: ' + testCart.reduce((sum, item) => sum + item.quantity, 0));
+            } else {
+                log('No cart data in localStorage');
+            }
+        }
+        
+        function saveCart() {
+            const data = {
+                cart: testCart,
+                expandedCategories: [],
+                lastVisit: new Date().toISOString()
+            };
+            localStorage.setItem('glengalaShopData', JSON.stringify(data));
+            log('Saved cart: ' + JSON.stringify(testCart, null, 2));
+        }
+        
+        function addTestItem() {
+            const product = products[0]; // First product
+            log('\nAdding product: ' + product.name);
+            
+            const item = {
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                unit: product.unit,
+                quantity: 1,
+                total: product.price
+            };
+            
+            const existingIndex = testCart.findIndex(i => i.id === product.id);
+            if (existingIndex > -1) {
+                testCart[existingIndex].quantity += 1;
+                testCart[existingIndex].total = testCart[existingIndex].quantity * product.price;
+                log('Updated existing item. New quantity: ' + testCart[existingIndex].quantity);
+            } else {
+                testCart.push(item);
+                log('Added new item');
+            }
+            
+            saveCart();
+            log('Total items in cart: ' + testCart.reduce((sum, item) => sum + item.quantity, 0));
+        }
+        
+        document.getElementById('clearStorage').onclick = () => {
+            localStorage.clear();
+            testCart = [];
+            output.textContent = '';
+            log('Storage cleared');
+        };
+        
+        document.getElementById('testAdd').onclick = () => {
+            addTestItem();
+        };
+        
+        // Load on start
+        log('=== Starting Cart Debug Test ===\n');
+        loadCart();
+    </script>
+</body>
+</html>

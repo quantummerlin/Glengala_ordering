@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Fresh Produce Online</title>
+    <link rel="stylesheet" href="shop-styles.css">
+
+</head>
+<body>
+    <div class="shop-container">
+        <div class="header">
+            <!-- Language Toggle Above Logo -->
+            <div class="language-toggle-container">
+                <div class="language-selector">
+                    <select id="languageSelect" class="language-select">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="el">🇬🇷 Ελληνικά</option>
+                        <option value="vi">🇻🇳 Tiếng Việt</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="header-content">
+                <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+                <h1 data-translate="shopTitle">Glengala Fresh</h1>
+                <p class="shop-details" data-translate="shopDetails">Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50</p>
+            </div>
+        </div>
+
+        <!-- Shop Banner Section -->
+        <div class="shop-banner" id="shopBanner" style="display: none;">
+            <img id="bannerImage" src="" alt="Shop Banner">
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="shopSearch" class="search-input" placeholder="🔍 Search for fresh produce...">
+        </div>
+
+        <div class="categories-container">
+            <!-- Vegetables Tab -->
+            <div class="category-tab">
+                <div class="category-header" onclick="toggleCategory('vegetables')">
+                    <div class="category-title">
+                        <span class="category-emoji">🥕</span>
+                        <span data-translate="vegetables">Fresh Vegetables</span>
+                    </div>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div id="vegetablesContent" class="category-content">
+                    <div id="vegetablesProducts" class="products-grid">
+                        <!-- Vegetables will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Fruits Tab -->
+            <div class="category-tab">
+                <div class="category-header" onclick="toggleCategory('fruits')">
+                    <div class="category-title">
+                        <span class="category-emoji">🍎</span>
+                        <span data-translate="fruits">Fresh Fruits</span>
+                    </div>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div id="fruitsContent" class="category-content">
+                    <div id="fruitsProducts" class="products-grid">
+                        <!-- Fruits will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- <span data-translate="herbs">Salabs Salads & Greens Greens</span> Tab -->
+            <div class="category-tab">
+                <div class="category-header" onclick="toggleCategory('herbs')">
+                    <div class="category-title">
+                        <span class="category-emoji">🌿</span>
+                        <span data-translate="herbs">Salabs Salads & Greens Greens</span>
+                    </div>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div id="herbsContent" class="category-content">
+                    <div id="herbsProducts" class="products-grid">
+                        <!-- Salads & greens will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Juices & Beverages Tab -->
+            <div class="category-tab">
+                <div class="category-header" onclick="toggleCategory('juices')">
+                    <div class="category-title">
+                        <span class="category-emoji">🧃</span>
+                        <span data-translate="juices">Fresh Juices Fresh Juices & Beverages Beverages</span>
+                    </div>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div id="juicesContent" class="category-content">
+                    <div id="juicesProducts" class="products-grid">
+                        <!-- Juices will be loaded here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- <span data-translate="nuts">Nuts, Dried Fruit Nuts, Dried Fruit & Legumes Legumes</span> Tab -->
+            <div class="category-tab">
+                <div class="category-header" onclick="toggleCategory('nuts')">
+                    <div class="category-title">
+                        <span class="category-emoji">🥜</span>
+                        <span data-translate="nuts">Nuts, Dried Fruit Nuts, Dried Fruit & Legumes Legumes</span>
+                    </div>
+                    <span class="category-toggle">▼</span>
+                </div>
+                <div id="nutsContent" class="category-content">
+                    <div id="nutsProducts" class="products-grid">
+                        <!-- Nuts will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cart-summary" id="cartSummary">
+            <div class="cart-toggle" onclick="toggleCart()">
+                <span>🛒 Cart (<span id="cartCount">0</span>)</span>
+                <span id="cartToggleIcon">▲</span>
+            </div>
+            <div class="cart-content" id="cartContent">
+                <div id="cartItems" class="cart-items">
+                    <div class="empty-cart">Your cart is empty</div>
+                </div>
+                <div id="cartTotal" class="cart-total">Total: $0.00</div>
+                <button class="checkout-btn" onclick="checkout()">Confirm Order</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Light Mode Toggle at Bottom -->
+    <div class="bottom-theme-toggle">
+        <button id="darkModeToggle" class="dark-mode-btn" onclick="toggleDarkMode()">
+            <span id="themeIcon">☀️</span>
+            <span id="themeText">Light Mode</span>
+        </button>
+    </div>
+
+    <script src="products-data.js"></script>
+    <script src="translations.js"></script>
+    <script src="shop-functions-enhanced.js"></script>
+    <script>
+        // Apply customizations from admin
+        document.addEventListener('DOMContentLoaded', function() {
+            const customCSS = localStorage.getItem('glengalaCustomCSS');
+            if (customCSS) {
+                const style = document.createElement('style');
+                style.textContent = customCSS;
+                document.head.appendChild(style);
+            }
+
+            // Apply custom shop details
+            const customizations = localStorage.getItem('glengalaCustomizations');
+            if (customizations) {
+                const data = JSON.parse(customizations);
+                const shopDetails = document.querySelector('.shop-details');
+                if (shopDetails && data.shopDescription) {
+                    shopDetails.textContent = data.shopDescription;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

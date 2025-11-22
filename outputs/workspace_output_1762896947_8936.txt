@@ -1,0 +1,185 @@
+                    <input type="checkbox" id="trustRibbonEnabled" checked onchange="updateSetting('trustRibbon.enabled', this.checked)">
+                    <label for="trustRibbonEnabled">Enable Trust Ribbon</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Text Content</label>
+                <input type="text" id="trustRibbonText" placeholder="🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you." onchange="updateSetting('trustRibbon.text', this.value)">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Background Color</label>
+                    <div class="color-input-group">
+                        <input type="color" id="trustRibbonBg" onchange="updateSetting('trustRibbon.backgroundColor', this.value)">
+                        <input type="text" id="trustRibbonBgText" onchange="updateSetting('trustRibbon.backgroundColor', this.value)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Text Color</label>
+                    <div class="color-input-group">
+                        <input type="color" id="trustRibbonColor" onchange="updateSetting('trustRibbon.textColor', this.value)">
+                        <input type="text" id="trustRibbonColorText" onchange="updateSetting('trustRibbon.textColor', this.value)">
+                    </div>
+                </div>
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Font Size</label>
+                    <input type="text" id="trustRibbonFontSize" onchange="updateSetting('trustRibbon.fontSize', this.value)">
+                </div>
+                <div class="form-group">
+                    <label>Font Family</label>
+                    <select id="trustRibbonFont" onchange="updateSetting('trustRibbon.fontFamily', this.value)">
+                        <option value="inherit">Default</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Georgia', serif">Georgia</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Verdana', sans-serif">Verdana</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+--
+                <input type="text" id="shopName" placeholder="Glengala Fresh" onchange="updateSetting('shopHeader.shopName', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Shop Details / Tagline (as shown on page)</label>
+                <input type="text" id="shopDetails" placeholder="Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50" onchange="updateSetting('shopHeader.shopDetails', this.value)">
+            </div>
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Banner Ombre Gradient (background colors)</label>
+                    <div class="color-input-group">
+                        <input type="color" id="shopHeaderOmbre1">
+                        <input type="color" id="shopHeaderOmbre2">
+                        <div id="shopHeaderGradientPreview" style="width:60px;height:40px;border-radius:8px;border:1px solid #4a4a4a;margin-left:10px;"></div>
+                    </div>
+                    <small style="color:#b0b0b0;display:block;margin-top:6px;">These two colors control the shop header background ombre gradient.</small>
+--
+                        <input type="color" id="shopHeaderColor" onchange="updateSetting('shopHeader.textColor', this.value)">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Font Size</label>
+                    <select id="shopHeaderFontSize" onchange="updateSetting('shopHeader.fontSize', this.value)">
+                        <option value="12px">12</option>
+                        <option value="14px">14</option>
+                        <option value="16px">16</option>
+                        <option value="18px">18</option>
+                        <option value="20px">20</option>
+                        <option value="24px">24</option>
+                        <option value="32px">32</option>
+                        <option value="40px">40</option>
+                        <option value="48px">48</option>
+                    </select>
+--
+                    <select id="shopHeaderFont" onchange="updateSetting('shopHeader.fontFamily', this.value)">
+                        <option value="inherit">Default</option>
+                        <option value="Arial, sans-serif">Arial</option>
+                        <option value="'Georgia', serif">Georgia</option>
+                        <option value="'Courier New', monospace">Courier New</option>
+                        <option value="'Verdana', sans-serif">Verdana</option>
+                        <option value="'Tahoma', sans-serif">Tahoma</option>
+                        <option value="'Trebuchet MS', sans-serif">Trebuchet MS</option>
+                        <option value="'Times New Roman', serif">Times New Roman</option>
+                        <option value="'Lucida Console', monospace">Lucida Console</option>
+                    </select>
+--
+                                <input type="text" value="${cat.name}" onchange="updateSetting('categoryNames.${key}.name', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Emoji</label>
+                                <input type="text" value="${cat.emoji}" onchange="updateSetting('categoryNames.${key}.emoji', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Background Color</label>
+                                <input type="color" value="${styles.backgroundColor}" onchange="updateSetting('categoryHeaders.backgroundColor', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Text Color</label>
+                                <input type="color" value="${styles.textColor}" onchange="updateSetting('categoryHeaders.textColor', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Font Size</label>
+                                <input type="text" value="${styles.fontSize}" onchange="updateSetting('categoryHeaders.fontSize', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Font Family</label>
+                                <input type="text" value="${styles.fontFamily}" onchange="updateSetting('categoryHeaders.fontFamily', this.value)">
+                            </div>
+                        `;
+                        container.appendChild(div);
+                    });
+                } catch (e) {
+                    const container = document.getElementById('categoryStylesContainer');
+                    if (container) {
+                        container.innerHTML = `<div style="color:red; padding:12px;">Error: ${e.message}</div>`;
+                    }
+                    console.error('Category controls error:', e);
+--
+                    <input type="checkbox" id="ourStoryEnabled" checked onchange="updateSetting('ourStory.enabled', this.checked)">
+                    <label for="ourStoryEnabled">Enable Our Story Section</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="ourStoryTitle" placeholder="Our Story" onchange="updateSetting('ourStory.title', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" id="ourStoryContent" placeholder="We're a family-run fresh produce market in Albion, Melbourne. Every morning, Wayne personally selects the best produce from Epping Market to bring you the freshest fruits, vegetables, and more." onchange="updateSetting('ourStory.content', this.value)">
+            </div>
+        </div>
+
+        <!-- Pricing Info Section -->
+    <div class="section collapsed">
+            <h2>How Pricing Works Tab</h2>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="pricingInfoTitle" placeholder="How Pricing Works" onchange="updateSetting('pricingInfo.title', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" id="pricingInfoContent" placeholder="Freshness first. We buy tightly at Melbourne's Epping Market so stock turns fast and your order is as fresh as possible. Wayne reviews every order. If today's market shifts (quality or availability), Wayne will text you options and confirm the best choice before payment. Quality grades: Premium — Best appearance and size, peak flavour. First — Great everyday quality and value. Second — Cosmetic marks, still great eating, sharp price." onchange="updateSetting('pricingInfo.content', this.value)">
+            </div>
+        </div>
+
+        <!-- Contact Info Section -->
+    <div class="section collapsed">
+            <h2>Contact Info Tab</h2>
+            <div class="form-group">
+                <label>Title</label>
+                <input type="text" id="contactInfoTitle" placeholder="Contact Info" onchange="updateSetting('contactInfo.title', this.value)">
+            </div>
+            <div class="form-group">
+                <label>Content</label>
+                <input type="text" id="contactInfoContent" placeholder="Phone: 0400 000 000 | Email: info@glengalafresh.com.au | Address: Albion, Melbourne VIC 3020" onchange="updateSetting('contactInfo.content', this.value)">
+            </div>
+        </div>
+
+        <!-- Buttons -->
+        <div class="button-group">
+            <button class="btn btn-primary" onclick="saveAndPreview()">💾 Save & Preview</button>
+            <button class="btn btn-danger" onclick="resetToDefaults()">🔄 Reset to Defaults</button>
+        </div>
+
+        <a href="shop.html" target="_blank" class="preview-link">👁️ Preview Shop Page</a>
+--
+        if (typeof updateSetting === 'function') {
+            updateSetting('shopHeader.backgroundColor', gradient);
+        } else {
+            // Wait for customization-system.js to load, then retry
+            setTimeout(() => {
+                if (typeof updateSetting === 'function') {
+                    updateSetting('shopHeader.backgroundColor', gradient);
+                }
+            }, 200);
+        }
+        updateShopHeaderGradientPreview();
+    }
+    function updateShopHeaderGradientPreview() {
+        const color1 = document.getElementById('shopHeaderOmbre1').value;
+        const color2 = document.getElementById('shopHeaderOmbre2').value;
+        const preview = document.getElementById('shopHeaderGradientPreview');
+        if (preview) {

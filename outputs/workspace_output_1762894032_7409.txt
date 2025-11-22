@@ -1,0 +1,29 @@
+total 108
+drwxr-xr-x 3 root root 4096 Nov 11 20:46 .
+drwxr-xr-x 1 root root  137 Nov 11 20:45 ..
+-rw-r--r-- 1 root root   31 Nov 11 20:46 Glengala Logo.png
+-rw-r--r-- 1 root root   46 Nov 11 20:45 admin-customization-panel.html
+-rw-r--r-- 1 root root   29 Nov 11 20:45 admin-functions.js
+-rw-r--r-- 1 root root   34 Nov 11 20:45 admin-menu-functions.js
+-rw-r--r-- 1 root root   40 Nov 11 20:45 admin-old-duplicate.html
+-rw-r--r-- 1 root root   26 Nov 11 20:45 admin-simple.js
+-rw-r--r-- 1 root root   30 Nov 11 20:45 admin-styles.css
+-rw-r--r-- 1 root root   23 Nov 11 20:45 admin.css
+-rw-r--r-- 1 root root   26 Nov 11 20:45 admin.html
+-rw-r--r-- 1 root root   19 Nov 11 20:45 admin.js
+-rw-r--r-- 1 root root   33 Nov 11 20:45 checkout-styles.css
+-rw-r--r-- 1 root root   29 Nov 11 20:45 checkout-system.js
+-rw-r--r-- 1 root root   34 Nov 11 20:46 customization-system.js
+-rw-r--r-- 1 root root   31 Nov 11 20:46 logo.png
+drwxr-xr-x 2 root root 4096 Nov 11 20:47 outputs
+-rw-r--r-- 1 root root   27 Nov 11 20:46 products-data.js
+-rw-r--r-- 1 root root   37 Nov 11 20:46 shop-functions-enhanced.js
+-rw-r--r-- 1 root root   29 Nov 11 20:46 shop-old.html
+-rw-r--r-- 1 root root   29 Nov 11 20:46 shop-styles.css
+-rw-r--r-- 1 root root   22 Nov 11 20:46 shop.css
+-rw-r--r-- 1 root root   25 Nov 11 20:46 shop.html
+-rw-r--r-- 1 root root   18 Nov 11 20:46 shop.js
+-rw-r--r-- 1 root root   30 Nov 11 20:46 test-shop.html
+-rw-r--r-- 1 root root   38 Nov 11 20:46 test-translations.html
+-rw-r--r-- 1 root root 1226 Nov 11 20:46 todo.md
+-rw-r--r-- 1 root root   26 Nov 11 20:46 translations.js

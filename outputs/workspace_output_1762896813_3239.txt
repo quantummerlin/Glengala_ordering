@@ -1,0 +1,6 @@
+</head>
+<body>
+    <div class="admin-container">
+    <div class="admin-header">
+            <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+            <h1>Glengala Fresh Admin</h1>

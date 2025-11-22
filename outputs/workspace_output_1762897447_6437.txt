@@ -1,0 +1,10 @@
+
+        // Load form values when page loads
+        window.addEventListener('load', () => {
+            setTimeout(loadFormValues, 500);
+        });
+    </script>
+</body>
+    <script src="customization-system.js"></script>
+</body>
+</html>

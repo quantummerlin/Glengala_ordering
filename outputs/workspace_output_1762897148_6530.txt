@@ -1,0 +1,2 @@
+39:        .section h2 {
+421:            section.querySelector('h2').addEventListener('click', function() {

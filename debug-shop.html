@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debug Shop</title>
+    <link rel="stylesheet" href="shop.css">
+</head>
+<body>
+    <div class="shop-container">
+        <h1>Debug Shop</h1>
+        <div id="categoriesContainer">
+            <!-- Categories will be generated here -->
+        </div>
+        
+        <div id="debug-info">
+            <h3>Debug Information:</h3>
+            <div id="debug-output"></div>
+        </div>
+    </div>
+
+    <script src="products-data.js"></script>
+    <script src="shop-functions-enhanced.js"></script>
+    <script>
+        function debugInfo(message) {
+            const output = document.getElementById('debug-output');
+            output.innerHTML += '<div>' + message + '</div>';
+            console.log(message);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            debugInfo('DOM loaded');
+            debugInfo('Products loaded: ' + (typeof products !== 'undefined' ? products.length + ' items' : 'NO'));
+            
+            if (typeof products !== 'undefined') {
+                const vegetables = products.filter(p => p.category === 'vegetables' && p.active);
+                debugInfo('Vegetables found: ' + vegetables.length);
+                debugInfo('First few vegetables: ' + vegetables.slice(0, 3).map(p => p.name).join(', '));
+            }
+            
+            try {
+                debugInfo('Creating shop instance...');
+                const testShop = new GlengalaShop();
+                debugInfo('Shop created successfully');
+                
+                debugInfo('Categories array: ' + (testShop.categories ? testShop.categories.length : 'undefined'));
+                debugInfo('Active categories: ' + (testShop.activeCategories ? testShop.activeCategories.length : 'undefined'));
+                
+                if (testShop.activeCategories && testShop.activeCategories.length > 0) {
+                    testShop.activeCategories.forEach(cat => {
+                        debugInfo('Category: ' + cat.name + ' (id: ' + cat.id + ')');
+                    });
+                    
+                    debugInfo('Rendering shop...');
+                    testShop.renderShop();
+                    debugInfo('Shop rendered');
+                } else {
+                    debugInfo('No active categories found - cannot render');
+                }
+                
+                setTimeout(() => {
+                    debugInfo('Checking for products after 1 second...');
+                    const productsGrids = document.querySelectorAll('.products-grid');
+                    debugInfo('Found ' + productsGrids.length + ' product grids');
+                    
+                    productsGrids.forEach((grid, index) => {
+                        debugInfo('Grid ' + index + ' children: ' + grid.children.length);
+                        debugInfo('Grid ' + index + ' HTML length: ' + grid.innerHTML.length);
+                        if (grid.innerHTML.length > 0) {
+                            debugInfo('Grid ' + index + ' sample HTML: ' + grid.innerHTML.substring(0, 200) + '...');
+                        }
+                    });
+                }, 1000);
+                
+            } catch (error) {
+                debugInfo('ERROR: ' + error.message);
+                debugInfo('Stack: ' + error.stack);
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+</html>

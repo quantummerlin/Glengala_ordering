@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Fresh Produce Online</title>
+    <link rel="stylesheet" href="shop-styles.css?v=20251113b">
+    <link rel="stylesheet" href="checkout-styles.css?v=20251113f">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <div class="shop-container">
+        <!-- Trust Ribbon -->
+        <div class="trust-ribbon">
+            🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you.
+        </div>
+
+        <div class="header">
+            <!-- Language Toggle Above Logo -->
+            <div class="language-toggle-container">
+                <div class="language-selector">
+                    <select id="languageSelect" class="language-select">
+                        <option value="en">🇬🇧 English</option>
+                        <option value="el">🇬🇷 Ελληνικά</option>
+                        <option value="vi">🇻🇳 Tiếng Việt</option>
+                        <option value="ar">AR العربية</option>
+                        <option value="it">🇮🇹 Italiano</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="header-content">
+                <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+                <h1 data-translate="shopTitle">Glengala Fresh</h1>
+                <p class="shop-details" data-translate="shopDetails">Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50</p>
+
+            </div>
+        </div>
+
+        <!-- Shop Banner Section -->
+        <div class="shop-banner" id="shopBanner" style="display: none;">
+            <img id="bannerImage" src="" alt="Shop Banner">
+        </div>
+
+        <div class="search-bar">
+            <input type="text" id="shopSearch" class="search-input" placeholder="🔍 Search for fresh produce...">
+        </div>
+
+        <div class="categories-container" id="categoriesContainer">
+            <!-- Categories will be dynamically generated here -->
+        </div>
+
+        <!-- Cart Summary -->
+        <!-- Cart summary removed; use fixed cart button below -->
+    <!-- Minimal Cart Overlay (fixed above footer) -->
+    <div id="cartContent" style="position:fixed;bottom:140px;left:0;width:100%;z-index:1000;background:#222;border-radius:16px 16px 0 0;box-shadow:0 2px 8px #0003;padding:16px 0;display:none;">
+        <div id="cartItems" class="cart-items" style="padding:0 16px;"></div>
+        <div id="cartTotal" class="cart-total" style="padding:0 16px 8px 16px;color:#fff;font-weight:bold;"></div>
+        <button class="checkout-btn" style="margin:0 16px 8px 16px;" onclick="shop.checkout()">Confirm Order</button>
+        <button style="margin:0 16px 8px 16px;background:#444;color:#fff;border:none;padding:8px 0;border-radius:8px;cursor:pointer;" onclick="document.getElementById('cartContent').style.display='none'">✕</button>
+    </div>
+    </div>
+
+    <!-- Dark Mode Toggle -->
+    <div class="dark-mode-toggle">
+        <button id="darkModeToggle" class="dark-mode-btn" onclick="toggleDarkMode()">
+            <span id="themeIcon">☀️</span>
+            <span id="themeText">Light Mode</span>
+        </button>
+    </div>
+
+    <!-- Footer Menu -->
+    <!-- Fixed Checkout Button -->
+    <div style="width:100%;display:flex;justify-content:center;position:fixed;bottom:80px;left:0;z-index:1000;pointer-events:auto;">
+        <button class="checkout-btn" style="max-width:320px;width:90%;font-size:1.2rem;box-shadow:0 2px 8px #0003;position:relative;" onclick="toggleCart()">🛒 View Cart <span id="cartCount" class="cart-count" style="position:absolute;top:-8px;right:-8px;background:#ff4444;color:#fff;border-radius:50%;min-width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;font-size:0.8rem;font-weight:bold;">0</span></button>
+    </div>
+    <div class="footer-menu">
+    <a href="#" onclick="event.preventDefault(); showOurStory();">📖 Our Story</a>
+    <a href="#" onclick="event.preventDefault(); showPricingInfo();">💲 How Pricing Works</a>
+    <a href="#" onclick="event.preventDefault(); showContactInfo();">📞 Contact Info</a>
+    </div>
+
+    <!-- Our Story Modal -->
+    <div id="ourStoryModal" class="story-modal" style="display: none;">
+        <div class="story-modal-content">
+            <span class="story-close" onclick="closeOurStory()">&times;</span>
+            <h2>Our Story</h2>
+            <div id="ourStoryContent">
+                <p>Welcome to Glengala Fresh! We're passionate about bringing you the freshest produce from Melbourne's Epping Market.</p>
+                <p>Wayne personally reviews every order to ensure you get the best quality products at the best prices.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pricing Info Modal -->
+    <div id="pricingInfoModal" class="story-modal" style="display: none;">
+        <div class="story-modal-content">
+            <span class="story-close" onclick="closePricingInfo()">&times;</span>
+            <h2>How Pricing Works</h2>
+            <div id="pricingInfoContent">
+                <p>Freshness first. We buy tightly at Melbourne's Epping Market so stock turns fast and your order is as fresh as possible.</p>
+                <p>Wayne reviews every order. If today's market shifts (quality or availability), Wayne will text you options and confirm the best choice before payment.</p>
+                <p>Quality grades:<br>
+                <b>Premium</b> — Best appearance and size, peak flavour.<br>
+                <b>First</b> — Great everyday quality and value.<br>
+                <b>Second</b> — Cosmetic marks, still great eating, sharp price.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Info Modal -->
+    <div id="contactInfoModal" class="story-modal" style="display: none;">
+        <div class="story-modal-content">
+            <span class="story-close" onclick="closeContactInfo()">&times;</span>
+            <h2>Contact Info</h2>
+            <div id="contactInfoContent">
+                <p>Phone: 0400 000 000</p>
+                <p>Email: info@glengalafresh.com.au</p>
+                <p>Address: Albion, Melbourne VIC 3020</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="products-data.js"></script>
+    <script src="translations.js"></script>
+    <script src="checkout-system.js?v=20251113f"></script>
+    <script src="shop-functions-enhanced.js?v=20251113f"></script>
+    <script>
+        // Test function for debugging customization
+        // Load customization immediately and also on a delay for fallback
+        function loadHeaderCustomization() {
+            if (window.shop && typeof shop.loadCustomization === 'function') {
+                shop.loadCustomization();
+            }
+        }
+        
+        // Load immediately when DOM is ready
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', loadHeaderCustomization);
+        } else {
+            loadHeaderCustomization();
+        }
+        
+        // Also load after a short delay as fallback
+        setTimeout(loadHeaderCustomization, 100);
+        setTimeout(loadHeaderCustomization, 500);
+    </script>
+</body>
+</html>

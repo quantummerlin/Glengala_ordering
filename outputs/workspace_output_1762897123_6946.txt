@@ -1,0 +1,25 @@
+    applyShopHeader() {
+        const shopName = document.querySelector('[data-translate="shopTitle"]');
+        const shopDetails = document.querySelector('[data-translate="shopDetails"]');
+        const header = document.querySelector('.header');
+
+        const settings = this.settings.shopHeader;
+
+        if (shopName) {
+            shopName.textContent = settings.shopName;
+            shopName.style.color = settings.textColor;
+            shopName.style.fontSize = settings.fontSize;
+            shopName.style.fontFamily = settings.fontFamily;
+        }
+
+        if (shopDetails) {
+            shopDetails.textContent = settings.shopDetails;
+            shopDetails.style.color = settings.textColor;
+            shopDetails.style.fontSize = settings.fontSize;
+            shopDetails.style.fontFamily = settings.fontFamily;
+        }
+
+        if (header) {
+            header.style.background = settings.backgroundColor;
+        }
+        // Also update shop banner if present

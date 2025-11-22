@@ -1,0 +1,49 @@
+{
+  "name": "Glengala Fresh Market",
+  "short_name": "Glengala",
+  "description": "Fresh produce from Melbourne's Epping Market - delivered to your door",
+  "start_url": "/shop.html",
+  "display": "standalone",
+  "background_color": "#2d5016",
+  "theme_color": "#2d5016",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/Glengala Logo.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["shopping", "food"],
+  "shortcuts": [
+    {
+      "name": "Shop Now",
+      "short_name": "Shop",
+      "description": "Browse fresh produce",
+      "url": "/shop.html",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "My Orders",
+      "short_name": "Orders",
+      "description": "View order history",
+      "url": "/shop.html#orders",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Daily Specials",
+      "short_name": "Specials",
+      "description": "Today's best deals",
+      "url": "/shop.html#specials",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png"
+    }
+  ]
+}

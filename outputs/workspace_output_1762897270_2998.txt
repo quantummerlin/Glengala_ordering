@@ -1,0 +1,23 @@
+            <h2>Category Names & Emojis</h2>
+            <div id="categoryNamesContainer"></div>
+            <div id="categoryStylesContainer"></div>
+            <script>
+            // Render editable controls for each category's color, font, and emoji
+            let categoryControlsRetryCount = 0;
+            function renderCategoryControls() {
+                try {
+                    if (!window.customizationSystem || !customizationSystem.settings) {
+                        categoryControlsRetryCount++;
+                        if (categoryControlsRetryCount > 30) {
+--
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Emoji</label>
+                                <input type="text" value="${cat.emoji}" onchange="updateSetting('categoryNames.${key}.emoji', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Background Color</label>
+                                <input type="color" value="${styles.backgroundColor}" onchange="updateSetting('categoryHeaders.backgroundColor', this.value)">
+                            </div>
+                            <div class="form-group">
+                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Text Color</label>
+                                <input type="color" value="${styles.textColor}" onchange="updateSetting('categoryHeaders.textColor', this.value)">
+                            </div>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Customization</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 20px; border: 1px solid #ccc; }
+        .gradient-preview { width: 100%; height: 60px; border: 1px solid #ccc; margin: 10px 0; }
+        input, select { margin: 5px; padding: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Customization Test</h1>
+    
+    <div class="test-section">
+        <h3>Test Basic Elements</h3>
+        <label>
+            Background Type:
+            <select id="headerBgType" onchange="updateTest()">
+                <option value="default">Default Gradient</option>
+                <option value="gradient">Custom Gradient</option>
+                <option value="solid">Solid Color</option>
+            </select>
+        </label>
+        
+        <div id="gradientControls" style="display: none;">
+            <label>Start Color: <input type="color" id="gradientStartColor" value="#2FA44F" onchange="updateTest()"></label>
+            <label>End Color: <input type="color" id="gradientEndColor" value="#3A6FD8" onchange="updateTest()"></label>
+            <label>
+                Direction:
+                <select id="gradientDirectionSelect" onchange="updateTest()">
+                    <option value="135deg">Diagonal</option>
+                    <option value="90deg">Top to Bottom</option>
+                    <option value="0deg">Left to Right</option>
+                </select>
+            </label>
+        </div>
+        
+        <div id="solidControls" style="display: none;">
+            <label>Color: <input type="color" id="headerBgColor" value="#2FA44F" onchange="updateTest()"></label>
+        </div>
+        
+        <div class="gradient-preview" id="gradientPreview"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>localStorage Test</h3>
+        <button onclick="saveTest()">Save to localStorage</button>
+        <button onclick="loadTest()">Load from localStorage</button>
+        <button onclick="clearTest()">Clear localStorage</button>
+        <div id="storageOutput"></div>
+    </div>
+
+    <script>
+        function updateTest() {
+            const bgType = document.getElementById('headerBgType').value;
+            const gradientControls = document.getElementById('gradientControls');
+            const solidControls = document.getElementById('solidControls');
+            const preview = document.getElementById('gradientPreview');
+            
+            // Show/hide controls
+            gradientControls.style.display = bgType === 'gradient' ? 'block' : 'none';
+            solidControls.style.display = bgType === 'solid' ? 'block' : 'none';
+            
+            // Update preview
+            if (bgType === 'gradient') {
+                const startColor = document.getElementById('gradientStartColor').value;
+                const endColor = document.getElementById('gradientEndColor').value;
+                const direction = document.getElementById('gradientDirectionSelect').value;
+                preview.style.background = `linear-gradient(${direction}, ${startColor}, ${endColor})`;
+            } else if (bgType === 'solid') {
+                const color = document.getElementById('headerBgColor').value;
+                preview.style.background = color;
+            } else {
+                preview.style.background = 'linear-gradient(135deg, #2FA44F, #3A6FD8)';
+            }
+            
+            console.log('Test updated:', { bgType, preview: preview.style.background });
+        }
+        
+        function saveTest() {
+            const data = {
+                bgType: document.getElementById('headerBgType').value,
+                startColor: document.getElementById('gradientStartColor').value,
+                endColor: document.getElementById('gradientEndColor').value,
+                direction: document.getElementById('gradientDirectionSelect').value,
+                solidColor: document.getElementById('headerBgColor').value
+            };
+            localStorage.setItem('test_customization', JSON.stringify(data));
+            document.getElementById('storageOutput').textContent = 'Saved: ' + JSON.stringify(data);
+        }
+        
+        function loadTest() {
+            const saved = localStorage.getItem('test_customization');
+            if (saved) {
+                const data = JSON.parse(saved);
+                document.getElementById('headerBgType').value = data.bgType || 'default';
+                document.getElementById('gradientStartColor').value = data.startColor || '#2FA44F';
+                document.getElementById('gradientEndColor').value = data.endColor || '#3A6FD8';
+                document.getElementById('gradientDirectionSelect').value = data.direction || '135deg';
+                document.getElementById('headerBgColor').value = data.solidColor || '#2FA44F';
+                updateTest();
+                document.getElementById('storageOutput').textContent = 'Loaded: ' + JSON.stringify(data);
+            } else {
+                document.getElementById('storageOutput').textContent = 'No saved data found';
+            }
+        }
+        
+        function clearTest() {
+            localStorage.removeItem('test_customization');
+            localStorage.removeItem('glengala_customization');
+            document.getElementById('storageOutput').textContent = 'Storage cleared';
+        }
+        
+        // Initialize
+        updateTest();
+    </script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+    updateCart() {
+        const cartItems = document.getElementById('cartItems');
+        const cartCount = document.getElementById('cartCount');
+        const cartTotal = document.getElementById('cartTotal');
+        
+        if (!cartItems || !cartCount || !cartTotal) return;
+        
+        if (this.cart.length === 0) {
+            cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
+            cartCount.textContent = '0';
+            cartTotal.textContent = 'Total: $0.00';
+            return;
+        }
+        
+        let html = '';
+        let total = 0;
+        let itemCount = 0;
+        
+        this.cart.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            total += itemTotal;
+            itemCount += item.quantity;
+            
+            html += `
+                <div class="cart-item">
+                    <div class="cart-item-info">
+                        <h5>${item.name}</h5>

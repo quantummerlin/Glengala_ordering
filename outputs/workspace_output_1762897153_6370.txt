@@ -1,0 +1,6 @@
+182:            <h2>Trust Ribbon (Top Banner)</h2>
+229:            <h2>Shop Header</h2>
+285:            <h2>Category Names & Emojis</h2>
+364:            <h2>Our Story Section</h2>
+383:            <h2>How Pricing Works Tab</h2>
+396:            <h2>Contact Info Tab</h2>

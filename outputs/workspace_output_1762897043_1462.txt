@@ -1,0 +1,12 @@
+    applyCustomizations() {
+    this.applyTrustRibbon();
+    this.applyShopHeader();
+    this.applyCategoryHeaders();
+    this.applyProductCards();
+    this.applyButtons();
+    this.applyCategoryNames();
+    this.applyOurStory();
+    this.applyPricingInfo();
+    this.applyContactInfo();
+    }
+

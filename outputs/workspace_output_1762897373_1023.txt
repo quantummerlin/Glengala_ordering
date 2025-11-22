@@ -1,0 +1,2 @@
+68:            categoryNames: {
+252:        const categories = this.settings.categoryNames;

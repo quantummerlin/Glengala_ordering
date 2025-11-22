@@ -1,0 +1,2 @@
+121:    this.applyShopHeader();
+156:    applyShopHeader() {

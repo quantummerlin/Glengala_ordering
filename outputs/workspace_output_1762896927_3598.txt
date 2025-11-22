@@ -1,0 +1,9 @@
+18:        <div class="header">
+32:            <div class="header-content">
+51:                <div class="category-header" data-category="vegetables">
+67:                <div class="category-header" data-category="fruits">
+83:                <div class="category-header" data-category="herbs">
+99:                <div class="category-header" data-category="juices">
+115:                <div class="category-header" data-category="nuts">
+131:                <div class="category-header" data-category="flowers">
+147:                <div class="category-header" data-category="specials">

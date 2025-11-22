@@ -1,0 +1,262 @@
+// Glengala Fresh - Live Pricing System
+// Fetches prices from API and updates in real-time
+
+class LivePricingSystem {
+    constructor() {
+        this.apiBase = 'http://127.0.0.1:5000/api';
+        this.products = [];
+        this.lastUpdate = null;
+        this.updateInterval = 3600000; // 1 hour in milliseconds
+        this.init();
+    }
+
+    async init() {
+        // Load products immediately
+        await this.fetchProducts();
+        
+        // Set up periodic updates
+        this.startPeriodicUpdates();
+        
+        // Listen for service worker messages
+        this.listenForUpdates();
+        
+        // Update on page visibility change
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) {
+                this.checkForUpdates();
+            }
+        });
+    }
+
+    async fetchProducts() {
+        try {
+            const response = await fetch(`${this.apiBase}/products`);
+            const data = await response.json();
+            
+            this.products = data.products;
+            this.lastUpdate = new Date(data.updated_at);
+            
+            // Update UI
+            this.updateProductDisplay();
+            this.updateLastUpdateTime();
+            
+            // Store in localStorage as backup
+            localStorage.setItem('glengala_products', JSON.stringify({
+                products: this.products,
+                updated_at: this.lastUpdate.toISOString()
+            }));
+            
+            return this.products;
+        } catch (error) {
+            console.error('Failed to fetch products:', error);
+            
+            // Fallback to localStorage
+            const cached = localStorage.getItem('glengala_products');
+            if (cached) {
+                const data = JSON.parse(cached);
+                this.products = data.products;
+                this.lastUpdate = new Date(data.updated_at);
+                this.showOfflineMessage();
+            }
+            
+            return this.products;
+        }
+    }
+
+    startPeriodicUpdates() {
+        setInterval(() => {
+            this.checkForUpdates();
+        }, this.updateInterval);
+    }
+
+    async checkForUpdates() {
+        const timeSinceUpdate = Date.now() - (this.lastUpdate?.getTime() || 0);
+        
+        // Only update if more than 1 hour has passed
+        if (timeSinceUpdate > this.updateInterval) {
+            await this.fetchProducts();
+        }
+    }
+
+    listenForUpdates() {
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.addEventListener('message', event => {
+                if (event.data.type === 'PRICES_UPDATED') {
+                    this.products = event.data.data.products;
+                    this.updateProductDisplay();
+                    this.showUpdateNotification();
+                }
+            });
+        }
+    }
+
+    updateProductDisplay() {
+        // Update prices in the DOM
+        this.products.forEach(product => {
+            const priceElements = document.querySelectorAll(`[data-product-id="${product.id}"]`);
+            priceElements.forEach(el => {
+                const priceDisplay = el.querySelector('.product-price');
+                if (priceDisplay) {
+                    priceDisplay.textContent = this.formatPrice(product);
+                }
+                
+                // Update special prices
+                if (product.hasSpecial) {
+                    this.displaySpecial(el, product);
+                }
+                
+                // Update stock status
+                this.updateStockStatus(el, product);
+            });
+        });
+    }
+
+    formatPrice(product) {
+        if (product.hasSpecial) {
+            return `$${product.specialPrice.toFixed(2)} (${product.specialQuantity} ${product.specialUnit})`;
+        }
+        return `$${product.price.toFixed(2)}/${product.unit}`;
+    }
+
+    displaySpecial(element, product) {
+        let specialBadge = element.querySelector('.special-badge');
+        if (!specialBadge) {
+            specialBadge = document.createElement('div');
+            specialBadge.className = 'special-badge';
+            element.appendChild(specialBadge);
+        }
+        specialBadge.innerHTML = `
+            <span class="special-icon">🌟</span>
+            <span class="special-text">Special: ${product.specialQuantity} for $${product.specialPrice.toFixed(2)}</span>
+        `;
+    }
+
+    updateStockStatus(element, product) {
+        let stockBadge = element.querySelector('.stock-badge');
+        
+        if (product.stock < 10 && product.stock > 0) {
+            if (!stockBadge) {
+                stockBadge = document.createElement('div');
+                stockBadge.className = 'stock-badge low-stock';
+                element.appendChild(stockBadge);
+            }
+            stockBadge.textContent = `Only ${product.stock} left!`;
+        } else if (product.stock === 0) {
+            if (!stockBadge) {
+                stockBadge = document.createElement('div');
+                stockBadge.className = 'stock-badge out-of-stock';
+                element.appendChild(stockBadge);
+            }
+            stockBadge.textContent = 'Out of Stock';
+            
+            // Disable add to cart button
+            const addButton = element.querySelector('.add-to-cart-btn');
+            if (addButton) {
+                addButton.disabled = true;
+                addButton.textContent = 'Out of Stock';
+            }
+        } else if (stockBadge) {
+            stockBadge.remove();
+        }
+    }
+
+    updateLastUpdateTime() {
+        const updateElement = document.getElementById('last-price-update');
+        if (updateElement && this.lastUpdate) {
+            const timeAgo = this.getTimeAgo(this.lastUpdate);
+            updateElement.textContent = `Prices updated ${timeAgo}`;
+            updateElement.classList.add('visible');
+        }
+    }
+
+    getTimeAgo(date) {
+        const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+        
+        if (seconds < 60) return 'just now';
+        if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
+        if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+        return `${Math.floor(seconds / 86400)} days ago`;
+    }
+
+    showOfflineMessage() {
+        const message = document.createElement('div');
+        message.className = 'offline-message';
+        message.innerHTML = `
+            <span class="offline-icon">📡</span>
+            <span>You're offline. Showing cached prices from ${this.getTimeAgo(this.lastUpdate)}.</span>
+        `;
+        document.body.insertBefore(message, document.body.firstChild);
+    }
+
+    showUpdateNotification() {
+        const notification = document.createElement('div');
+        notification.className = 'update-notification';
+        notification.innerHTML = `
+            <span class="update-icon">✨</span>
+            <span>Prices updated!</span>
+        `;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        setTimeout(() => {
+            notification.classList.remove('show');
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+
+    getProductById(id) {
+        return this.products.find(p => p.id === id);
+    }
+
+    getProductsByCategory(category) {
+        return this.products.filter(p => p.category === category && p.active);
+    }
+
+    getDailySpecials() {
+        return this.products.filter(p => p.hasSpecial && p.active);
+    }
+
+    getPremiumProducts() {
+        return this.products.filter(p => p.isPremium && p.active);
+    }
+
+    getOrganicProducts() {
+        return this.products.filter(p => p.isOrganic && p.active);
+    }
+
+    // Manual refresh button
+    async refreshPrices() {
+        const refreshBtn = document.getElementById('refresh-prices-btn');
+        if (refreshBtn) {
+            refreshBtn.disabled = true;
+            refreshBtn.innerHTML = '<span class="spinner">⟳</span> Refreshing...';
+        }
+
+        await this.fetchProducts();
+
+        if (refreshBtn) {
+            refreshBtn.disabled = false;
+            refreshBtn.innerHTML = '🔄 Refresh Prices';
+        }
+    }
+
+    // Search products
+    searchProducts(query) {
+        const lowerQuery = query.toLowerCase();
+        return this.products.filter(p => 
+            p.active && (
+                p.name.toLowerCase().includes(lowerQuery) ||
+                p.category.toLowerCase().includes(lowerQuery)
+            )
+        );
+    }
+}
+
+// Initialize live pricing system
+const livePricing = new LivePricingSystem();
+
+// Expose globally for backward compatibility
+window.livePricing = livePricing;

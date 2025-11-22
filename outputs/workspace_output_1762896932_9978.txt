@@ -1,0 +1,6 @@
+90:                <div class="menu-header" onclick="toggleMenu('customization')">
+92:                    <span class="toggle-icon" id="customization-icon">▼</span>
+94:                <div class="menu-content" id="customization-content">
+95:                    <iframe src="admin-customization-panel.html" style="width: 100%; height: 800px; border: none;"></iframe>
+107:                        <h4 style="margin: 0 0 10px 0; color: #1976D2;">📥 Export / 📤 Import Explained:</h4>
+165:            ['customization', 'data', 'preview'].forEach(menuId => {

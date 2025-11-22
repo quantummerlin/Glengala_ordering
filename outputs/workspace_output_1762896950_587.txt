@@ -1,0 +1,2 @@
+434:        if (typeof updateSetting === 'function') {
+439:                if (typeof updateSetting === 'function') {

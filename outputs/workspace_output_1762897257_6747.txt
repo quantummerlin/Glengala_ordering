@@ -1,0 +1,6 @@
+24:            addToCart: "Add to Cart",
+43:            addToCart: "加入购物车",
+62:            addToCart: "Thêm Vào Giỏ",
+81:            addToCart: "أضف إلى السلة",
+136:                    <button onclick="shop.addToCart(${product.id})" class="add-to-cart-btn">Add to Cart</button>
+178:    addToCart(productId) {

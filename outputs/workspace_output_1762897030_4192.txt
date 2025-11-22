@@ -1,0 +1,6 @@
+119:    applyCustomizations() {
+315:        this.applyCustomizations();
+335:        this.applyCustomizations();
+348:            this.applyCustomizations();
+365:    customizationSystem.applyCustomizations();
+369:    setTimeout(() => customizationSystem.applyCustomizations(), 1000);

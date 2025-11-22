@@ -1,0 +1,23 @@
+    addToCart(productId) {
+        const product = products.find(p => p.id === productId);
+        if (!product) return;
+        
+        const quantity = parseFloat(document.getElementById(`qty-${productId}`).value);
+        const existingItem = this.cart.find(item => item.id === productId);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            this.cart.push({
+                id: product.id,
+                name: product.name,
+                price: product.price,
+                unit: product.unit,
+                quantity: quantity
+            });
+        }
+        
+        this.updateCart();
+        this.saveCart();
+        
+        // Reset quantity

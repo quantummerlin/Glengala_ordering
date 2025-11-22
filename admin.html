@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glengala Fresh - Admin Panel</title>
+    <link rel="stylesheet" href="admin.css">
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+
+       <!-- Login Screen -->
+       <div id="loginScreen" class="login-screen">
+           <div class="login-container">
+               <img src="Glengala Logo.png" alt="Glengala Fresh" class="login-logo">
+               <h2>Admin Login</h2>
+               <p>Enter password to access admin panel</p>
+               <input type="password" id="adminPassword" placeholder="Enter password" class="login-input">
+               <button onclick="checkLogin()" class="login-btn">Login</button>
+               <p id="loginError" class="login-error" style="display: none; color: #e74c3c; font-weight: bold; margin-top: 1rem;">Incorrect password. Please try again.</p>
+           </div>
+       </div>
+
+       <!-- Admin Content (Hidden by default) -->
+    <div id="adminContent" class="admin-container admin-hidden">
+    <div class="admin-header">
+            <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+            <h1>Glengala Fresh Admin</h1>
+            <p>Product Management System</p>
+        </div>
+
+        <!-- Main Product Table (Always Open) -->
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleMenu('products')">
+                <span>🛒 Product Management</span>
+                <span class="toggle-icon" id="products-icon">▼</span>
+            </div>
+            <div class="menu-content" id="products-content" style="display: block;">
+                <div class="controls">
+                    <button class="btn" onclick="addProduct()">➕ Add Product</button>
+                    <button class="btn" onclick="saveProducts()">💾 Save All</button>
+                    <button class="btn danger" onclick="clearAll()">🗑️ Clear All</button>
+                </div>
+
+                <div class="search-controls">
+                    <input type="text" id="searchInput" placeholder="🔍 Search products..." onkeyup="searchProducts()">
+                    <select id="categoryFilter" onchange="filterByCategory()">
+                        <option value="all">All Categories</option>
+                        <option value="vegetables">🥕 Vegetables</option>
+                        <option value="fruits">🍎 Fruits</option>
+                        <option value="herbs">🌿 Herbs</option>
+                        <option value="juices">🧃 Juices</option>
+                        <option value="nuts">🥜 Nuts</option>
+                        <option value="flowers">🌸 Flowers</option>
+                        <option value="specials">⭐ Specials</option>
+                    </select>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="productTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Price ($)</th>
+                                <th>Unit</th>
+                                <th>Increment</th>
+                                <th>Active</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productTableBody">
+                            <!-- Products loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Additional Settings Section -->
+        <div class="collapsible-section">
+            <h2 style="margin-top: 30px;">⚙️ Additional Settings</h2>
+            
+            <!-- Shop Customization -->
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('customization')">
+                    <span>🎨 Shop Customization</span>
+                    <span class="toggle-icon" id="customization-icon">▶</span>
+                </div>
+                <div class="menu-content" id="customization-content" style="display: none;">
+                    <div class="customization-panel">
+                        <!-- Trust Ribbon Section -->
+                        <div class="settings-section">
+                            <h3>📢 Trust Ribbon (Top Banner)</h3>
+                            <div class="setting-item">
+                                <label>
+                                    <input type="checkbox" id="trustRibbonEnabled" checked onchange="saveCustomization()"> 
+                                    Enable Trust Ribbon
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <label>Banner Text:</label>
+                                <textarea id="trustRibbonText" rows="2" placeholder="Enter trust ribbon message..." onchange="saveCustomization()">🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you.</textarea>
+                            </div>
+                            <div class="setting-row">
+                                <div class="setting-item">
+                                    <label>Background Color:</label>
+                                    <input type="color" id="trustRibbonBg" value="#f6fdf7" onchange="saveCustomization()">
+                                </div>
+                                <div class="setting-item">
+                                    <label>Text Color:</label>
+                                    <input type="color" id="trustRibbonColor" value="#1f4d2c" onchange="saveCustomization()">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Shop Header Section -->
+                        <div class="settings-section">
+                            <h3>🏪 Shop Header</h3>
+                            <div class="setting-item">
+                                <label>Shop Name:</label>
+                                <input type="text" id="shopName" value="Glengala Fresh" onchange="saveCustomization()">
+                            </div>
+                            <div class="setting-item">
+                                <label>Shop Details:</label>
+                                <textarea id="shopDetails" rows="2" onchange="saveCustomization()">Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50</textarea>
+                            </div>
+                            <div class="setting-row">
+                                <div class="setting-item">
+                                    <label>Header Background:</label>
+                                    <select id="headerBgType" onchange="updateHeaderBackground()">
+                                        <option value="gradient">Custom Gradient (Ombre)</option>
+                                        <option value="default">Default Gradient (Green to Blue)</option>
+                                        <option value="solid">Solid Color</option>
+                                    </select>
+                                </div>
+                                <div class="setting-item" id="headerColorPicker" style="display: none;">
+                                    <label>Solid Color:</label>
+                                    <input type="color" id="headerBgColor" value="#2FA44F" onchange="saveCustomization()">
+                                </div>
+                            </div>
+                            <div class="setting-row" id="gradientColorPickers" style="display: block;">
+                                <div class="setting-item">
+                                    <label>Gradient Start Color:</label>
+                                    <input type="color" id="gradientStartColor" value="#2FA44F" onchange="saveCustomization()">
+                                </div>
+                                <div class="setting-item">
+                                    <label>Gradient End Color:</label>
+                                    <input type="color" id="gradientEndColor" value="#3A6FD8" onchange="saveCustomization()">
+                                </div>
+                            </div>
+                            <div class="setting-item" id="gradientDirection" style="display: block;">
+                                <label>Gradient Direction:</label>
+                                <select id="gradientDirectionSelect" onchange="saveCustomization()">
+                                    <option value="135deg">Diagonal (Default)</option>
+                                    <option value="180deg">Top to Bottom</option>
+                                    <option value="90deg">Left to Right</option>
+                                    <option value="45deg">Bottom-Left to Top-Right</option>
+                                    <option value="225deg">Top-Right to Bottom-Left</option>
+                                    <option value="0deg">Bottom to Top</option>
+                                    <option value="270deg">Right to Left</option>
+                                </select>
+                                <span class="gradient-controls-label">Preview:</span>
+                                <div id="gradientPreview" class="gradient-preview"></div>
+                            </div>
+                        </div>
+
+                        <!-- Cart Styling Section -->
+                        <div class="settings-section">
+                            <h3>🛒 Cart Styling</h3>
+                            <p style="color: #666; margin-bottom: 15px; font-size: 0.9rem;">Customize the appearance of cart banners and text colors</p>
+                            <div class="setting-row">
+                                <div class="setting-item">
+                                    <label>Cart Banner Background:</label>
+                                    <input type="color" id="cartBannerBg" value="#2E7D32" onchange="saveCustomization()">
+                                </div>
+                                <div class="setting-item">
+                                    <label>Cart Banner Text Color:</label>
+                                    <input type="color" id="cartBannerText" value="#FFFFFF" onchange="saveCustomization()">
+                                </div>
+                            </div>
+                            <div class="setting-row">
+                                <div class="setting-item">
+                                    <label>Cart Item Text Color:</label>
+                                    <input type="color" id="cartItemText" value="#333333" onchange="saveCustomization()">
+                                </div>
+                                <div class="setting-item">
+                                    <label>Cart Price Color:</label>
+                                    <input type="color" id="cartPriceText" value="#2E7D32" onchange="saveCustomization()">
+                                </div>
+                            </div>
+                            <div class="setting-item">
+                                <label>Cart Total Background:</label>
+                                <input type="color" id="cartTotalBg" value="#F8F9FA" onchange="saveCustomization()">
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="customization-actions">
+                            <button class="btn" onclick="saveCustomization()">💾 Save Changes</button>
+                            <button class="btn" onclick="resetCustomization()">🔄 Reset to Defaults</button>
+                            <button class="btn" onclick="previewChanges()">👁️ Preview Shop</button>
+                            <button class="btn" onclick="testAdminHeaderSync()">🔄 Test Header Sync</button>
+                        </div>
+
+                        <div id="customizationStatus" class="status-message" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Management (Always Open) -->
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('categories')">
+                    <span>📂 Category Management</span>
+                    <span class="toggle-icon" id="categories-icon">▼</span>
+                </div>
+                <div class="menu-content" id="categories-content" style="display: block;">
+                    <div class="category-management">
+                        <div class="section-header">
+                            <h3>Manage Shop Categories</h3>
+                            <p>Add, edit, or remove product categories. Changes will automatically update the shop interface.</p>
+                        </div>
+
+                        <div class="category-list">
+                            <div class="category-list-header">
+                                <h4>Current Categories:</h4>
+                                <button class="btn" onclick="addNewCategory()">➕ Add Category</button>
+                            </div>
+                            <div id="categoryList" class="category-items">
+                                <!-- Categories will be loaded here -->
+                            </div>
+                        </div>
+
+                        <div class="category-actions">
+                            <button class="btn" onclick="saveCategories()">💾 Save Categories</button>
+                            <button class="btn" onclick="resetCategoriesToDefaults()">🔄 Reset to Defaults</button>
+                        </div>
+
+                        <div id="categoryStatus" class="status-message" style="display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Import/Export Data -->
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('data')">
+                    <span>📥 Import / Export Products</span>
+                    <span class="toggle-icon" id="data-icon">▶</span>
+                </div>
+                <div class="menu-content" id="data-content" style="display: none;">
+                    <div class="export-info" style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
+                        <h4 style="margin: 0 0 10px 0; color: #1976D2;">📥 Export / 📤 Import Explained:</h4>
+                        <p style="margin: 5px 0;"><strong>📥 Export:</strong> Downloads your current product list as a file to your computer. Use this to backup your products or share them with others. You can export as JSON (full data) or CSV (spreadsheet format).</p>
+                        <p style="margin: 5px 0;"><strong>📤 Import:</strong> Uploads a previously saved file to restore products. Useful for recovering backups or loading products from another system. Select a JSON or CSV file from your computer.</p>
+                    </div>
+                    <div class="data-controls">
+                        <h3>Export Your Products</h3>
+                        <button class="btn" onclick="exportToJSON()">📥 Export to JSON</button>
+                        <button class="btn" onclick="exportToCSV()">📊 Export to CSV</button>
+                        
+                        <h3 style="margin-top: 20px;">Import Products</h3>
+                        <input type="file" id="importFile" accept=".json,.csv" style="display: none;">
+                        <button class="btn" onclick="document.getElementById('importFile').click()">📤 Import Data</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shop Preview -->
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('preview')">
+                    <span>👁️ Shop Preview</span>
+                    <span class="toggle-icon" id="preview-icon">▶</span>
+                </div>
+                <div class="menu-content" id="preview-content" style="display: none;">
+                    <div class="preview-controls">
+                        <a href="shop.html" target="_blank" class="btn">🛒 Open Shop in New Tab</a>
+                        <iframe src="shop.html" style="width: 100%; height: 600px; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px;"></iframe>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Push Notifications -->
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('notifications')">
+                    <span>🔔 Push Notifications</span>
+                    <span class="toggle-icon" id="notifications-icon">▶</span>
+                </div>
+                <div class="menu-content" id="notifications-content" style="display: none;">
+                    <div class="notification-panel" style="padding: 20px;">
+                        <h3>📱 Send Price Update Notifications</h3>
+                        <p style="color: #666; margin-bottom: 20px;">
+                            Send push notifications to all subscribed users about recent price changes.
+                            Only unnotified price changes will be sent.
+                        </p>
+                        
+                        <div id="pendingChanges" style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                            <p style="margin: 0; color: #666;">Loading pending changes...</p>
+                        </div>
+                        
+                        <button class="btn" onclick="sendPriceNotifications()" style="font-size: 16px; padding: 12px 24px;">
+                            📢 Send Notifications Now
+                        </button>
+                        
+                        <div id="notificationResult" style="margin-top: 20px; display: none;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password Management -->
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('password')">
+                    <span>🔒 Password Management</span>
+                    <span class="toggle-icon" id="password-icon">▶</span>
+                </div>
+                <div class="menu-content" id="password-content" style="display: none;">
+                    <div class="password-panel">
+                        <div class="settings-section">
+                            <h3>🔐 Change Admin Password</h3>
+                            <p style="color: #666; margin-bottom: 20px;">Update your admin login password. Make sure to remember your new password!</p>
+                            
+                            <div class="setting-row">
+                                <div class="setting-item">
+                                    <label>Current Password:</label>
+                                    <input type="password" id="currentPassword" placeholder="Enter current password">
+                                </div>
+                                <div class="setting-item">
+                                    <label>New Password:</label>
+                                    <input type="password" id="newPassword" placeholder="Enter new password">
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <label>Confirm New Password:</label>
+                                <input type="password" id="confirmPassword" placeholder="Confirm new password">
+                            </div>
+                            
+                            <div style="margin-top: 20px;">
+                                <button class="btn" onclick="changePassword()">🔄 Update Password</button>
+                            </div>
+                            
+                            <div id="passwordStatus" class="status-message" style="display: none;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Emoji Picker Popup -->
+    <div id="emojiPickerOverlay" class="emoji-overlay" style="display: none;">
+        <div class="emoji-popup">
+            <div class="emoji-header">
+                <h3>Choose an Emoji</h3>
+                <button class="close-emoji-btn" onclick="closeEmojiPicker()">✕</button>
+            </div>
+            <div class="emoji-search">
+                <input type="text" id="emojiSearch" placeholder="🔍 Search emojis..." oninput="filterEmojis()">
+            </div>
+            <div class="emoji-categories">
+                <button class="emoji-cat-btn active" onclick="showEmojiCategory('all')">All</button>
+                <button class="emoji-cat-btn" onclick="showEmojiCategory('food')">🍎 Food</button>
+                <button class="emoji-cat-btn" onclick="showEmojiCategory('nature')">🌿 Nature</button>
+                <button class="emoji-cat-btn" onclick="showEmojiCategory('objects')">🛒 Objects</button>
+                <button class="emoji-cat-btn" onclick="showEmojiCategory('symbols')">⭐ Symbols</button>
+            </div>
+            <div id="emojiGrid" class="emoji-grid">
+                <!-- Emojis will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="products-data.js"></script>
+    <script src="admin.js?v=20251116b"></script>
+    <script>
+        // Toggle menu function
+        function toggleMenu(menuId) {
+            const content = document.getElementById(menuId + '-content');
+            const icon = document.getElementById(menuId + '-icon');
+            
+            if (content.style.display === 'none' || content.style.display === '') {
+                content.style.display = 'block';
+                icon.textContent = '▲';
+                
+                // If this is the customization menu and it hasn't been initialized
+                if (menuId === 'customization') {
+                    setTimeout(() => {
+                        if (typeof initializeCustomization === 'function') {
+                            initializeCustomization();
+                        }
+                    }, 100);
+                }
+            } else {
+                content.style.display = 'none';
+                icon.textContent = '▼';
+            }
+        }
+
+        // Initialize - all menus closed by default
+        document.addEventListener('DOMContentLoaded', function() {
+            // Keep ALL menus closed by default
+            ['products', 'customization', 'password', 'categories', 'data', 'preview'].forEach(menuId => {
+                const content = document.getElementById(menuId + '-content');
+                const icon = document.getElementById(menuId + '-icon');
+                if (content) content.style.display = 'none';
+                if (icon) icon.textContent = '▶';
+            });
+            
+            // Initialize customization system in the background without showing UI
+            setTimeout(() => {
+                if (typeof initializeCustomization === 'function') {
+                    initializeCustomization();
+                }
+            }, 100);
+        });
+    </script>

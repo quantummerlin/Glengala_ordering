@@ -1,0 +1,21 @@
+                        <h5>${item.name}</h5>
+                        <p>$${item.price.toFixed(2)} / ${item.unit} × ${item.quantity}</p>
+                    </div>
+                    <div class="cart-item-price">
+                        $${itemTotal.toFixed(2)}
+                        <button onclick="shop.removeFromCart(${item.id})" class="remove-btn">×</button>
+                    </div>
+                </div>
+            `;
+        });
+        
+        cartItems.innerHTML = html;
+        cartCount.textContent = itemCount.toFixed(0);
+        cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+    },
+
+    removeFromCart(productId) {
+        this.cart = this.cart.filter(item => item.id !== productId);
+        this.updateCart();
+        this.saveCart();
+    },

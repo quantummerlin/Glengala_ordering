@@ -1,0 +1,7 @@
+    checkout() {$
+        if (this.cart.length === 0) {$
+            alert('Your cart is empty!');$
+            return;$
+        }$
+$
+        let orderText = 'Glengala Fresh Order:\n\n';$

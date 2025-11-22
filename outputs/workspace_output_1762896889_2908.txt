@@ -1,0 +1,11 @@
+       <!-- Admin Content (Hidden by default) -->
+    <div id="adminContent" class="admin-container" style="display: none;">
+    <div class="admin-header">
+            <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
+            <h1>Glengala Fresh Admin</h1>
+            <p>Product Management System</p>
+        </div>
+
+        <!-- Main Product Table (Collapsible) -->
+        <div class="menu-item">
+            <div class="menu-header" onclick="toggleMenu('products')">

@@ -1,0 +1,4 @@
+132:                <p class="product-price">$${product.price.toFixed(2)} / ${product.unit}</p>
+192:                unit: product.unit,
+231:                        <p>$${item.price.toFixed(2)} / ${item.unit} × ${item.quantity}</p>
+275:            orderText += `${item.name} - ${item.quantity} ${item.unit} @ $${item.price.toFixed(2)} each = $${itemTotal.toFixed(2)}\n`;

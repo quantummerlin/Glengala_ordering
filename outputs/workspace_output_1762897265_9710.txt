@@ -1,0 +1,4 @@
+287:            <h2>Category Names & Emojis</h2>
+291:            // Render editable controls for each category's color, font, and emoji
+323:                                <label>${key.charAt(0).toUpperCase() + key.slice(1)} - Emoji</label>
+324:                                <input type="text" value="${cat.emoji}" onchange="updateSetting('categoryNames.${key}.emoji', this.value)">

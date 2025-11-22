@@ -1,0 +1,409 @@
+// Glengala Fresh - Complete Customization System
+// Makes everything customizable: fonts, colors, text, sizes, etc.
+
+class CustomizationSystem {
+    constructor() {
+        this.settings = this.loadSettings();
+    }
+
+    // Default settings
+    getDefaultSettings() {
+        return {
+            // Trust Ribbon
+            trustRibbon: {
+                text: "🥬 We hand-pick the freshest produce from Melbourne's Epping Market. Wayne reviews every order and confirms the best options for you.",
+                backgroundColor: "#f6fdf7",
+                textColor: "#1f4d2c",
+                borderColor: "#e3f2e6",
+                fontSize: "0.95rem",
+                fontFamily: "inherit",
+                padding: "10px 16px",
+                borderRadius: "10px",
+                enabled: true
+            },
+            
+            // Shop Header
+            shopHeader: {
+                shopName: "Glengala Fresh",
+                shopDetails: "Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50",
+                backgroundColor: "linear-gradient(135deg, #2FA44F, #3A6FD8)",
+                textColor: "#ffffff",
+                fontSize: "1rem",
+
+                   logo: "Glengala Logo.png",
+                fontFamily: "inherit"
+            },
+            
+            // Category Headers
+            categoryHeaders: {
+                backgroundColor: "linear-gradient(135deg, #2FA44F, #3A6FD8)",
+                textColor: "#ffffff",
+                fontSize: "1.1rem",
+                fontFamily: "inherit",
+                padding: "1rem"
+            },
+            
+            // Product Cards
+            productCards: {
+                backgroundColor: "#ffffff",
+                textColor: "#333333",
+                borderColor: "#e5e7eb",
+                fontSize: "1rem",
+                fontFamily: "inherit",
+                borderRadius: "12px"
+            },
+            
+            // Buttons
+
+               // Cart\n               cart: {\n                   backgroundColor: "#222",\n                   buttonColor: "#2FA44F",\n                   textColor: "#ffffff"\n               },
+            buttons: {
+                primaryColor: "#2FA44F",
+                primaryTextColor: "#ffffff",
+                secondaryColor: "#3A6FD8",
+                secondaryTextColor: "#ffffff",
+                fontSize: "1rem",
+                fontFamily: "inherit",
+                borderRadius: "8px"
+            },
+            
+            // Category Names (customizable)
+            categoryNames: {
+
+n                vegetables: true,
+                fruits: true,
+                herbs: true,
+                juices: true,
+                nuts: true,
+                flowers: true,
+                specials: true
+            categoryActiveStatus: {
+
+            },
+                vegetables: { name: "Fresh Vegetables", emoji: "🥕" },
+                fruits: { name: "Fresh Fruits", emoji: "🍎" },
+                herbs: { name: "Herbs, Salads & Greens", emoji: "🌿" },
+                juices: { name: "Fresh Juices & Beverages", emoji: "🧃" },
+                nuts: { name: "Nuts, Dried Fruit & Legumes", emoji: "🥜" },
+                flowers: { name: "Fresh Flowers", emoji: "🌸" }
+            },
+            
+            // Our Story Section
+            ourStory: {
+                title: "Our Story",
+                content: "We're a family-run fresh produce market in Albion, Melbourne. Every morning, Wayne personally selects the best produce from Epping Market to bring you the freshest fruits, vegetables, and more.",
+                enabled: true,
+                backgroundColor: "#f9fafb",
+                textColor: "#374151",
+                fontSize: "1rem",
+                fontFamily: "inherit"
+            },
+            
+            // How Pricing Works Tab
+            pricingInfo: {
+                title: "How Pricing Works",
+                content: "Freshness first. We buy tightly at Melbourne's Epping Market so stock turns fast and your order is as fresh as possible.\nWayne reviews every order. If today's market shifts (quality or availability), Wayne will text you options and confirm the best choice before payment.\nQuality grades:\nPremium — Best appearance and size, peak flavour.\nFirst — Great everyday quality and value.\nSecond — Cosmetic marks, still great eating, sharp price."
+            },
+            // Contact Info Tab
+            contactInfo: {
+                title: "Contact Info",
+                content: "Phone: 0400 000 000\nEmail: info@glengalafresh.com.au\nAddress: Albion, Melbourne VIC 3020"
+            }
+        };
+    }
+
+    // Load settings from localStorage
+    loadSettings() {
+        const saved = localStorage.getItem('glengala_customization_v2');
+        if (saved) {
+            try {
+                return { ...this.getDefaultSettings(), ...JSON.parse(saved) };
+            } catch (e) {
+                console.error('Error loading customization:', e);
+                return this.getDefaultSettings();
+       this.applyLogo();
+            }
+        }
+        return this.getDefaultSettings();
+    }
+
+    // Save settings to localStorage
+    saveSettings() {
+        localStorage.setItem('glengala_customization_v2', JSON.stringify(this.settings));
+    }
+
+    // Apply all customizations to the page
+    applyCustomizations() {
+    this.applyTrustRibbon();
+       this.applyCart();
+    this.applyShopHeader();
+       this.applyAdminHeader();
+    this.applyCategoryHeaders();
+    this.applyProductCards();
+    this.applyButtons();
+    this.applyCategoryNames();
+    this.applyOurStory();
+    this.applyPricingInfo();
+    this.applyContactInfo();
+    }
+
+    // Apply trust ribbon customization
+    applyTrustRibbon() {
+        const ribbon = document.querySelector('.trust-ribbon');
+        if (!ribbon) return;
+
+        const settings = this.settings.trustRibbon;
+        
+        if (!settings.enabled) {
+            ribbon.style.display = 'none';
+            return;
+        }
+
+        ribbon.textContent = settings.text;
+        ribbon.style.backgroundColor = settings.backgroundColor;
+        ribbon.style.color = settings.textColor;
+        ribbon.style.borderColor = settings.borderColor;
+        ribbon.style.fontSize = settings.fontSize;
+        ribbon.style.fontFamily = settings.fontFamily;
+        ribbon.style.padding = settings.padding;
+        ribbon.style.borderRadius = settings.borderRadius;
+        ribbon.style.display = 'block';
+    }
+
+    // Apply shop header customization
+    applyShopHeader() {
+        const shopName = document.querySelector('[data-translate="shopTitle"]');
+        const shopDetails = document.querySelector('[data-translate="shopDetails"]');
+        const header = document.querySelector('.header');
+
+        const settings = this.settings.shopHeader;
+
+        if (shopName) {
+            shopName.textContent = settings.shopName;
+            shopName.style.color = settings.textColor;
+            shopName.style.fontSize = settings.fontSize;
+            shopName.style.fontFamily = settings.fontFamily;
+        }
+
+        if (shopDetails) {
+            shopDetails.textContent = settings.shopDetails;
+            shopDetails.style.color = settings.textColor;
+            shopDetails.style.fontSize = settings.fontSize;
+            shopDetails.style.fontFamily = settings.fontFamily;
+        }
+
+        if (header) {
+            header.style.background = settings.backgroundColor;
+        }
+        // Also update shop banner if present
+        const shopBanner = document.getElementById('shopBanner');
+        if (shopBanner) {
+            shopBanner.style.background = settings.backgroundColor;
+        }
+
+       // Apply admin header customization\n       applyAdminHeader() {\n           const adminHeader = document.querySelector(".admin-header");\n           if (!adminHeader) return;\n\n           const settings = this.settings.shopHeader;\n           \n           // Sync admin header with shop header background\n           adminHeader.style.background = settings.backgroundColor;\n       }
+    }
+
+    // Apply category header customization
+    applyCategoryHeaders() {
+        const headers = document.querySelectorAll('.category-header');
+        const settings = this.settings.categoryHeaders;
+        const shopHeaderBg = this.settings.shopHeader.backgroundColor;
+
+        const allowedSizes = ['10px','12px','14px','16px','18px','20px','24px','32px','40px','48px'];
+        headers.forEach(header => {
+            header.style.background = shopHeaderBg;
+            header.style.color = settings.textColor;
+            let size = settings.fontSize;
+            if (!allowedSizes.includes(size)) size = '14px';
+            header.style.fontSize = size;
+            header.style.fontFamily = settings.fontFamily;
+            header.style.padding = settings.padding;
+        });
+
+       // Apply cart customization\n       applyCart() {\n           const cartContent = document.getElementById("cartContent");\n           const cartButtons = document.querySelectorAll(".checkout-btn");\n           \n           const settings = this.settings.cart;\n           \n           if (cartContent) {\n               cartContent.style.backgroundColor = settings.backgroundColor;\n           }\n           \n           cartButtons.forEach(button => {\n               button.style.backgroundColor = settings.buttonColor;\n               button.style.color = settings.textColor;\n           });\n       }
+    }
+
+
+       // Apply logo customization\n       applyLogo() {\n           const logo = document.querySelector(".logo");\n           if (!logo) return;\n\n           const settings = this.settings.shopHeader;\n           \n           if (settings.logo) {\n               logo.src = settings.logo;\n           }\n       }
+    // Apply product card customization
+    applyProductCards() {
+        const cards = document.querySelectorAll('.product-card');
+        const settings = this.settings.productCards;
+
+        cards.forEach(card => {
+            card.style.backgroundColor = settings.backgroundColor;
+            card.style.color = settings.textColor;
+            card.style.borderColor = settings.borderColor;
+            card.style.fontSize = settings.fontSize;
+            card.style.fontFamily = settings.fontFamily;
+            card.style.borderRadius = settings.borderRadius;
+        });
+    }
+
+    // Apply button customization
+    applyButtons() {
+        const primaryButtons = document.querySelectorAll('.add-to-cart, .checkout-btn, .btn-primary');
+        const secondaryButtons = document.querySelectorAll('.btn-secondary');
+        const settings = this.settings.buttons;
+
+        primaryButtons.forEach(btn => {
+            btn.style.backgroundColor = settings.primaryColor;
+            btn.style.color = settings.primaryTextColor;
+            btn.style.fontSize = settings.fontSize;
+            btn.style.fontFamily = settings.fontFamily;
+            btn.style.borderRadius = settings.borderRadius;
+        });
+
+        secondaryButtons.forEach(btn => {
+            btn.style.backgroundColor = settings.secondaryColor;
+            btn.style.color = settings.secondaryTextColor;
+            btn.style.fontSize = settings.fontSize;
+            btn.style.fontFamily = settings.fontFamily;
+            btn.style.borderRadius = settings.borderRadius;
+        });
+    }
+
+    // Apply category names
+    applyCategoryNames() {
+        const categories = this.settings.categoryNames;
+        
+        Object.keys(categories).forEach(categoryKey => {
+            const category = categories[categoryKey];
+            const element = document.querySelector(`[data-translate="${categoryKey}"]`);
+            
+            if (element) {
+                element.textContent = category.name;
+            }
+            
+            // Update emoji
+            const header = document.querySelector(`[onclick="toggleCategory('${categoryKey}')"]`);
+            if (header) {
+                const emojiSpan = header.querySelector('.category-emoji');
+                if (emojiSpan) {
+                    emojiSpan.textContent = category.emoji;
+                }
+            }
+        });
+    }
+
+    // Apply Our Story section (now in footer modal only)
+    applyOurStory() {
+        // Remove any existing top section
+        const existing = document.getElementById('our-story-section');
+        if (existing) existing.remove();
+        // Update the footer modal content instead
+        const settings = this.settings.ourStory;
+        const modalContent = document.getElementById('ourStoryContent');
+        if (modalContent && settings.enabled) {
+            modalContent.innerHTML = `<p>${settings.content.replace(/\n/g, '<br>')}</p>`;
+        }
+    }
+
+    // Apply Pricing Info tab content
+    applyPricingInfo() {
+        const settings = this.settings.pricingInfo;
+        const modalContent = document.getElementById('pricingInfoContent');
+        if (modalContent && settings) {
+            modalContent.innerHTML = `<p>${settings.content.replace(/\n/g, '<br>')}</p>`;
+        }
+        const modalTitle = document.querySelector('#pricingInfoModal h2');
+        if (modalTitle && settings) {
+            modalTitle.textContent = settings.title;
+        }
+    }
+
+    // Apply Contact Info tab content
+    applyContactInfo() {
+        const settings = this.settings.contactInfo;
+        const modalContent = document.getElementById('contactInfoContent');
+        if (modalContent && settings) {
+            modalContent.innerHTML = `<p>${settings.content.replace(/\n/g, '<br>')}</p>`;
+        }
+        const modalTitle = document.querySelector('#contactInfoModal h2');
+        if (modalTitle && settings) {
+            modalTitle.textContent = settings.title;
+        }
+    }
+
+    // Update a specific setting
+    updateSetting(path, value) {
+        const keys = path.split('.');
+        let obj = this.settings;
+        
+        for (let i = 0; i < keys.length - 1; i++) {
+            obj = obj[keys[i]];
+        }
+        
+        obj[keys[keys.length - 1]] = value;
+        this.saveSettings();
+        this.applyCustomizations();
+    }
+
+    // Get a specific setting
+    getSetting(path) {
+        const keys = path.split('.');
+        let obj = this.settings;
+        
+        for (let key of keys) {
+            obj = obj[key];
+            if (obj === undefined) return null;
+        }
+        
+        return obj;
+    }
+
+    // Reset to defaults
+    resetToDefaults() {
+        this.settings = this.getDefaultSettings();
+        this.saveSettings();
+        this.applyCustomizations();
+    }
+
+    // Export settings
+    exportSettings() {
+        return JSON.stringify(this.settings, null, 2);
+    }
+
+    // Import settings
+    importSettings(jsonString) {
+        try {
+            this.settings = JSON.parse(jsonString);
+            this.saveSettings();
+            this.applyCustomizations();
+            return true;
+        } catch (e) {
+            console.error('Error importing settings:', e);
+            return false;
+        }
+    }
+}
+
+// Global instance
+let customizationSystem;
+window.customizationSystem = undefined;
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    customizationSystem = new CustomizationSystem();
+    window.customizationSystem = customizationSystem;
+    customizationSystem.applyCustomizations();
+    // Expose updateSetting globally for inline event handlers
+    window.updateSetting = customizationSystem.updateSetting.bind(customizationSystem);
+    // Reapply after products load
+    setTimeout(() => customizationSystem.applyCustomizations(), 1000);
+    console.log('customizationSystem initialized:', customizationSystem);
+});
+
+// Toggle info sections
+function toggleInfoSection(sectionId) {
+    const content = document.getElementById(`${sectionId}-content`);
+    const icon = event.currentTarget.querySelector('.toggle-icon');
+    
+    if (content.style.display === 'none' || !content.style.display) {
+        content.style.display = 'block';
+        icon.textContent = '▲';
+    } else {
+        content.style.display = 'none';
+        icon.textContent = '▼';
+    }
+}
