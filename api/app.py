@@ -253,6 +253,7 @@ def update_settings():
 def update_product(product_id):
     """Update product (admin only - add auth in production)"""
     data = request.json
+    print(f"Updating product {product_id} with data: {data}")
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
     
@@ -291,6 +292,7 @@ def update_product(product_id):
     conn.commit()
     conn.close()
     
+    print(f"Product {product_id} updated successfully")
     return jsonify({
         'success': True, 
         'updated_at': datetime.now().isoformat(),
