@@ -3,10 +3,10 @@
 
 class LivePricingSystem {
     constructor() {
-        this.apiBase = 'http://127.0.0.1:5000/api';
+        this.apiBase = window.location.origin + '/api';
         this.products = [];
         this.lastUpdate = null;
-        this.updateInterval = 3600000; // 1 hour in milliseconds
+        this.updateInterval = 300000; // 5 minutes in milliseconds
         this.init();
     }
 
@@ -72,7 +72,7 @@ class LivePricingSystem {
     async checkForUpdates() {
         const timeSinceUpdate = Date.now() - (this.lastUpdate?.getTime() || 0);
         
-        // Only update if more than 1 hour has passed
+        // Update if more than 5 minutes have passed
         if (timeSinceUpdate > this.updateInterval) {
             await this.fetchProducts();
         }
