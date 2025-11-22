@@ -1,5 +1,6 @@
 // Glengala Fresh Admin - Simple Product Management
 let allProducts = [];
+const apiBase = window.location.origin + '/api';
 
 // Check login on page load
 document.addEventListener('DOMContentLoaded', function() {
@@ -462,7 +463,7 @@ const customizationSystem = {
 // Load and apply gradient to admin header on page load
 async function loadAndApplyAdminGradient() {
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/settings');
+        const response = await fetch(`${apiBase}/settings`);
         if (!response.ok) {
             throw new Error('Failed to load settings');
         }
@@ -499,7 +500,7 @@ async function saveCustomization() {
         const settings = customizationSystem.getCurrentSettings();
         console.log('Saving customization to API:', settings);
         
-        const response = await fetch('http://127.0.0.1:5000/api/settings', {
+        const response = await fetch(`${apiBase}/settings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -698,7 +699,7 @@ document.addEventListener('DOMContentLoaded', function() {
 async function loadProducts() {
     console.log('loadProducts called - fetching from API');
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/products');
+        const response = await fetch(`${apiBase}/products`);
         if (!response.ok) {
             throw new Error(`HTTP ${response.status}: ${response.statusText}`);
         }
@@ -735,7 +736,7 @@ async function loadProducts() {
             sortProductsAlphabetically(allProducts);
             displayProducts(allProducts);
         } else {
-            alert('Error loading products. Please ensure the Flask server is running on http://127.0.0.1:5000');
+            alert('Error loading products. Please ensure the Flask server is running.');
         }
     }
 }
@@ -820,6 +821,21 @@ function updateProduct(id, field, value) {
         product[field] = value;
         console.log(`Updated product ${id}: ${field} = ${value}`);
         
+        // Send update to API
+        fetch(`${apiBase}/products/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(product)
+        }).then(response => {
+            if (!response.ok) {
+                console.error('Failed to update product on server');
+            }
+        }).catch(error => {
+            console.error('Error updating product:', error);
+        });
+        
         // If the name was updated, re-sort and refresh display to maintain alphabetical order
         if (field === 'name') {
             displayProducts(allProducts);
@@ -842,7 +858,7 @@ function uploadPhoto(id, input) {
 // Add new product
 async function addProduct() {
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/products', {
+        const response = await fetch(`${apiBase}/products`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -876,7 +892,7 @@ async function addProduct() {
 async function deleteProduct(id) {
     if (confirm('Are you sure you want to delete this product?')) {
         try {
-            const response = await fetch(`http://127.0.0.1:5000/api/products/${id}`, {
+            const response = await fetch(`${apiBase}/products/${id}`, {
                 method: 'DELETE'
             });
             
@@ -922,7 +938,7 @@ function filterByCategory() {
 // Save all products
 async function saveProducts() {
     try {
-        const response = await fetch('http://127.0.0.1:5000/api/products/bulk', {
+        const response = await fetch(`${apiBase}/products/bulk`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
