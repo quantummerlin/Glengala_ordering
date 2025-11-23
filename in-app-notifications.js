@@ -5,7 +5,7 @@ class InAppNotificationManager {
     constructor() {
         this.lastCheckKey = 'glengala_last_price_check';
         this.seenChangesKey = 'glengala_seen_changes';
-        this.apiBase = 'http://127.0.0.1:5000/api';
+        this.apiBase = window.location.origin + '/api';
         this.notificationContainer = null;
         this.priceChanges = [];
     }

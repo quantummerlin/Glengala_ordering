@@ -2,7 +2,7 @@
 class PushNotificationManager {
     constructor() {
         this.vapidPublicKey = 'YOUR_VAPID_PUBLIC_KEY'; // Will be generated
-        this.apiBase = 'http://127.0.0.1:5000/api';
+        this.apiBase = window.location.origin + '/api';
         this.subscription = null;
         this.init();
     }

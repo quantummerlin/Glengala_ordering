@@ -3,7 +3,7 @@
 
 class GamificationSystem {
     constructor() {
-        this.apiBase = 'http://127.0.0.1:5000/api';
+        this.apiBase = window.location.origin + '/api';
         this.userId = this.getUserId();
         this.userData = null;
         this.init();

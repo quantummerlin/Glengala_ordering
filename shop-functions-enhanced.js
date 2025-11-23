@@ -1006,7 +1006,7 @@ Thank you! 🌱`;
     // Load customization from admin settings
     async loadCustomization() {
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/settings');
+            const response = await fetch(`${window.location.origin}/api/settings`);
             if (response.ok) {
                 const settings = await response.json();
                 window.shopSettings = settings; // Store globally
