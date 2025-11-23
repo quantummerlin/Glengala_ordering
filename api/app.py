@@ -145,6 +145,7 @@ def init_db():
 @app.route('/api/products', methods=['GET'])
 def get_products():
     """Get all active products with live prices"""
+    print(f"Fetching products from DB")
     conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     c = conn.cursor()
@@ -152,6 +153,7 @@ def get_products():
     c.execute('''SELECT * FROM products WHERE active = 1 ORDER BY category, name''')
     products = [dict(row) for row in c.fetchall()]
     
+    print(f"Returning {len(products)} products, first product unit: {products[0]['unit'] if products else 'none'}")
     conn.close()
     return jsonify({'products': products, 'updated_at': datetime.now().isoformat()})
 
