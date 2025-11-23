@@ -91,24 +91,36 @@ class LivePricingSystem {
     }
 
     updateProductDisplay() {
-        // Update prices in the DOM
-        this.products.forEach(product => {
-            const priceElements = document.querySelectorAll(`[data-product-id="${product.id}"]`);
-            priceElements.forEach(el => {
-                const priceDisplay = el.querySelector('.product-price');
-                if (priceDisplay) {
-                    priceDisplay.textContent = this.formatPrice(product);
-                }
-                
-                // Update special prices
-                if (product.hasSpecial) {
-                    this.displaySpecial(el, product);
-                }
-                
-                // Update stock status
-                this.updateStockStatus(el, product);
-            });
-        });
+        // Update the global products array
+        if (this.products && this.products.length > 0) {
+            window.products = this.products;
+            console.log('🔄 Updated products array with', this.products.length, 'products');
+            
+            // Trigger full shop re-render if shop instance exists
+            if (window.shop && typeof window.shop.loadProductsIntoCategories === 'function') {
+                console.log('🔄 Refreshing shop display with updated products');
+                window.shop.loadProductsIntoCategories();
+            } else {
+                // Fallback: Update prices in the DOM manually
+                this.products.forEach(product => {
+                    const priceElements = document.querySelectorAll(`[data-product-id="${product.id}"]`);
+                    priceElements.forEach(el => {
+                        const priceDisplay = el.querySelector('.product-price');
+                        if (priceDisplay) {
+                            priceDisplay.textContent = this.formatPrice(product);
+                        }
+                        
+                        // Update special prices
+                        if (product.hasSpecial) {
+                            this.displaySpecial(el, product);
+                        }
+                        
+                        // Update stock status
+                        this.updateStockStatus(el, product);
+                    });
+                });
+            }
+        }
     }
 
     formatPrice(product) {

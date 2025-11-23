@@ -9,6 +9,9 @@ class GlengalaShop {
     }
 
     async init() {
+        // Expose shop instance globally for live pricing updates
+        window.shop = this;
+        
         // Load products from API first, fallback to static data
         await this.loadProductsFromAPI();
         loadProducts();
