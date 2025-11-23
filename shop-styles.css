@@ -652,52 +652,65 @@ body::before {
 @media (max-width: 480px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        padding: 15px;
-    }
-    
-    .product-card {
-        padding: 12px;
-    }
-    
-    .product-photo {
-        height: 140px;
-    }
-    
-    .product-name {
-        font-size: 1.1em;
-    }
-    
-    .product-price {
-        font-size: 1.2em;
-    }
-    
-    .product-unit {
-        font-size: 0.85em;
-        padding: 6px 8px;
-    }
-    
-    .quantity-info {
+        gap: 8px;
         padding: 10px;
     }
     
+    .product-card {
+        padding: 8px;
+        border-radius: 10px;
+    }
+    
+    .product-photo {
+        height: 80px;
+        font-size: 2em;
+        margin-bottom: 8px;
+        border-radius: 8px;
+    }
+    
+    .product-name {
+        font-size: 0.75em;
+        margin-bottom: 4px;
+        line-height: 1.2;
+    }
+    
+    .product-price {
+        font-size: 0.85em;
+        margin-bottom: 6px;
+    }
+    
+    .product-unit {
+        font-size: 0.65em;
+        padding: 4px 6px;
+    }
+    
+    .quantity-info {
+        padding: 6px;
+    }
+    
     .quantity-label {
-        font-size: 0.8em;
+        font-size: 0.7em;
+    }
+    
+    .quantity-input {
+        font-size: 0.85em;
+        padding: 4px;
     }
     
     .quantity-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1em;
+        width: 28px;
+        height: 28px;
+        font-size: 0.9em;
     }
     
     .quantity-description {
-        font-size: 0.75em;
+        font-size: 0.65em;
     }
     
     .add-to-cart {
-        padding: 12px 14px;
-        font-size: 0.9em;
+        padding: 8px 10px;
+        font-size: 0.75em;
+        border-radius: 8px;
     }
     
     .cart-toggle {

@@ -189,8 +189,9 @@ class GlengalaShop {
         
         try {
             const htmlContent = this.activeCategories.map(category => {
-                // Check saved collapsed state
-                const isCollapsed = localStorage.getItem(`glengala_category_${category.id}_collapsed`) === 'true';
+                // Check saved collapsed state - default to collapsed on first visit
+                const savedState = localStorage.getItem(`glengala_category_${category.id}_collapsed`);
+                const isCollapsed = savedState === null ? true : savedState === 'true';
                 const displayStyle = isCollapsed ? 'none' : 'block';
                 const arrowSymbol = isCollapsed ? '▼' : '▲';
                 
