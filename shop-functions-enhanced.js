@@ -390,7 +390,7 @@ class GlengalaShop {
         const unitInfo = this.getUnitInfo(product);
         
         return `
-            <div class="product-card fade-in">
+            <div class="product-card fade-in" data-product-id="${product.id}">
                 ${product.mostPopular ? '<div class="special-badge">🔥 Popular</div>' : ''}
                 <div class="product-photo">
                     ${product.photo ? `<img src="${product.photo}" alt="${product.name}">` : emoji}
