@@ -189,11 +189,10 @@ class LivePricingSystem {
     }
 
     updateLastUpdateTime() {
+        // Timestamp display hidden per user request
         const updateElement = document.getElementById('last-price-update');
-        if (updateElement && this.lastUpdate) {
-            const timeAgo = this.getTimeAgo(this.lastUpdate);
-            updateElement.textContent = `Prices updated ${timeAgo}`;
-            updateElement.classList.add('visible');
+        if (updateElement) {
+            updateElement.style.display = 'none';
         }
     }
 
