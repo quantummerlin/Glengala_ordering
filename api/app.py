@@ -344,6 +344,7 @@ def bulk_update_products():
     """Bulk update all products (admin only)"""
     data = request.json
     products = data.get('products', [])
+    print(f"Bulk updating {len(products)} products")
     
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
@@ -352,6 +353,7 @@ def bulk_update_products():
     for product in products:
         product_id = product.get('id')
         if product_id:
+            print(f"Updating product {product_id}: {product.get('name')} - unit: {product.get('unit')}")
             c.execute('''UPDATE products SET 
                          name = ?, category = ?, price = ?, unit = ?, 
                          active = ?, photo = ?, hasSpecial = ?, specialPrice = ?,
@@ -371,6 +373,7 @@ def bulk_update_products():
     conn.commit()
     conn.close()
     
+    print(f"Bulk update completed: {updated_count} products updated")
     return jsonify({'success': True, 'updated_count': updated_count, 'message': f'{updated_count} products updated successfully'})
 
 @app.route('/api/daily-specials', methods=['GET'])
