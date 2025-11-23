@@ -204,7 +204,7 @@ class GlengalaShop {
                         <div class="gradient-line" style="position: absolute; bottom: 0; left: -100%; width: 100%; height: 3px; background: linear-gradient(90deg, #f40606, #47018e); transition: left 0.6s ease;"></div>
                     </div>
                     <div id="${category.id}Content" style="display: ${displayStyle}; padding: 20px; background: white;">
-                        <div id="${category.id}Products" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                        <div id="${category.id}Products" class="products-grid">
                             <!-- Products will be loaded here -->
                         </div>
                     </div>
