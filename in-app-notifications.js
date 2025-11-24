@@ -24,8 +24,16 @@ class InAppNotificationManager {
     async checkForPriceChanges() {
         try {
             // Get last check timestamp from localStorage
-            const lastCheck = localStorage.getItem(this.lastCheckKey) || 
-                             new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
+            let lastCheck = localStorage.getItem(this.lastCheckKey);
+            
+            // First time user - set to now so they only see future changes
+            if (!lastCheck) {
+                lastCheck = new Date().toISOString();
+                localStorage.setItem(this.lastCheckKey, lastCheck);
+                console.log('🆕 First time user - will track price changes from now on');
+                this.priceChanges = [];
+                return;
+            }
             
             // Fetch price changes since last check
             const response = await fetch(`${this.apiBase}/price-changes?since=${lastCheck}`);
@@ -145,17 +153,9 @@ class InAppNotificationManager {
             this.dismissNotification(notification);
         });
 
+        
         this.notificationContainer.appendChild(notification);
-
-        // Auto-dismiss after 10 seconds
-        setTimeout(() => {
-            if (notification.parentElement) {
-                this.dismissNotification(notification);
-            }
-        }, 10000);
-    }
-
-    showDetailedNotifications() {
+    }    showDetailedNotifications() {
         // Clear summary
         this.notificationContainer.innerHTML = '';
         
@@ -243,13 +243,6 @@ class InAppNotificationManager {
         });
 
         this.notificationContainer.appendChild(notification);
-
-        // Auto-dismiss after 8 seconds
-        setTimeout(() => {
-            if (notification.parentElement) {
-                this.dismissNotification(notification);
-            }
-        }, 8000);
     }
 
     dismissNotification(notification) {
