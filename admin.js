@@ -856,12 +856,52 @@ function updateProduct(id, field, value) {
 // Upload photo
 function uploadPhoto(id, input) {
     if (input.files && input.files[0]) {
+        const file = input.files[0];
+        
+        // Check file size (limit to 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            alert('⚠️ Image too large! Please use an image smaller than 2MB.');
+            input.value = '';
+            return;
+        }
+        
         const reader = new FileReader();
         reader.onload = function(e) {
-            updateProduct(id, 'photo', e.target.result);
-            displayProducts(allProducts);
+            const img = new Image();
+            img.onload = function() {
+                // Resize image to max 400x400
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+                const maxSize = 400;
+                
+                if (width > height) {
+                    if (width > maxSize) {
+                        height *= maxSize / width;
+                        width = maxSize;
+                    }
+                } else {
+                    if (height > maxSize) {
+                        width *= maxSize / height;
+                        height = maxSize;
+                    }
+                }
+                
+                canvas.width = width;
+                canvas.height = height;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, width, height);
+                
+                // Convert to base64 with reduced quality
+                const resizedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                console.log('📷 Resized image from', file.size, 'bytes to', resizedBase64.length, 'chars');
+                
+                updateProduct(id, 'photo', resizedBase64);
+                displayProducts(allProducts);
+            };
+            img.src = e.target.result;
         };
-        reader.readAsDataURL(input.files[0]);
+        reader.readAsDataURL(file);
     }
 }
 
