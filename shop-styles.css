@@ -661,6 +661,8 @@ body::before {
         border-radius: 8px;
         background: #1a1a1a !important;
         border: 1px solid #333;
+        min-height: auto;
+        height: auto;
     }
     
     .product-photo {
@@ -677,6 +679,7 @@ body::before {
         line-height: 1;
         color: #ffffff;
         font-weight: 600;
+        min-height: auto;
     }
     
     .product-price {
@@ -684,6 +687,7 @@ body::before {
         margin-bottom: 2px;
         color: #4ade80 !important;
         font-weight: bold;
+        line-height: 1;
     }
     
     .product-unit {

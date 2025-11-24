@@ -423,7 +423,7 @@ class GlengalaShop {
                 </div>
                 
                 <button class="add-to-cart" onclick="shop.addToCart(${product.id})">
-                    <span data-translate="addToCart">🛒 Add to Cart</span>
+                    <span data-translate="addToCart">🛒 Add</span>
                 </button>
             </div>
         `;
