@@ -238,25 +238,29 @@ class GlengalaShop {
     loadProductsIntoCategories() {
         // Don't render until shop is fully initialized
         if (!this.shopReady) {
+            console.log('⏸️ Shop not ready yet, skipping product load');
             return;
         }
         
         if (!this.activeCategories || this.activeCategories.length === 0) {
-            console.error('No active categories found for product loading');
+            console.error('❌ No active categories found for product loading');
             return;
         }
+        
+        console.log('📦 Loading products into', this.activeCategories.length, 'categories');
         
         this.activeCategories.forEach(category => {
 
             const productsContainer = document.getElementById(`${category.id}Products`);
             if (!productsContainer) {
-                console.error(`Products container not found: ${category.id}Products`);
+                console.error(`❌ Products container not found: ${category.id}Products`);
                 return;
             }
             
 
             
             const categoryProducts = this.getProductsByCategory(category.id);
+            console.log(`📂 Category ${category.id}:`, categoryProducts.length, 'products');
             
             if (categoryProducts.length > 0) {
             }
@@ -269,8 +273,9 @@ class GlengalaShop {
             try {
                 const productHTML = categoryProducts.map(product => this.createProductCard(product)).join('');
                 productsContainer.innerHTML = productHTML;
+                console.log(`✅ Rendered ${categoryProducts.length} products in ${category.id}`);
             } catch (error) {
-                // Silent error handling for production
+                console.error('❌ Error rendering products:', error);
             }
         });
     }
