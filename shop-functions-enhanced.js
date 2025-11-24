@@ -16,6 +16,9 @@ class GlengalaShop {
         // CRITICAL: Load categories FIRST before fetching products
         this.loadCategories();
         
+        // Mark as ready NOW so live pricing can update during product fetch
+        this.shopReady = true;
+        
         // Load products from API, fallback to static data
         await this.loadProductsFromAPI();
         loadProducts();
@@ -30,9 +33,8 @@ class GlengalaShop {
         // Load customization immediately (no delay needed)
         this.loadCustomization();
         
-        // Mark as ready and render
+        // Mark products loaded and render
         this.productsLoaded = true;
-        this.shopReady = true;
         this.renderShop();
     }
 
@@ -236,12 +238,6 @@ class GlengalaShop {
     }
 
     loadProductsIntoCategories() {
-        // Don't render until shop is fully initialized
-        if (!this.shopReady) {
-            console.log('⏸️ Shop not ready yet, skipping product load');
-            return;
-        }
-        
         if (!this.activeCategories || this.activeCategories.length === 0) {
             console.error('❌ No active categories found for product loading');
             return;
