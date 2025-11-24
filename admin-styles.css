@@ -403,11 +403,13 @@ th {
         font-size: 0.8em;
     }
     
-    /* Make name input bigger on mobile */
+    /* Make name input much bigger on mobile */
     td input[type="text"] {
-        font-size: 1em;
-        padding: 8px;
-        min-height: 36px;
+        font-size: 1.1em !important;
+        padding: 10px !important;
+        min-height: 44px !important;
+        width: 100% !important;
+        font-weight: 500;
     }
     
     .btn {
