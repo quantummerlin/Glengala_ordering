@@ -110,7 +110,9 @@ class GlengalaShop {
     }
 
     getActiveProducts() {
-        return products.filter(p => p.active && p.name.trim() !== "");
+        // Always use window.products to get latest data from API
+        const allProducts = window.products || products || [];
+        return allProducts.filter(p => p.active && p.name.trim() !== "");
     }
 
     getProductsByCategory(category) {
