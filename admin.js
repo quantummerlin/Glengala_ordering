@@ -858,9 +858,9 @@ function uploadPhoto(id, input) {
     if (input.files && input.files[0]) {
         const file = input.files[0];
         
-        // Check file size (limit to 2MB)
-        if (file.size > 2 * 1024 * 1024) {
-            alert('⚠️ Image too large! Please use an image smaller than 2MB.');
+        // Check file size (limit to 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('⚠️ Image too large! Please use an image smaller than 5MB.');
             input.value = '';
             return;
         }
