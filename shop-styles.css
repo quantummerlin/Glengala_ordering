@@ -664,12 +664,12 @@ body::before {
         display: grid;
         grid-template-rows: auto auto auto auto auto;
         align-content: start;
-        max-height: 240px;
+        max-height: 280px;
     }
     
     .product-photo {
-        height: 60px;
-        font-size: 1.8em;
+        height: 80px;
+        font-size: 2em;
         margin-bottom: 4px;
         border-radius: 6px;
         background: #2a2a2a;
