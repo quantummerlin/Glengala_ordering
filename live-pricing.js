@@ -29,12 +29,18 @@ class LivePricingSystem {
     }
 
     async fetchProducts() {
+        console.log('📥 Fetching products from API:', `${this.apiBase}/products`);
         try {
             const response = await fetch(`${this.apiBase}/products`);
+            if (!response.ok) {
+                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+            }
             const data = await response.json();
             
             this.products = data.products;
             this.lastUpdate = new Date(data.updated_at);
+            
+            console.log('✅ Fetched', this.products.length, 'products from API');
             
             // Update UI
             this.updateProductDisplay();
@@ -64,17 +70,19 @@ class LivePricingSystem {
     }
 
     startPeriodicUpdates() {
+        console.log(`⏰ Starting periodic price updates every ${this.updateInterval / 60000} minutes`);
         setInterval(() => {
             this.checkForUpdates();
         }, this.updateInterval);
     }
 
     async checkForUpdates() {
-        const timeSinceUpdate = Date.now() - (this.lastUpdate?.getTime() || 0);
-        
-        // Update if more than 5 minutes have passed
-        if (timeSinceUpdate > this.updateInterval) {
+        console.log('🔍 Checking for price updates...');
+        try {
             await this.fetchProducts();
+            console.log('✅ Price update check complete');
+        } catch (error) {
+            console.error('❌ Error checking for updates:', error);
         }
     }
 
