@@ -5,6 +5,7 @@ class GlengalaShop {
         this.filteredProducts = [];
         this.expandedCategories = new Set();
         this.productsLoaded = false;
+        this.shopReady = false;
         this.init();
     }
 
@@ -12,12 +13,14 @@ class GlengalaShop {
         // Expose shop instance globally for live pricing updates
         window.shop = this;
         
-        // Load products from API first, fallback to static data
+        // CRITICAL: Load categories FIRST before fetching products
+        this.loadCategories();
+        
+        // Load products from API, fallback to static data
         await this.loadProductsFromAPI();
         loadProducts();
         this.loadAllData();
         this.updateCartDisplay(); // Update cart count immediately after loading
-        this.loadCategories();  // Load categories before rendering
         this.loadBanner();
         // Don't auto-render here, let it be called explicitly
         this.setupEventListeners();
@@ -29,6 +32,7 @@ class GlengalaShop {
         
         // Mark as ready and render
         this.productsLoaded = true;
+        this.shopReady = true;
         this.renderShop();
     }
 
@@ -232,7 +236,10 @@ class GlengalaShop {
     }
 
     loadProductsIntoCategories() {
-
+        // Don't render until shop is fully initialized
+        if (!this.shopReady) {
+            return;
+        }
         
         if (!this.activeCategories || this.activeCategories.length === 0) {
             console.error('No active categories found for product loading');
