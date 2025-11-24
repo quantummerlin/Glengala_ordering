@@ -664,7 +664,7 @@ body::before {
         display: grid;
         grid-template-rows: auto auto auto auto auto;
         align-content: start;
-        max-height: 200px;
+        max-height: 240px;
     }
     
     .product-photo {
