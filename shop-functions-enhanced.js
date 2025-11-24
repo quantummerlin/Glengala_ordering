@@ -563,7 +563,9 @@ class GlengalaShop {
     }
 
     addToCart(productId) {
-        const product = products.find(p => p.id === productId);
+        // Use window.products to get latest API data
+        const allProducts = window.products || products || [];
+        const product = allProducts.find(p => p.id === productId);
         if (!product) return;
         
         const quantity = parseFloat(document.getElementById(`qty-${productId}`).value);
