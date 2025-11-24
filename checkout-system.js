@@ -141,23 +141,24 @@ class CheckoutSystem {
             'anytime': 'Anytime'
         }[timeWindow] || 'Anytime';
 
-        const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
+        const totalItems = this.shop.cart.reduce((sum, item) => sum + item.quantity, 0);
         
         return [
-            '🛒 Glengala Fresh Order',
-            '——————————————',
-            `👤 Name: ${name || '(not provided)'}${phone ? ' • ' + phone : ''}`,
-            `📍 Address: ${address || '(not provided)'}`,
-            `🕒 ${fulfilLine} • ${timeWindowText}`,
+            '🛒 GLENGALA FRESH ORDER',
+            '━━━━━━━━━━━━━━━━━━━━',
+            `👤 ${name || '(not provided)'}`,
+            `📱 ${phone || '(not provided)'}`,
+            `📍 ${address || '(not provided)'}`,
+            `${fulfilLine} • ${timeWindowText}`,
             '',
-            `Items (${totalItems}):`,
+            `📦 ITEMS (${totalItems}):`,
             itemLines || '• (No items)',
-            '',
+            '━━━━━━━━━━━━━━━━━━━━',
             `Subtotal: ${AUD.format(subtotal)}`,
-            `Delivery: ${AUD.format(deliveryFee)}`,
-            `Total: ${AUD.format(total)}`,
+            deliveryFee > 0 ? `Delivery: ${AUD.format(deliveryFee)}` : '',
+            `💰 TOTAL: ${AUD.format(total)}`,
             '',
-            notes ? `📝 Notes: ${notes}` : ''
+            notes ? `📝 ${notes}` : ''
         ].filter(Boolean).join('\n');
     }
 
