@@ -819,7 +819,8 @@ function updateProduct(id, field, value) {
     const product = allProducts.find(p => p.id === id);
     if (product) {
         product[field] = value;
-        console.log(`Updated product ${id}: ${field} = ${value}`);
+        console.log(`✏️ Updated product ${id}: ${field} = ${value}`);
+        console.log(`📤 Sending PUT to ${apiBase}/products/${id}`);
         
         // Send update to API
         fetch(`${apiBase}/products/${id}`, {
@@ -830,10 +831,19 @@ function updateProduct(id, field, value) {
             body: JSON.stringify(product)
         }).then(response => {
             if (!response.ok) {
-                console.error('Failed to update product on server');
+                console.error('❌ Failed to update product on server:', response.status, response.statusText);
+                alert(`Failed to update product: ${response.statusText}`);
+                return;
+            }
+            console.log(`✅ Product ${id} updated successfully on server`);
+            return response.json();
+        }).then(data => {
+            if (data) {
+                console.log('Server response:', data);
             }
         }).catch(error => {
-            console.error('Error updating product:', error);
+            console.error('❌ Error updating product:', error);
+            alert(`Error updating product: ${error.message}`);
         });
         
         // If the name was updated, re-sort and refresh display to maintain alphabetical order
