@@ -254,54 +254,65 @@ def update_settings():
 @app.route('/api/products/<int:product_id>', methods=['PUT'])
 def update_product(product_id):
     """Update product (admin only - add auth in production)"""
-    data = request.json
-    print(f"Updating product {product_id} with data: {data}")
-    conn = sqlite3.connect(DB_PATH)
-    c = conn.cursor()
-    
-    # Get old price and name for tracking
-    c.execute('SELECT name, price FROM products WHERE id = ?', (product_id,))
-    old_product = c.fetchone()
-    old_price = old_product[1] if old_product else None
-    product_name = old_product[0] if old_product else 'Unknown'
-    
-    # Update all fields that can be changed
-    c.execute('''UPDATE products SET 
-                 name = ?, category = ?, price = ?, unit = ?, 
-                 active = ?, photo = ?, hasSpecial = ?, specialPrice = ?,
-                 specialQuantity = ?, specialUnit = ?, isPremium = ?, isOrganic = ?,
-                 stock = ?, mostPopular = ?, popularOrder = ?,
-                 updated_at = CURRENT_TIMESTAMP
-                 WHERE id = ?''',
-              (data.get('name'), data.get('category'), data.get('price'), data.get('unit'),
-               data.get('active', 1), data.get('photo', ''), 
-               data.get('hasSpecial', 0), data.get('specialPrice', 0),
-               data.get('specialQuantity', 0), data.get('specialUnit', ''),
-               data.get('isPremium', 0), data.get('isOrganic', 0),
-               data.get('stock', 999), data.get('mostPopular', 0), data.get('popularOrder', 0),
-               product_id))
-    
-    # Track price changes for in-app notifications
-    new_price = data.get('price')
-    price_changed = old_price and new_price and float(old_price) != float(new_price)
-    
-    if price_changed:
-        c.execute('''INSERT INTO price_changes 
-                     (product_id, product_name, old_price, new_price, changed_at, notified)
-                     VALUES (?, ?, ?, ?, ?, 0)''',
-                  (product_id, product_name, old_price, new_price, datetime.now().isoformat()))
-    
-    conn.commit()
-    conn.close()
-    
-    print(f"Product {product_id} updated successfully")
-    return jsonify({
-        'success': True, 
-        'updated_at': datetime.now().isoformat(),
-        'price_changed': price_changed,
-        'old_price': old_price,
-        'new_price': new_price
-    })
+    try:
+        data = request.json
+        print(f"Updating product {product_id} with data: {data}")
+        
+        if not data:
+            return jsonify({'success': False, 'error': 'No data provided'}), 400
+        
+        conn = sqlite3.connect(DB_PATH)
+        c = conn.cursor()
+        
+        # Get old price and name for tracking
+        c.execute('SELECT name, price FROM products WHERE id = ?', (product_id,))
+        old_product = c.fetchone()
+        old_price = old_product[1] if old_product else None
+        product_name = old_product[0] if old_product else 'Unknown'
+        
+        # Update all fields that can be changed
+        c.execute('''UPDATE products SET 
+                     name = ?, category = ?, price = ?, unit = ?, 
+                     active = ?, photo = ?, hasSpecial = ?, specialPrice = ?,
+                     specialQuantity = ?, specialUnit = ?, isPremium = ?, isOrganic = ?,
+                     stock = ?, mostPopular = ?, popularOrder = ?,
+                     updated_at = CURRENT_TIMESTAMP
+                     WHERE id = ?''',
+                  (data.get('name'), data.get('category'), data.get('price'), data.get('unit'),
+                   data.get('active', 1), data.get('photo', ''), 
+                   data.get('hasSpecial', 0), data.get('specialPrice', 0),
+                   data.get('specialQuantity', 0), data.get('specialUnit', ''),
+                   data.get('isPremium', 0), data.get('isOrganic', 0),
+                   data.get('stock', 999), data.get('mostPopular', 0), data.get('popularOrder', 0),
+                   product_id))
+        
+        # Track price changes for in-app notifications
+        new_price = data.get('price')
+        price_changed = old_price and new_price and float(old_price) != float(new_price)
+        
+        if price_changed:
+            c.execute('''INSERT INTO price_changes 
+                         (product_id, product_name, old_price, new_price, changed_at, notified)
+                         VALUES (?, ?, ?, ?, ?, 0)''',
+                      (product_id, product_name, old_price, new_price, datetime.now().isoformat()))
+        
+        conn.commit()
+        conn.close()
+        
+        print(f"Product {product_id} updated successfully")
+        return jsonify({
+            'success': True, 
+            'updated_at': datetime.now().isoformat(),
+            'price_changed': price_changed,
+            'old_price': old_price,
+            'new_price': new_price
+        })
+    except Exception as e:
+        print(f"ERROR updating product {product_id}: {str(e)}")
+        print(f"Error type: {type(e).__name__}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 @app.route('/api/products', methods=['POST'])
 def create_product():
