@@ -414,10 +414,12 @@ class GlengalaShop {
                 
                 <div class="quantity-info">
                     <div class="quantity-selector">
-                        <input type="number" id="qty-${product.id}" class="quantity-input" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}">
-                        <div class="quantity-controls">
-                            <button class="quantity-btn up-btn" onclick="shop.updateQuantity(${product.id}, 1)">▲</button>
-                            <button class="quantity-btn down-btn" onclick="shop.updateQuantity(${product.id}, -1)">▼</button>
+                        <div class="quantity-wrapper">
+                            <input type="number" id="qty-${product.id}" class="quantity-input" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}">
+                            <div class="quantity-controls">
+                                <button class="quantity-btn up-btn" onclick="shop.updateQuantity(${product.id}, 1)">▲</button>
+                                <button class="quantity-btn down-btn" onclick="shop.updateQuantity(${product.id}, -1)">▼</button>
+                            </div>
                         </div>
                     </div>
                 </div>
