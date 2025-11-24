@@ -652,7 +652,7 @@ body::before {
 @media (max-width: 480px) {
     .products-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
+        gap: 3px;
         padding: 8px;
     }
     
@@ -707,9 +707,9 @@ body::before {
     
     .quantity-wrapper {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
-        gap: 2px;
+        gap: 3px;
     }
     
     .quantity-input {
@@ -721,23 +721,33 @@ body::before {
         color: #ffffff;
         border: 1px solid #444;
         text-align: center;
+        order: 2;
     }
     
     .quantity-controls {
         display: flex;
         flex-direction: row;
-        gap: 4px;
+        gap: 0;
+        order: 1;
     }
     
     .quantity-btn {
         width: 24px;
-        height: 20px;
+        height: 24px;
         font-size: 0.7em;
         padding: 0;
         line-height: 1;
         background: #2a2a2a;
         color: #4ade80;
         border: 1px solid #444;
+    }
+    
+    .down-btn {
+        order: 1;
+    }
+    
+    .up-btn {
+        order: 2;
     }
     
     .quantity-label {
