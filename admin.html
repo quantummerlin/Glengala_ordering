@@ -25,19 +25,20 @@
 
        <!-- Admin Content (Hidden by default) -->
     <div id="adminContent" class="admin-container admin-hidden">
-    <div class="admin-header">
+        <div class="admin-header">
             <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
             <h1>Glengala Fresh Admin</h1>
             <p>Product Management System</p>
         </div>
 
-        <!-- Main Product Table (Always Open) -->
-        <div class="menu-item">
-            <div class="menu-header" onclick="toggleMenu('products')">
-                <span>🛒 Product Management</span>
-                <span class="toggle-icon" id="products-icon">▼</span>
-            </div>
-            <div class="menu-content" id="products-content">
+        <!-- Main Product Table -->
+        <div class="menu-section">
+            <div class="menu-item">
+                <div class="menu-header" onclick="toggleMenu('products')">
+                    <span>🛒 Product Management</span>
+                    <span class="toggle-icon" id="products-icon">▼</span>
+                </div>
+                <div class="menu-content" id="products-content">
                 <div class="controls">
                     <button class="btn" onclick="addProduct()">➕ Add Product</button>
                     <button class="btn" onclick="saveProducts()">💾 Save All</button>
@@ -79,6 +80,7 @@
                     </table>
                 </div>
             </div>
+            </div>
         </div>
 
         <!-- Additional Settings Section -->
@@ -86,10 +88,11 @@
             <h2 style="margin-top: 30px;">⚙️ Additional Settings</h2>
             
             <!-- Shop Customization -->
+            <div class="menu-section">
             <div class="menu-item">
                 <div class="menu-header" onclick="toggleMenu('customization')">
                     <span>🎨 Shop Customization</span>
-                    <span class="toggle-icon" id="customization-icon">▶</span>
+                    <span class="toggle-icon" id="customization-icon">▼</span>
                 </div>
                 <div class="menu-content" id="customization-content" style="display: none;">
                     <div class="customization-panel">
@@ -211,14 +214,16 @@
                     </div>
                 </div>
             </div>
+            </div>
 
-            <!-- Category Management (Always Open) -->
+            <!-- Category Management -->
+            <div class="menu-section">
             <div class="menu-item">
                 <div class="menu-header" onclick="toggleMenu('categories')">
                     <span>📂 Category Management</span>
                     <span class="toggle-icon" id="categories-icon">▼</span>
                 </div>
-                <div class="menu-content" id="categories-content" style="display: block;">
+                <div class="menu-content" id="categories-content">
                     <div class="category-management">
                         <div class="section-header">
                             <h3>Manage Shop Categories</h3>
@@ -244,14 +249,16 @@
                     </div>
                 </div>
             </div>
+            </div>
 
             <!-- Import/Export Data -->
+            <div class="menu-section">
             <div class="menu-item">
                 <div class="menu-header" onclick="toggleMenu('data')">
-                    <span>📥 Import / Export Products</span>
-                    <span class="toggle-icon" id="data-icon">▶</span>
+                    <span>📅 Import / Export Products</span>
+                    <span class="toggle-icon" id="data-icon">▼</span>
                 </div>
-                <div class="menu-content" id="data-content" style="display: none;">
+                <div class="menu-content" id="data-content">
                     <div class="export-info" style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #2196F3;">
                         <h4 style="margin: 0 0 10px 0; color: #1976D2;">📥 Export / 📤 Import Explained:</h4>
                         <p style="margin: 5px 0;"><strong>📥 Export:</strong> Downloads your current product list as a file to your computer. Use this to backup your products or share them with others. You can export as JSON (full data) or CSV (spreadsheet format).</p>
@@ -268,28 +275,32 @@
                     </div>
                 </div>
             </div>
+            </div>
 
             <!-- Shop Preview -->
+            <div class="menu-section">
             <div class="menu-item">
                 <div class="menu-header" onclick="toggleMenu('preview')">
                     <span>👁️ Shop Preview</span>
-                    <span class="toggle-icon" id="preview-icon">▶</span>
+                    <span class="toggle-icon" id="preview-icon">▼</span>
                 </div>
-                <div class="menu-content" id="preview-content" style="display: none;">
+                <div class="menu-content" id="preview-content">
                     <div class="preview-controls">
                         <a href="shop.html" target="_blank" class="btn">🛒 Open Shop in New Tab</a>
                         <iframe src="shop.html" style="width: 100%; height: 600px; border: 1px solid #ddd; border-radius: 8px; margin-top: 10px;"></iframe>
                     </div>
                 </div>
             </div>
+            </div>
 
             <!-- Push Notifications -->
+            <div class="menu-section">
             <div class="menu-item">
                 <div class="menu-header" onclick="toggleMenu('notifications')">
                     <span>🔔 Push Notifications</span>
-                    <span class="toggle-icon" id="notifications-icon">▶</span>
+                    <span class="toggle-icon" id="notifications-icon">▼</span>
                 </div>
-                <div class="menu-content" id="notifications-content" style="display: none;">
+                <div class="menu-content" id="notifications-content">
                     <div class="notification-panel" style="padding: 20px;">
                         <h3>📱 Send Price Update Notifications</h3>
                         <p style="color: #666; margin-bottom: 20px;">
@@ -309,14 +320,16 @@
                     </div>
                 </div>
             </div>
+            </div>
 
             <!-- Password Management -->
+            <div class="menu-section">
             <div class="menu-item">
                 <div class="menu-header" onclick="toggleMenu('password')">
                     <span>🔒 Password Management</span>
-                    <span class="toggle-icon" id="password-icon">▶</span>
+                    <span class="toggle-icon" id="password-icon">▼</span>
                 </div>
-                <div class="menu-content" id="password-content" style="display: none;">
+                <div class="menu-content" id="password-content">
                     <div class="password-panel">
                         <div class="settings-section">
                             <h3>🔐 Change Admin Password</h3>
@@ -346,6 +359,7 @@
                         </div>
                     </div>
                 </div>
+            </div>
             </div>
         </div>
     </div>
