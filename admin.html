@@ -37,7 +37,7 @@
                 <span>🛒 Product Management</span>
                 <span class="toggle-icon" id="products-icon">▼</span>
             </div>
-            <div class="menu-content" id="products-content" style="display: block;">
+            <div class="menu-content" id="products-content">
                 <div class="controls">
                     <button class="btn" onclick="addProduct()">➕ Add Product</button>
                     <button class="btn" onclick="saveProducts()">💾 Save All</button>
@@ -381,8 +381,11 @@
             const content = document.getElementById(menuId + '-content');
             const icon = document.getElementById(menuId + '-icon');
             
-            if (content.style.display === 'none' || content.style.display === '') {
-                content.style.display = 'block';
+            if (content.classList.contains('expanded')) {
+                content.classList.remove('expanded');
+                icon.textContent = '▼';
+            } else {
+                content.classList.add('expanded');
                 icon.textContent = '▲';
                 
                 // If this is the customization menu and it hasn't been initialized
@@ -393,9 +396,6 @@
                         }
                     }, 100);
                 }
-            } else {
-                content.style.display = 'none';
-                icon.textContent = '▼';
             }
         }
 
@@ -405,8 +405,8 @@
             ['products', 'customization', 'password', 'categories', 'data', 'preview'].forEach(menuId => {
                 const content = document.getElementById(menuId + '-content');
                 const icon = document.getElementById(menuId + '-icon');
-                if (content) content.style.display = 'none';
-                if (icon) icon.textContent = '▶';
+                if (content) content.classList.remove('expanded');
+                if (icon) icon.textContent = '▼';
             });
             
             // Initialize customization system in the background without showing UI
