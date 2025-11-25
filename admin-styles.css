@@ -646,12 +646,14 @@ th {
 .menu-content {
     max-height: 0;
     overflow: hidden;
-    transition: max-height 0.5s ease;
+    transition: max-height 0.5s ease, padding 0.3s ease;
     background: var(--surface);
+    padding: 0;
 }
 
 .menu-content.expanded {
     max-height: 10000px;
+    padding: 15px;
 }
 
 /* Customization Panel */
