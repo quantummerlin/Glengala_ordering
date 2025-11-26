@@ -1,3 +1,100 @@
+/* Product List Styles */
+.product-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.product-item {
+    background: #222;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.product-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 18px;
+}
+
+.product-photo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    min-width: 60px;
+}
+
+.product-photo img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    background: #333;
+    border: 1px solid #444;
+}
+
+.product-fields {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    flex: 1;
+}
+
+.product-fields input[type="text"],
+.product-fields input[type="number"],
+.product-fields select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid #444;
+    background: #181818;
+    color: #fff;
+    font-size: 1em;
+    min-width: 90px;
+    max-width: 140px;
+}
+
+.product-fields input[type="checkbox"] {
+    transform: scale(1.2);
+    margin-right: 4px;
+}
+
+.product-fields label {
+    font-size: 0.98em;
+    color: #ccc;
+    margin-right: 8px;
+}
+
+.product-fields .btn {
+    padding: 7px 14px;
+    font-size: 0.95em;
+    margin-left: 4px;
+}
+
+@media (max-width: 600px) {
+    .product-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+    .product-fields {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 8px;
+    }
+    .product-item {
+        padding: 12px 7px;
+    }
+}
 /* Admin Panel Styles - Mobile Responsive */
 * {
     margin: 0;

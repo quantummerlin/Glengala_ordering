@@ -762,55 +762,48 @@ function sortProductsAlphabetically(products) {
 // Display products in table
 function displayProducts(productsToShow) {
     console.log('displayProducts called with', productsToShow.length, 'products');
-    const tbody = document.getElementById('productTableBody');
-    if (!tbody) {
-        console.error('productTableBody element not found!');
+    const list = document.getElementById('productList');
+    if (!list) {
+        console.error('productList element not found!');
         return;
     }
-    
-    console.log('Table body found, rendering products...');
-    tbody.innerHTML = '';
-    
-    // Sort products alphabetically by name, with blank names at the bottom
+    list.innerHTML = '';
     const sortedProducts = sortProductsAlphabetically([...productsToShow]);
-    
     sortedProducts.forEach(product => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>${product.id}</td>
-            <td>
-                ${product.photo ? `<img src="${product.photo}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">` : '📷'}
-                <input type="file" id="photo-${product.id}" accept="image/*" style="display: none;" onchange="uploadPhoto(${product.id}, this)">
-                <button class="btn" style="padding: 5px 10px; font-size: 0.8rem;" onclick="document.getElementById('photo-${product.id}').click()">Upload</button>
-            </td>
-            <td><input type="text" value="${product.name}" onchange="updateProduct(${product.id}, 'name', this.value)"></td>
-            <td>
-                <select onchange="updateProduct(${product.id}, 'category', this.value)">
-                    ${shopCategories.map(category => 
-                        `<option value="${category.id}" ${product.category === category.id ? 'selected' : ''}>${category.emoji} ${category.name}</option>`
-                    ).join('')}
-                </select>
-            </td>
-            <td><input type="number" value="${product.price}" step="0.01" onchange="updateProduct(${product.id}, 'price', parseFloat(this.value))"></td>
-            <td>
-                <select onchange="updateProduct(${product.id}, 'unit', this.value)">
-                    <option value="kg" ${product.unit === 'kg' ? 'selected' : ''}>per kg</option>
-                    <option value="each" ${product.unit === 'each' ? 'selected' : ''}>each</option>
-                    <option value="punnet" ${product.unit === 'punnet' ? 'selected' : ''}>punnet</option>
-                    <option value="bunch" ${product.unit === 'bunch' ? 'selected' : ''}>bunch</option>
-                </select>
-            </td>
-            <td>
-                <select onchange="updateProduct(${product.id}, 'increment', this.value)">
-                    <option value="100g" ${(product.increment || '100g') === '100g' ? 'selected' : ''}>100g +</option>
-                    <option value="500g" ${(product.increment || '100g') === '500g' ? 'selected' : ''}>500g +</option>
-                    <option value="1" ${(product.increment || '100g') === '1' ? 'selected' : ''}>1 +</option>
-                </select>
-            </td>
-            <td><input type="checkbox" ${product.active ? 'checked' : ''} onchange="updateProduct(${product.id}, 'active', this.checked)"></td>
-            <td><button class="btn danger" onclick="deleteProduct(${product.id})">🗑️</button></td>
+        const item = document.createElement('li');
+        item.className = 'product-item';
+        item.innerHTML = `
+            <div class="product-row">
+                <div class="product-photo">
+                    ${product.photo ? `<img src="${product.photo}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px;">` : '📷'}
+                    <input type="file" id="photo-${product.id}" accept="image/*" style="display: none;" onchange="uploadPhoto(${product.id}, this)">
+                    <button class="btn" style="padding: 5px 10px; font-size: 0.8rem;" onclick="document.getElementById('photo-${product.id}').click()">Upload</button>
+                </div>
+                <div class="product-fields">
+                    <input type="text" value="${product.name}" onchange="updateProduct(${product.id}, 'name', this.value)" placeholder="Name">
+                    <select onchange="updateProduct(${product.id}, 'category', this.value)">
+                        ${shopCategories.map(category => 
+                            `<option value="${category.id}" ${product.category === category.id ? 'selected' : ''}>${category.emoji} ${category.name}</option>`
+                        ).join('')}
+                    </select>
+                    <input type="number" value="${product.price}" step="0.01" onchange="updateProduct(${product.id}, 'price', parseFloat(this.value))" placeholder="Price">
+                    <select onchange="updateProduct(${product.id}, 'unit', this.value)">
+                        <option value="kg" ${product.unit === 'kg' ? 'selected' : ''}>per kg</option>
+                        <option value="each" ${product.unit === 'each' ? 'selected' : ''}>each</option>
+                        <option value="punnet" ${product.unit === 'punnet' ? 'selected' : ''}>punnet</option>
+                        <option value="bunch" ${product.unit === 'bunch' ? 'selected' : ''}>bunch</option>
+                    </select>
+                    <select onchange="updateProduct(${product.id}, 'increment', this.value)">
+                        <option value="100g" ${(product.increment || '100g') === '100g' ? 'selected' : ''}>100g +</option>
+                        <option value="500g" ${(product.increment || '100g') === '500g' ? 'selected' : ''}>500g +</option>
+                        <option value="1" ${(product.increment || '100g') === '1' ? 'selected' : ''}>1 +</option>
+                    </select>
+                    <label><input type="checkbox" ${product.active ? 'checked' : ''} onchange="updateProduct(${product.id}, 'active', this.checked)"> Active</label>
+                    <button class="btn danger" onclick="deleteProduct(${product.id})">🗑️</button>
+                </div>
+            </div>
         `;
-        tbody.appendChild(row);
+        list.appendChild(item);
     });
 }
 
