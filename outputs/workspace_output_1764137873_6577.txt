@@ -1,0 +1,50 @@
+            50% {
+                transform: translateY(-50%) scaleY(1.1);
+            }
+        }
+
+        .sacred-geometry {
+            display: none;
+        }
+        
+        .language-selector {
+            display: flex;
+--
+                                <ul style="color: #f0f0ff; padding-left: 20px; line-height: 1.6;">
+                                    <li><strong>Meditation & Prayer</strong> — Deepen your spiritual practice with creation's original vibrations</li>
+                                    <li><strong>Energy Work & Chakras</strong> — Support balance and flow in your body's energy centers</li>
+                                    <li><strong>Manifestation & Intention</strong> — Amplify your prayers, affirmations, and deepest desires</li>
+                                    <li><strong>Sound Healing</strong> — Experience frequencies used in ancient and modern healing traditions</li>
+                                    <li><strong>Sacred Mathematics</strong> — Connect with the divine geometry underlying all of reality</li>
+                                    <li><strong>Focus, Clarity & Peace</strong> — Create a sonic sanctuary for work, rest, and transformation</li>
+                                </ul>
+                                <p style="font-size: 12px; color: #9ca3af; margin-top: 15px; text-align: center;">
+                                    For spiritual exploration and personal growth • Not intended as medical treatment
+                                </p>
+--
+                        <path d="M0,50 Q40,25 80,50 T160,50 T240,50 T320,50 T400,50 T480,50 T560,50 T640,50 T720,50 T800,50 T880,50 T960,50 T1000,50" 
+                              fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="sacred-geometry"></div>
+            <div class="visualizer-content">
+            </div>
+        </div>
+
+        
+--
+                        <path d="M0,50 Q40,25 80,50 T160,50 T240,50 T320,50 T400,50 T480,50 T560,50 T640,50 T720,50 T800,50 T880,50 T960,50 T1000,50" 
+                              fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="sacred-geometry"></div>
+            <div class="visualizer-content">
+            </div>
+        </div>
+
+        <!-- Bottom Upgrade CTA -->
+--
+    </div>
+

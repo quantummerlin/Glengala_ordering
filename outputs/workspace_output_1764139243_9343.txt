@@ -1,0 +1,12 @@
+9036:                        parseFloat(this.elements.freq1.value),
+9037:                        parseFloat(this.elements.freq2.value),
+9038:                        parseFloat(this.elements.freq3.value)
+9092:                        parseFloat(this.elements.freq1.value),
+9093:                        parseFloat(this.elements.freq2.value),
+9094:                        parseFloat(this.elements.freq3.value)
+9287:                        parseFloat(this.elements.freq1.value),
+9288:                        parseFloat(this.elements.freq2.value),
+9289:                        parseFloat(this.elements.freq3.value)
+9399:                    parseFloat(this.elements.freq1.value),
+9400:                    parseFloat(this.elements.freq2.value),
+9401:                    parseFloat(this.elements.freq3.value)

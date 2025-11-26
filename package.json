@@ -1,0 +1,29 @@
+{
+  "name": "genesis-frequency-generator",
+  "version": "1.0.0",
+  "description": "A Progressive Web App that generates sacred frequencies based on Genesis 1:1",
+  "main": "Genesis FG Freemium.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "serve": "python -m http.server 8000",
+    "dev": "python -m http.server 8000"
+  },
+  "keywords": [
+    "pwa",
+    "frequency-generator",
+    "sacred-frequencies",
+    "meditation",
+    "healing",
+    "spiritual"
+  ],
+  "author": "Genesis Frequency Generator",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/genesis-frequency-generator.git"
+  },
+  "homepage": "https://yourusername.github.io/genesis-frequency-generator/",
+  "bugs": {
+    "url": "https://github.com/yourusername/genesis-frequency-generator/issues"
+  }
+}

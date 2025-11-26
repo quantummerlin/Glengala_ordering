@@ -1,0 +1,108 @@
+            }
+        }
+        
+        // Enhanced Trinity Frequency Recipes Database with Categories
+        // Order: Biblical, Angel Numbers, Cosmic & Planetary, Master Numbers, Solfeggio & Healing, Wellness & States
+        const trinityRecipes = {
+            "Chakra Frequencies": [
+                {
+                    name: "Root Chakra",
+                    frequencies: [37, 73, 396],
+                    description: "Grounding, safety, and stability. Associated with Liberation (396 Hz).",
+                    fullInfo: {
+                        whatItIs: "396 Hz is the Solfeggio frequency for liberating guilt and fear, working on the root chakra for grounding and stability.",
+                        benefits: "Promotes grounding, releases fear, and enhances feelings of safety and security.",
+                        howToUse: "Listen for 10-15 minutes during meditation or when you need grounding. Visualize roots connecting you to the earth."
+                    }
+                },
+                {
+                    name: "Sacral Chakra",
+                    frequencies: [37, 73, 417],
+                    description: "Creativity, pleasure, and emotional balance. Associated with Resolution (417 Hz).",
+                    fullInfo: {
+                        whatItIs: "417 Hz facilitates change and helps undo negative situations, working on the sacral chakra for creativity and emotional healing.",
+                        benefits: "Enhances creativity, emotional balance, and pleasure in life.",
+                        howToUse: "Use for 10-15 minutes to boost creativity or emotional healing. Focus on the lower abdomen."
+                    }
+--
+                    });
+                    
+                    const tracksContainer = categoryTab.querySelector('.category-tracks');
+                    
+                    // Add recipes to category
+                    trinityRecipes[category].forEach((recipe) => {
+                        const recipeElement = document.createElement('div');
+                        recipeElement.className = 'recipe-item';
+                        recipeElement.innerHTML = `
+                            <div class="recipe-info">
+                                <div class="recipe-name" data-translate="track${recipe.name.replace(/[^a-zA-Z0-9]/g, '').replace(/\s+/g, '')}">${recipe.name}</div>
+                                <div class="recipe-freqs">${recipe.frequencies.join(' Hz + ')} Hz</div>
+                            </div>
+                            <div class="recipe-buttons">
+                                <button class="track-btn play-btn" title="Play this track">▶</button>
+                                <button class="track-btn info-btn" title="Learn more">ℹ</button>
+                            </div>
+                        `;
+                        
+                        const playBtn = recipeElement.querySelector('.play-btn');
+                        const infoBtn = recipeElement.querySelector('.info-btn');
+                        
+                        playBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.selectRecipe(recipe);
+                            // Auto-play after selection
+--
+                    });
+                });
+                
+                // Auto-select first recipe (Genesis Creation)
+                setTimeout(() => {
+                    const firstCategory = Object.keys(trinityRecipes)[0];
+                    const firstRecipe = trinityRecipes[firstCategory][0];
+                    this.selectRecipe(firstRecipe);
+                }, 100);
+                
+                // Track user interactions for silent mode detection
+                const trackInteraction = () => {
+                    localStorage.setItem('lastUserInteraction', Date.now().toString());
+                };
+                
+                // Track various user interactions
+                ['click', 'touchstart', 'keydown', 'scroll'].forEach(event => {
+                    document.addEventListener(event, trackInteraction, { passive: true });
+                });
+            }
+
+            async play() {
+                // Haptic feedback for mobile
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(50);
+                }
+
+--
+                        if (this.isPlaying) {
+                            this.stop();
+                            // Record session in new achievement system
+                            if (window.GenesisAchievements && this.selectedRecipe) {
+                                const frequencies = this.selectedRecipe.frequencies || [];
+                                const trackId = this.selectedRecipe.name.toLowerCase().replace(/\s+/g, '');
+                                // Map category (simplified for now)
+                                let category = 'biblical'; // default
+                                if (this.selectedRecipe.name.includes('Angel') || this.selectedRecipe.name.includes('11:11')) {
+                                    category = 'angelNumbers';
+                                } else if (this.selectedRecipe.name.includes('Cosmic') || this.selectedRecipe.name.includes('Planetary')) {
+                                    category = 'cosmic';
+                                } else if (this.selectedRecipe.name.includes('Solfeggio') || this.selectedRecipe.name.includes('Chakra')) {
+                                    category = 'solfeggio';
+                                }
+
+                                window.GenesisAchievements.recordSession(
+                                    this.totalDuration,
+                                    frequencies,
+                                    trackId,
+                                    category,
+                                    {
+                                        intentionSet: false, // TODO: track user intentions
+                                        waterCharging: false, // TODO: track water charging
+                                        journalEntry: null // TODO: track journal entries
+                                    }

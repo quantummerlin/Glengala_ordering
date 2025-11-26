@@ -1,0 +1,113 @@
+                                panel.style.cssText = 'display: block; position: relative; z-index: 1000001; max-width: 900px; margin: 0; background: rgba(26,0,51,0.97); border-radius: 18px; box-shadow: 0 8px 32px rgba(139,92,246,0.18); padding: 20px; color: #fff; max-height: 80vh; overflow-y: auto;';
+                                
+                                overlay.appendChild(panel);
+                                document.body.appendChild(overlay);
+                                
+                                renderInstructionsAccordion();
+                                addInstructionsSearch();
+                            } else {
+                                var overlay = document.getElementById('instructionsOverlay');
+                                if (overlay) {
+                                    // Reset panel styles
+                                    panel.style.cssText = 'display: none; max-width: 900px; margin: 0 auto 18px auto; background: rgba(26,0,51,0.97); border-radius: 18px; box-shadow: 0 8px 32px rgba(139,92,246,0.18); padding: 20px; color: #fff; z-index: 10; position: relative;';
+
+           /* Genesis Companion Categories */
+           .companion-categories {
+               margin-top: 20px;
+           }
+           
+           .companion-category {
+               border-radius: 12px;
+               background: radial-gradient(circle at top left, rgba(139, 92, 246, 0.2), transparent 60%);
+               margin-bottom: 12px;
+               overflow: hidden;
+               border: 1px solid rgba(139, 92, 246, 0.3);
+               transition: all 0.3s ease;
+           }
+--
+                statusEl.textContent = `□ ${t.ready}`;
+            }
+            
+            // Update progress section to reflect new language
+            if (typeof instructionsSections !== 'undefined') {
+                renderInstructionsAccordion();
+            }
+        }
+        
+        // Enhanced Trinity Frequency Recipes Database with Categories
+        // Order: Biblical, Angel Numbers, Cosmic & Planetary, Master Numbers, Solfeggio & Healing, Wellness & States
+        const trinityRecipes = {
+            "Chakra Frequencies": [
+                {
+                    name: "Root Chakra",
+                    frequencies: [37, 73, 396],
+                    description: "Grounding, safety, and stability. Associated with Liberation (396 Hz).",
+                    fullInfo: {
+                        whatItIs: "396 Hz is the Solfeggio frequency for liberating guilt and fear, working on the root chakra for grounding and stability.",
+                        benefits: "Promotes grounding, releases fear, and enhances feelings of safety and security.",
+                        howToUse: "Listen for 10-15 minutes during meditation or when you need grounding. Visualize roots connecting you to the earth."
+                    }
+                },
+                {
+                    name: "Sacral Chakra",
+                    frequencies: [37, 73, 417],
+--
+            const panel = document.getElementById('instructionsPanel');
+            if (panel) {
+                panel.style.display = panel.style.display === 'none' ? 'block' : 'none';
+                // Render accordion content if showing
+                if (panel.style.display === 'block') {
+                    renderInstructionsAccordion();
+                }
+            }
+        }
+
+        // Render Instructions Accordion
+        function renderInstructionsAccordion() {
+            const accordion = document.getElementById('genesisCompanionCategories');
+            if (!accordion) return;
+            accordion.innerHTML = '';
+
+            instructionsSections.forEach(section => {
+                const panel = document.createElement('div');
+                panel.className = 'accordion-panel';
+                panel.innerHTML = `
+                    <div class="accordion-header" style="display:flex;align-items:center;justify-content:center;cursor:pointer;padding:12px 0;">
+                        <span style="font-size:20px;margin-right:8px;">${section.icon}</span>
+                        <span style="font-size:16px;font-weight:700;color:#fbbf24;">${section.title}</span>
+                    </div>
+                    <div class="accordion-content" style="display:none;padding:16px 0 0 0;text-align:center;color:#fff;">${section.content}</div>
+                `;
+                // Expand/collapse logic
+                const header = panel.querySelector('.accordion-header');
+                const content = panel.querySelector('.accordion-content');
+                header.addEventListener('click', () => {
+                    const expanded = content.style.display === 'block';
+                    document.querySelectorAll('.accordion-content').forEach(c => c.style.display = 'none');
+--
+        }
+    });
+    
+    // Update progress section if available
+    if (typeof instructionsSections !== 'undefined') {
+        renderInstructionsAccordion(); // Update progress section with loaded data
+    }
+    
+    // Load saved language preference
+    const savedLanguage = localStorage.getItem('preferredLanguage');
+    if (savedLanguage && translations[savedLanguage]) {
+        changeLanguage(savedLanguage);
+    }
+
+    // Register Service Worker for PWA functionality
+    if ('serviceWorker' in navigator && (location.protocol === 'http:' || location.protocol === 'https:')) {
+        navigator.serviceWorker.register('/Frequency-Generator/sw.js', { scope: '/Frequency-Generator/' })
+            .then(registration => {
+                console.log('Service Worker registered:', registration);
+            })
+            .catch(error => {
+                console.log('Service Worker registration failed:', error);
+            });
+    }
+
+    // Initialize homescreen and notification features

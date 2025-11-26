@@ -1,0 +1,20 @@
+568:            letter-spacing: 6px;
+600:            letter-spacing: 1px;
+620:            letter-spacing: 0.5px;
+950:            letter-spacing: 2px;
+985:            letter-spacing: 1px;
+2558:    <div id="immersiveWelcome" class="info-modal" style="z-index:5000;">
+2559:        <div class="info-modal-content" style="max-width: 500px; text-align: center; background: linear-gradient(135deg, rgba(26,0,51,0.95), rgba(139,92,246,0.9)); border: 2px solid rgba(251,191,36,0.5);">
+2560:            <div class="info-modal-header" style="color: #fbbf24; font-size: 28px; margin-bottom: 20px;">Welcome to Genesis Frequencies</div>
+2561:            <div class="info-modal-body" style="color: #ffffff; font-size: 18px; line-height: 1.6;">
+2598:    <div id="frequencyBenefitsModal" class="info-modal" style="z-index:4500;">
+2599:        <div class="info-modal-content" style="max-width: 600px; text-align: center; background: linear-gradient(135deg, rgba(26,0,51,0.95), rgba(139,92,246,0.9)); border: 2px solid rgba(251,191,36,0.5);">
+2600:            <div class="info-modal-header" style="color: #fbbf24; font-size: 28px; margin-bottom: 20px;">What Can These Frequencies Do?</div>
+2601:            <div class="info-modal-body" style="color: #fff; font-size: 16px; line-height: 1.6; text-align: left;">
+2652:    <div id="howToUseModal" class="info-modal" style="z-index:4000;">
+2653:        <div class="info-modal-content" style="max-width: 600px; text-align: center; background: linear-gradient(135deg, rgba(26,0,51,0.95), rgba(139,92,246,0.9)); border: 2px solid rgba(251,191,36,0.5);">
+2654:            <div class="info-modal-header" style="color: #fbbf24; font-size: 28px; margin-bottom: 20px;">Your First Session in 3 Steps</div>
+2655:            <div class="info-modal-body" style="color: #fff; font-size: 16px; line-height: 1.6; text-align: left;">
+2710:    <div id="pwaTipModal" class="info-modal" style="z-index:3500;">
+2711:        <div class="info-modal-content" style="max-width: 500px; text-align: center; background: linear-gradient(135deg, rgba(26,0,51,0.95), rgba(139,92,246,0.9)); border: 2px solid rgba(251,191,36,0.5);">
+2712:            <div class="info-modal-header" style="color: #fbbf24; font-size: 28px; margin-bottom: 20px;">⚡ Pro Tip</div>

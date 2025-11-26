@@ -1,0 +1,67 @@
+            // Handle visibility changes to keep audio playing
+            document.addEventListener('visibilitychange', handleVisibilityChange);
+
+            // Resume audio context if suspended
+            if (window.generator && window.generator.audioContext) {
+                if (window.generator.audioContext.state === 'suspended') {
+                    window.generator.audioContext.resume();
+                }
+            }
+        }
+
+        function disableBackgroundAudio() {
+            // Release wake lock
+            if ('wakeLock' in navigator && navigator.wakeLock) {
+                navigator.wakeLock.release();
+            }
+--
+                // App is minimized/backgrounded
+                console.log('App minimized - keeping audio active for premium user');
+
+                // Ensure audio context stays active
+                if (window.generator && window.generator.audioContext) {
+                    if (window.generator.audioContext.state === 'suspended') {
+                        window.generator.audioContext.resume().catch(err => {
+                            console.log('Failed to resume audio context:', err);
+                        });
+                    }
+                }
+            } else {
+                // App is focused again
+                console.log('App focused - audio context active');
+            }
+        }
+--
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    // Resume if suspended
+                    if (this.audioContext.state === 'suspended') {
+                        await this.audioContext.resume();
+                    }
+
+                    // Enable background audio for premium users
+                    const isPremium = localStorage.getItem('premiumAccessGranted') === 'true';
+                    if (isPremium && !backgroundAudioEnabled) {
+                        backgroundAudioEnabled = true;
+                        enableBackgroundAudio();
+                        console.log('Premium background audio automatically enabled');
+                    }
+--
+                    const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
+                                       window.navigator.standalone === true;
+                    
+                    // On iOS, silent mode often prevents audio playback in certain contexts
+                    // On Android, we can check if the audio context fails to start
+                    if (this.audioContext && this.audioContext.state === 'suspended') {
+                        return true; // Audio context suspended might indicate silent mode
+                    }
+                    
+                    // Check if the user has recently interacted (recent interaction suggests not silent)
+                    const lastInteraction = localStorage.getItem('lastUserInteraction');
+                    if (lastInteraction) {
+                        const timeSinceInteraction = Date.now() - parseInt(lastInteraction);
+                        // If more than 5 minutes since interaction, might be in silent mode
+                        if (timeSinceInteraction > 5 * 60 * 1000) {
+                            return true;

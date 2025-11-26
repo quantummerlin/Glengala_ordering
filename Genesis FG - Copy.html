@@ -1,0 +1,3010 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Genesis Frequency Generator">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#6B46C1">
+    <title>🌟 Genesis Frequency Generator</title>
+
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="Genesis.png">
+    <link rel="apple-touch-icon" href="Genesis.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: url('Genesis.png') center center/cover fixed;
+            min-height: 100vh;
+            padding: 10px;
+            color: #fff;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(26, 0, 51, 0.6) 0%, rgba(26, 0, 51, 0.9) 100%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @media (min-width: 768px) {
+            body {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: rgba(26, 0, 51, 0.88), url('Genesis.png') center center/cover;
+            backdrop-filter: blur(30px);
+            border-radius: 28px;
+            padding: 25px;
+            box-shadow: 
+                0 25px 70px rgba(0, 0, 0, 0.6),
+                0 0 0 1px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+            animation: slideUp 0.5s ease-out;
+            position: relative;
+            z-index: 2;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('Genesis.png') center center/cover;
+            border-radius: 28px;
+            opacity: 0.12;
+            z-index: -1;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(251, 191, 36, 0.8),
+                             0 0 40px rgba(251, 191, 36, 0.5),
+                             0 0 60px rgba(251, 191, 36, 0.3);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(251, 191, 36, 1),
+                             0 0 60px rgba(251, 191, 36, 0.8),
+                             0 0 90px rgba(251, 191, 36, 0.5);
+            }
+        }
+        
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            background: url('Genesis.png') center center/cover;
+            border-radius: 20px;
+            padding: 30px 20px;
+            box-shadow: 
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.70);
+            border-radius: 20px;
+            z-index: 0;
+        }
+        
+        .header > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo-container {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo-image {
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+            animation: logoGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% {
+                filter: drop-shadow(0 0 20px rgba(251, 191, 36, 0.6));
+            }
+            50% {
+                filter: drop-shadow(0 0 30px rgba(251, 191, 36, 0.9));
+            }
+        }
+
+        .hebrew-header {
+            font-size: 32px;
+            color: #fbbf24;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: 6px;
+            animation: pulseGlow 3s ease-in-out infinite;
+            text-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+        }
+
+        .hebrew-translation {
+            font-size: 16px;
+            color: #c4b5fd;
+            font-weight: 500;
+            margin-bottom: 20px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .main-title {
+            font-size: 36px;
+            font-weight: 800;
+            background: linear-gradient(90deg, 
+                #ffffff 0%, 
+                #fbbf24 25%, 
+                #c4b5fd 50%, 
+                #fbbf24 75%, 
+                #ffffff 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+            margin-bottom: 20px;
+            line-height: 1.3;
+            filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.5));
+            letter-spacing: 1px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #c4b5fd;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.4;
+            text-shadow: 0 2px 20px rgba(139, 92, 246, 0.7);
+            letter-spacing: 0.5px;
+        }
+
+        .gematria {
+            font-size: 14px;
+            color: #fbbf24;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-shadow: 0 2px 5px rgba(251, 191, 36, 0.3);
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(251, 191, 36, 0.3) 10%, 
+                rgba(251, 191, 36, 0.8) 50%, 
+                rgba(251, 191, 36, 0.3) 90%, 
+                transparent 100%);
+            margin: 15px auto;
+            width: 80%;
+            border-radius: 2px;
+        }
+
+        .trinity-base {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%), url('Genesis.png') center center/cover;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 16px;
+            padding: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+
+        .trinity-base::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.75);
+            border-radius: 14px;
+            z-index: 0;
+        }
+
+        .trinity-base > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .trinity-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c4b5fd;
+            margin-bottom: 10px;
+        }
+
+        .trinity-frequencies {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            text-align: center;
+        }
+
+        .trinity-freq {
+            text-align: center;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05), url('Genesis.png') center center/cover;
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .trinity-freq::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.80);
+            z-index: 0;
+        }
+
+        .trinity-freq > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .trinity-freq .hz {
+            font-size: 20px;
+            font-weight: 700;
+            color: #fbbf24;
+            text-shadow: 0 2px 5px rgba(251, 191, 36, 0.3);
+        }
+
+        .trinity-freq .label {
+            font-size: 12px;
+            color: #a78bfa;
+            margin-top: 2px;
+        }
+
+        .trinity-arrow {
+            color: #c4b5fd;
+            font-size: 18px;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.03), url('Genesis.png') center center/cover;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            position: relative;
+            box-shadow: 
+                0 4px 20px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.85);
+            border-radius: 20px;
+            z-index: 0;
+        }
+
+        .section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #c4b5fd;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            text-align: center;
+        }
+
+        .section-title::before {
+            content: '🌟';
+            font-size: 16px;
+        }
+
+        .section-title::after {
+            content: '🌟';
+            font-size: 16px;
+        }
+
+        .controls {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .frequency-controls {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+        
+        @media (min-width: 768px) {
+            .frequency-controls {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(139, 92, 246, 0.1);
+            text-align: center;
+        }
+
+        .duration-control {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(168, 85, 247, 0.1) 100%);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .duration-input-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .duration-buttons {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .duration-btn {
+            padding: 8px 12px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.05), url('Genesis.png') center center/cover;
+            color: #a78bfa;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .duration-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.80);
+            z-index: 0;
+        }
+
+        .duration-btn > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .duration-btn:hover {
+            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+            border-color: #c4b5fd;
+            color: #fbbf24;
+        }
+
+        .duration-btn:hover::before {
+            background: rgba(26, 0, 51, 0.65);
+        }
+
+        label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #a78bfa;
+            text-align: center;
+        }
+
+        input[type="number"],
+        input[type="range"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 8px;
+            text-align: center;
+            background: rgba(26, 0, 51, 0.9);
+            color: #fbbf24;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus,
+        select:focus {
+            outline: none;
+            border-color: #fbbf24;
+            box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+            background: rgba(26, 0, 51, 0.95);
+        }
+
+        input[type="range"] {
+            padding: 5px;
+            height: 40px;
+        }
+
+        #duration {
+            font-size: 18px;
+            text-align: center;
+            font-weight: 600;
+            background: rgba(26, 0, 51, 0.95);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            color: #fbbf24;
+            letter-spacing: 2px;
+        }
+
+        #duration:focus {
+            border-color: #fbbf24;
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+            background: rgba(26, 0, 51, 0.98);
+        }
+
+        option {
+            text-align: center !important;
+            text-align-last: center;
+        }
+
+        label[for^="volume"] {
+            display: none;
+        }
+
+        .range-value {
+            text-align: center;
+            font-size: 14px;
+            color: #fbbf24;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .button {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('Genesis.png') center center/cover;
+            opacity: 0.15;
+            z-index: 0;
+        }
+
+        .button > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: #fff;
+            box-shadow: 0 4px 15px rgba(139, 92, 246, 0.3);
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(139, 92, 246, 0.4);
+        }
+
+        .button-primary:active {
+            transform: translateY(0);
+        }
+
+        .button-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #a78bfa;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .button-secondary:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: #a78bfa;
+        }
+
+        .button-danger {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: #fff;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .recipes {
+            display: grid;
+            gap: 10px;
+        }
+
+        .category-tab {
+            background: rgba(139, 92, 246, 0.1), url('Genesis.png') center center/cover;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            margin-bottom: 10px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .category-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.82);
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .category-tab > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-header {
+            padding: 18px 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(139, 92, 246, 0.15), url('Genesis.png') center center/cover;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 
+                0 2px 12px rgba(139, 92, 246, 0.15),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .category-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.70);
+            z-index: 0;
+            transition: background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .category-header > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .category-header:hover {
+            background: rgba(139, 92, 246, 0.25), url('Genesis.png') center center/cover;
+            border-color: rgba(139, 92, 246, 0.35);
+            transform: translateY(-2px);
+            box-shadow: 
+                0 4px 20px rgba(139, 92, 246, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .category-header:hover::before {
+            background: rgba(26, 0, 51, 0.60);
+        }
+
+        .category-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex: 1;
+        }
+
+        .category-icon {
+            font-size: 20px;
+        }
+
+        .category-arrow {
+            font-size: 18px;
+            color: #a78bfa;
+            transition: transform 0.3s ease;
+        }
+
+        .category-tab.expanded .category-arrow {
+            transform: rotate(90deg);
+        }
+
+        .category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+        }
+
+        .category-tab.expanded .category-content {
+            max-height: 2000px;
+        }
+
+        .category-tracks {
+            padding: 10px;
+            display: grid;
+            gap: 8px;
+        }
+
+        .recipe-item {
+            background: rgba(255, 255, 255, 0.05), url('Genesis.png') center center/cover;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 14px;
+            padding: 14px 16px;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: grid;
+            grid-template-columns: 1fr auto auto;
+            gap: 12px;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 1px 8px rgba(0, 0, 0, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .recipe-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.88);
+            z-index: 0;
+            transition: background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .recipe-item > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .recipe-item:hover {
+            background: rgba(139, 92, 246, 0.1), url('Genesis.png') center center/cover;
+            border-color: #a78bfa;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 4px 16px rgba(139, 92, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .recipe-item:hover::before {
+            background: rgba(26, 0, 51, 0.75);
+        }
+
+        .recipe-item.active {
+            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+            border-color: #fbbf24;
+            box-shadow: 
+                0 0 20px rgba(251, 191, 36, 0.25),
+                0 4px 16px rgba(139, 92, 246, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .recipe-item.active::before {
+            background: rgba(26, 0, 51, 0.70);
+        }
+
+        .recipe-info {
+            text-align: left;
+            cursor: default;
+        }
+
+        .recipe-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #c4b5fd;
+            margin-bottom: 4px;
+        }
+
+        .recipe-freqs {
+            font-size: 13px;
+            color: #a78bfa;
+            margin-bottom: 0;
+        }
+
+        .recipe-buttons {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .track-btn {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+            color: #c4b5fd;
+            font-size: 19px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .track-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.70);
+            z-index: 0;
+            transition: background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .track-btn > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .track-btn:hover {
+            background: rgba(139, 92, 246, 0.4), url('Genesis.png') center center/cover;
+            border-color: #fbbf24;
+            color: #fbbf24;
+            transform: scale(1.15) rotate(5deg);
+            box-shadow: 
+                0 4px 16px rgba(139, 92, 246, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .track-btn:hover::before {
+            background: rgba(26, 0, 51, 0.50);
+        }
+
+        .track-btn.play-btn:hover {
+            background: rgba(34, 197, 94, 0.3), url('Genesis.png') center center/cover;
+            border-color: #22c55e;
+            color: #22c55e;
+            box-shadow: 
+                0 4px 16px rgba(34, 197, 94, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .track-btn.info-btn:hover {
+            background: rgba(251, 191, 36, 0.3), url('Genesis.png') center center/cover;
+            border-color: #fbbf24;
+            color: #fbbf24;
+            box-shadow: 
+                0 4px 16px rgba(251, 191, 36, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        }
+
+        .info-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .info-modal.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .info-modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            animation: slideUpModal 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideUpModal {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .info-modal-header {
+            color: #1a0033;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            padding-right: 30px;
+        }
+
+        .info-modal-freqs {
+            color: #6B46C1;
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding: 10px;
+            background: rgba(139, 92, 246, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .info-modal-body {
+            color: #333;
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .info-modal-body h3 {
+            color: #1a0033;
+            font-size: 18px;
+            font-weight: 600;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .info-modal-body p {
+            margin-bottom: 15px;
+        }
+
+        .info-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: none;
+            background: rgba(139, 92, 246, 0.2);
+            color: #6B46C1;
+            font-size: 24px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .info-modal-close:hover {
+            background: rgba(139, 92, 246, 0.4);
+            transform: rotate(90deg);
+        }
+
+        .status {
+            text-align: center;
+            padding: 10px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .status::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('Genesis.png') center center/cover;
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .status > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .status.playing {
+            background: rgba(34, 197, 94, 0.1);
+            color: #22c55e;
+            border: 1px solid rgba(34, 197, 94, 0.3);
+        }
+
+        .status.stopped {
+            background: rgba(148, 163, 184, 0.1);
+            color: #94a3b8;
+            border: 1px solid rgba(148, 163, 184, 0.3);
+        }
+
+        .visualizer {
+            height: 120px;
+            background: rgba(255, 255, 255, 0.02), url('Genesis.png') center center/cover;
+            border-radius: 12px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .visualizer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.85);
+            z-index: 0;
+        }
+
+        .visualizer > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .visualizer-content {
+            text-align: center;
+            color: #c4b5fd;
+            font-size: 14px;
+        }
+
+        .frequency-vibration {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+
+        .vibration-wave {
+            position: absolute;
+            width: 100%;
+            height: 80px;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .vibration-wave svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .vibration-wave:nth-child(1) {
+            animation: wave1 1s ease-in-out infinite;
+        }
+
+        .vibration-wave:nth-child(2) {
+            animation: wave2 0.5s ease-in-out infinite;
+        }
+
+        .vibration-wave:nth-child(3) {
+            animation: wave3 1.5s ease-in-out infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes wave1 {
+            0%, 100% {
+                transform: translateY(-50%) scaleY(0.8);
+            }
+            50% {
+                transform: translateY(-50%) scaleY(1.2);
+            }
+        }
+
+        @keyframes wave2 {
+            0%, 100% {
+                transform: translateY(-50%) scaleY(0.7);
+            }
+            50% {
+                transform: translateY(-50%) scaleY(1.3);
+            }
+        }
+
+        @keyframes wave3 {
+            0%, 100% {
+                transform: translateY(-50%) scaleY(0.9);
+            }
+            50% {
+                transform: translateY(-50%) scaleY(1.1);
+            }
+        }
+
+        .sacred-geometry {
+            display: none;
+        }
+        
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .language-btn {
+            padding: 10px 20px;
+            border: 2px solid rgba(139, 92, 246, 0.35);
+            border-radius: 10px;
+            background: rgba(26, 0, 51, 0.5), url('Genesis.png') center center/cover;
+            color: #a78bfa;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            text-decoration: none;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 
+                0 2px 8px rgba(0, 0, 0, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.03);
+        }
+
+        .language-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(26, 0, 51, 0.75);
+            z-index: 0;
+            transition: background 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .language-btn > * {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .language-btn:hover {
+            border-color: #fbbf24;
+            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+            color: #fbbf24;
+            transform: translateY(-2px);
+            box-shadow: 
+                0 4px 12px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.05);
+        }
+
+        .language-btn:hover::before {
+            background: rgba(26, 0, 51, 0.60);
+        }
+        
+        .language-btn.active {
+            border-color: #fbbf24;
+            background: rgba(251, 191, 36, 0.2), url('Genesis.png') center center/cover;
+            color: #fbbf24;
+            box-shadow: 
+                0 0 20px rgba(251, 191, 36, 0.35),
+                0 4px 12px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        }
+
+        .language-btn.active::before {
+            background: rgba(26, 0, 51, 0.55);
+        }
+        
+        .add-to-home {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.95) 0%, rgba(107, 70, 193, 0.95) 100%);
+            padding: 15px;
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            animation: slideUpBanner 0.5s ease-out;
+        }
+        
+        @media (max-width: 768px) {
+            .add-to-home {
+                display: block;
+            }
+        }
+        
+        @keyframes slideUpBanner {
+            from {
+                transform: translateY(100%);
+            }
+            to {
+                transform: translateY(0);
+            }
+        }
+        
+        .add-to-home-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .add-to-home-icon {
+            font-size: 24px;
+        }
+        
+        .add-to-home-text {
+            font-weight: 600;
+            line-height: 1.4;
+        }
+        
+        .add-to-home-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+        
+        .add-to-home-close:hover {
+            opacity: 1;
+        }
+
+        
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                border-radius: 20px;
+            }
+            
+            .main-title {
+                font-size: 24px;
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <!-- First-Time Instructions Modal -->
+    <div id="firstTimeModal" class="info-modal" style="z-index:2000;">
+        <div class="info-modal-content" style="max-width:420px;">
+            <button class="info-modal-close" onclick="closeFirstTimeModal()">×</button>
+            <div class="info-modal-header" style="color:#6B46C1;">🌟 Welcome to Genesis Frequency Generator!</div>
+            <div class="info-modal-body" style="color:#333; font-size:16px;">
+                <p>✨ <b>Get the most out of your experience:</b></p>
+                <ul style="margin-left:18px; margin-bottom:10px;">
+                    <li>🎧 <b>Use headphones</b> for the deepest effect.</li>
+                    <li>🧘 <b>Set an intention</b> before you play a track.</li>
+                    <li>🔄 <b>Try different recipes</b> and chakra tracks to explore new states.</li>
+                    <li>💾 <b>Export WAV</b> to use frequencies offline or share with friends.</li>
+                    <li>📱 <b>Add to Home Screen</b> for instant access:<br>
+                        <span style="font-size:14px; color:#6B46C1;">On iOS: Tap <b>Share</b> <span style="font-size:18px;">🔗</span> then "Add to Home Screen".<br>
+                        On Android: Tap browser menu <span style="font-size:18px;">⋮</span> then "Add to Home Screen".</span>
+                    </li>
+                </ul>
+                <p style="color:#a78bfa; font-size:15px;">Have fun exploring frequencies! You can always find these tips in the instructions section below.</p>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="language-selector">
+            <button class="language-btn active" onclick="changeLanguage('en')" data-lang="en">English</button>
+            <button class="language-btn" onclick="changeLanguage('pt')" data-lang="pt">Português</button>
+            <button class="language-btn" onclick="changeLanguage('es')" data-lang="es">Español</button>
+            <button class="language-btn" onclick="changeLanguage('it')" data-lang="it">Italiano</button>
+        </div>
+        
+        <div class="header">
+            <div class="hebrew-header">בְּרֵאשִׁית בָּרָא אֱלֹהִים אֵת הַשָּׁמַיִם וְאֵת הָאָרֶץ</div>
+            <div class="hebrew-translation" data-translate="hebrewTranslation">In the beginning God created the heavens and the earth</div>
+            <div class="divider"></div>
+            <div style="font-size:22px; font-weight:800; color:#fbbf24; text-align:center; margin-bottom:2px;">Genesis Frequency Generator</div>
+            <div style="font-size:16px; font-weight:600; color:#c4b5fd; text-align:center; margin-bottom:10px;">inspired by</div>
+            <h1 class="main-title" data-translate="title" style="margin-bottom:0;">Genesis 1:1</h1>
+            <div class="subtitle" data-translate="subtitle">Biblical Trinity Frequency System</div>
+            <div class="divider"></div>
+            <div class="gematria" style="font-size: 18px;">37 Hz + 73 Hz</div>
+            <div class="gematria" style="font-size: 15px; margin-top: -15px;" data-translate="pattern">Prayer Amplifier</div>
+        </div>
+
+        <div class="trinity-base">
+            <div class="trinity-title" data-translate="trinityTitle">Trinity Foundation Frequencies</div>
+            <div class="trinity-frequencies">
+                <div class="trinity-freq">
+                    <div class="hz">37 Hz</div>
+                    <div class="label">Form/Matter</div>
+                </div>
+                <div class="trinity-arrow">+</div>
+                <div class="trinity-freq">
+                    <div class="hz">73 Hz</div>
+                    <div class="label">Spirit/Divine</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="visualizer">
+            <div class="frequency-vibration">
+                <div class="vibration-wave">
+                    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q50,20 100,50 T200,50 T300,50 T400,50 T500,50 T600,50 T700,50 T800,50 T900,50 T1000,50" 
+                              fill="none" stroke="rgba(251, 191, 36, 0.8)" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="vibration-wave">
+                    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q25,15 50,50 T100,50 T150,50 T200,50 T250,50 T300,50 T350,50 T400,50 T450,50 T500,50 T550,50 T600,50 T650,50 T700,50 T750,50 T800,50 T850,50 T900,50 T950,50 T1000,50" 
+                              fill="none" stroke="rgba(139, 92, 246, 0.8)" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="vibration-wave">
+                    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q40,25 80,50 T160,50 T240,50 T320,50 T400,50 T480,50 T560,50 T640,50 T720,50 T800,50 T880,50 T960,50 T1000,50" 
+                              fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="sacred-geometry"></div>
+            <div class="visualizer-content">
+            </div>
+        </div>
+
+        
+
+        <div class="section">
+            <div class="section-title" data-translate="recipesTitle">Trinity Frequency Recipes</div>
+            <div class="recipes" id="recipes">
+                <!-- Recipes will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Info Modal -->
+        <div class="info-modal" id="infoModal">
+            <div class="info-modal-content">
+                <button class="info-modal-close" onclick="closeInfoModal()">×</button>
+                <div class="info-modal-header" id="modalTitle"></div>
+                <div class="info-modal-freqs" id="modalFreqs"></div>
+                <div class="info-modal-body" id="modalBody"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title" data-translate="controlsTitle">Frequency Controls</div>
+            <div class="controls">
+                <div class="frequency-controls">
+                    <div class="control-group">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="number" id="freq1" min="0.1" max="100000" step="0.1" value="37" style="flex: 1;">
+                            <span style="color: #a78bfa; font-size: 14px; font-weight: 500; min-width: 30px;">Hz</span>
+                        </div>
+                        <input type="range" id="volume1" min="0" max="100" value="50">
+                        <div class="range-value" id="volume1Value">50%</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="number" id="freq2" min="0.1" max="100000" step="0.1" value="73" style="flex: 1;">
+                            <span style="color: #a78bfa; font-size: 14px; font-weight: 500; min-width: 30px;">Hz</span>
+                        </div>
+                        <input type="range" id="volume2" min="0" max="100" value="50">
+                        <div class="range-value" id="volume2Value">50%</div>
+                    </div>
+                    
+                    <div class="control-group">
+                        <div style="display: flex; align-items: center; gap: 8px;">
+                            <input type="number" id="freq3" min="0.1" max="100000" step="0.1" value="0" style="flex: 1;">
+                            <span style="color: #a78bfa; font-size: 14px; font-weight: 500; min-width: 30px;">Hz</span>
+                        </div>
+                        <input type="range" id="volume3" min="0" max="100" value="50">
+                        <div class="range-value" id="volume3Value">50%</div>
+                    </div>
+                </div>
+                
+                <div class="control-group duration-control">
+                    <label for="duration" data-translate="duration">⏱️ Duration</label>
+                    <div class="duration-input-wrapper">
+                        <input type="text" id="duration" placeholder="05:00" value="05:00" pattern="[0-9]{1,2}:[0-9]{2}" maxlength="5">
+                        <div class="duration-buttons">
+                            <button type="button" class="duration-btn" data-time="01:00">1m</button>
+                            <button type="button" class="duration-btn" data-time="05:00">5m</button>
+                            <button type="button" class="duration-btn" data-time="10:00">10m</button>
+                            <button type="button" class="duration-btn" data-time="30:00">30m</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-group">
+                    <button class="button button-primary" id="playBtn">▶ PLAY</button>
+                    <button class="button button-danger" id="stopBtn">■ STOP</button>
+                    <button class="button button-secondary" id="exportBtn">⬇ EXPORT WAV</button>
+                    <button class="button button-secondary" id="resetBtn">↺ RESET</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="status stopped" id="status">
+            □ Ready to Generate Genesis Frequencies
+        </div>
+
+        <div class="visualizer" style="margin-top: 20px;">
+            <div class="frequency-vibration">
+                <div class="vibration-wave">
+                    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q50,20 100,50 T200,50 T300,50 T400,50 T500,50 T600,50 T700,50 T800,50 T900,50 T1000,50" 
+                              fill="none" stroke="rgba(251, 191, 36, 0.8)" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="vibration-wave">
+                    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q25,15 50,50 T100,50 T150,50 T200,50 T250,50 T300,50 T350,50 T400,50 T450,50 T500,50 T550,50 T600,50 T650,50 T700,50 T750,50 T800,50 T850,50 T900,50 T950,50 T1000,50" 
+                              fill="none" stroke="rgba(139, 92, 246, 0.8)" stroke-width="3"/>
+                    </svg>
+                </div>
+                <div class="vibration-wave">
+                    <svg viewBox="0 0 1000 100" preserveAspectRatio="none">
+                        <path d="M0,50 Q40,25 80,50 T160,50 T240,50 T320,50 T400,50 T480,50 T560,50 T640,50 T720,50 T800,50 T880,50 T960,50 T1000,50" 
+                              fill="none" stroke="rgba(168, 85, 247, 0.3)" stroke-width="3"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="sacred-geometry"></div>
+            <div class="visualizer-content">
+            </div>
+        </div>
+    </div>
+
+    
+    <div class="add-to-home" id="addToHome">
+        <button class="add-to-home-close" onclick="closeAddToHome()">×</button>
+        <div class="add-to-home-content" style="cursor:pointer;" onclick="showAddToHomePopup()">
+            <span class="add-to-home-icon">🌟</span>
+            <span class="add-to-home-text" style="font-weight:700;">Click here to add to home screen</span>
+        </div>
+        <!-- Add to Home Screen Popup Modal -->
+        <div id="addToHomeModal" class="info-modal" style="z-index:2000;">
+            <div class="info-modal-content" style="max-width:420px;">
+                <button class="info-modal-close" onclick="closeAddToHomePopup()">×</button>
+                <div class="info-modal-header" style="color:#6B46C1;">📱 Add Genesis Frequency Generator to your Home Screen</div>
+                <div class="info-modal-body" style="color:#333; font-size:16px;">
+                    <ul style="margin-left:18px; margin-bottom:10px;">
+                        <li>On <b>iOS</b>: Tap <b>Share</b> <span style="font-size:18px;">🔗</span> then "Add to Home Screen".</li>
+                        <li>On <b>Android</b>: Tap browser menu <span style="font-size:18px;">⋮</span> then "Add to Home Screen".</li>
+                    </ul>
+                    <p style="color:#a78bfa; font-size:15px;">Once added, you won't see this message again. Enjoy instant access!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+                // Add to Home Screen popup logic
+                function showAddToHomePopup() {
+                    document.getElementById('addToHomeModal').style.display = 'flex';
+                }
+                function closeAddToHomePopup() {
+                    document.getElementById('addToHomeModal').style.display = 'none';
+                    document.getElementById('addToHome').style.display = 'none';
+                    localStorage.setItem('hideAddToHome', 'true');
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (localStorage.getItem('hideAddToHome') === 'true') {
+                        document.getElementById('addToHome').style.display = 'none';
+                    } else {
+                        document.getElementById('addToHome').style.display = 'block';
+                    }
+                    document.getElementById('addToHomeModal').style.display = 'none';
+                });
+        // Show first-time modal only on first visit
+        function closeFirstTimeModal() {
+            document.getElementById('firstTimeModal').style.display = 'none';
+            localStorage.setItem('hideFirstTimeModal', 'true');
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            if (localStorage.getItem('hideFirstTimeModal') !== 'true') {
+                document.getElementById('firstTimeModal').style.display = 'flex';
+            } else {
+                document.getElementById('firstTimeModal').style.display = 'none';
+            }
+        });
+        // Translation data
+        const translations = {
+            en: {
+                hebrewTranslation: "In the beginning God created the heavens and the earth",
+                title: "Genesis 1:1 The Sound of Creation",
+                subtitle: "Biblical Trinity Frequency System",
+                pattern: "Prayer Amplifier",
+                trinityTitle: "Trinity Foundation Frequencies",
+                formMatter: "Form/Matter",
+                spiritDivine: "Spirit/Divine",
+                beatPattern: "Beat Pattern",
+                recipesTitle: "Trinity Frequency Recipes",
+                controlsTitle: "Frequency Controls",
+                duration: "Duration",
+                play: "PLAY",
+                pause: "PAUSE",
+                stop: "STOP",
+                export: "EXPORT WAV",
+                reset: "RESET",
+                ready: "Ready to Generate Genesis Frequencies",
+                stopped: "Stopped - Ready to Generate",
+                playing: "Playing",
+                remaining: "remaining",
+                selected: "Selected",
+                autoBalanced: "Auto-balanced volumes",
+                addToHomeText: "Add to Home Screen for quick access!",
+                // Category names
+                catBiblical: "Biblical & Original",
+                catSolfeggio: "Solfeggio & Healing",
+                catAngel: "Angel Numbers",
+                catMaster: "Master Numbers",
+                catCosmic: "Cosmic & Planetary",
+                catWellness: "Wellness & States",
+                // Track names
+                trackGenesisCreation: "Genesis Creation",
+                trackDivineAbundance: "Divine Abundance",
+                track12Apostles: "12 Apostles",
+                track7Churches: "7 Churches",
+                track40Days: "40 Days",
+                track3Days: "3 Days",
+                trackSacredHealing: "Sacred Healing",
+                trackLoveFrequency: "Love Frequency",
+                trackLiberation396: "Liberation (396)",
+                trackResolution417: "Resolution (417)",
+                trackTransformation639: "Transformation (639)",
+                trackAwakening852: "Awakening (852)",
+                trackHigherSelf: "Higher Self",
+                trackIntuition: "Intuition",
+                trackAngelNumbers: "Angel Numbers",
+                trackAngel222: "Angel 222",
+                trackAngel333: "Angel 333",
+                trackAngel444: "Angel 444",
+                trackAngel555: "Angel 555",
+                trackAngel666: "Angel 666",
+                trackAngel777: "Angel 777",
+                trackAngel888: "Angel 888",
+                trackAngel999: "Angel 999",
+                trackMaster1111: "Master 11:11",
+                trackMaster22: "Master 22",
+                trackMaster33: "Master 33",
+                trackMaster44: "Master 44",
+                trackMaster55: "Master 55",
+                trackEarthResonance: "Earth Resonance",
+                trackVenusLove: "Venus Love",
+                trackMarsAction: "Mars Action",
+                trackFibonacci144: "Fibonacci 144",
+                trackPi314: "Pi 314",
+                trackGoldenRatio: "Golden Ratio",
+                trackPainRelief: "Pain Relief",
+                trackStressRelief: "Stress Relief",
+                trackSleepDeep: "Sleep Deep",
+                trackFocusClear: "Focus Clear",
+                trackMemoryBoost: "Memory Boost",
+                trackMiracleTone: "Miracle Tone"
+            },
+            pt: {
+                hebrewTranslation: "No princípio Deus criou os céus e a terra",
+                title: "Gênesis 1:1 O Som da Criação",
+                subtitle: "Sistema de Frequência da Trindade Bíblica",
+                pattern: "Amplificador de Oração",
+                trinityTitle: "Frequências da Fundação da Trindade",
+                formMatter: "Forma/Matéria",
+                spiritDivine: "Espírito/Divino",
+                beatPattern: "Padrão de Batida",
+                recipesTitle: "Receitas de Frequência da Trindade",
+                controlsTitle: "Controles de Frequência",
+                duration: "Duração",
+                play: "TOCAR",
+                pause: "PAUSAR",
+                stop: "PARAR",
+                export: "EXPORTAR WAV",
+                reset: "REINICIAR",
+                ready: "Pronto para Gerar Frequências Genesis",
+                stopped: "Parado - Pronto para Gerar",
+                playing: "Tocando",
+                remaining: "restante",
+                selected: "Selecionado",
+                autoBalanced: "Volumes auto-balanceados",
+                addToHomeText: "Adicione à Tela Inicial para acesso rápido!",
+                // Category names
+                catBiblical: "Bíblico & Original",
+                catSolfeggio: "Solfeggio & Cura",
+                catAngel: "Números dos Anjos",
+                catMaster: "Números Mestres",
+                catCosmic: "Cósmico & Planetário",
+                catWellness: "Bem-estar & Estados",
+                // Track names
+                trackGenesisCreation: "Criação de Gênesis",
+                trackDivineAbundance: "Abundância Divina",
+                track12Apostles: "12 Apóstolos",
+                track7Churches: "7 Igrejas",
+                track40Days: "40 Dias",
+                track3Days: "3 Dias",
+                trackSacredHealing: "Cura Sagrada",
+                trackLoveFrequency: "Frequência do Amor",
+                trackLiberation396: "Libertação (396)",
+                trackResolution417: "Resolução (417)",
+                trackTransformation639: "Transformação (639)",
+                trackAwakening852: "Despertar (852)",
+                trackHigherSelf: "Eu Superior",
+                trackIntuition: "Intuição",
+                trackAngelNumbers: "Números dos Anjos",
+                trackAngel222: "Anjo 222",
+                trackAngel333: "Anjo 333",
+                trackAngel444: "Anjo 444",
+                trackAngel555: "Anjo 555",
+                trackAngel666: "Anjo 666",
+                trackAngel777: "Anjo 777",
+                trackAngel888: "Anjo 888",
+                trackAngel999: "Anjo 999",
+                trackMaster1111: "Mestre 11:11",
+                trackMaster22: "Mestre 22",
+                trackMaster33: "Mestre 33",
+                trackMaster44: "Mestre 44",
+                trackMaster55: "Mestre 55",
+                trackEarthResonance: "Ressonância da Terra",
+                trackVenusLove: "Amor de Vênus",
+                trackMarsAction: "Ação de Marte",
+                trackFibonacci144: "Fibonacci 144",
+                trackPi314: "Pi 314",
+                trackGoldenRatio: "Proporção Áurea",
+                trackPainRelief: "Alívio da Dor",
+                trackStressRelief: "Alívio do Estresse",
+                trackSleepDeep: "Sono Profundo",
+                trackFocusClear: "Foco Claro",
+                trackMemoryBoost: "Impulso de Memória",
+                trackMiracleTone: "Tom do Milagre"
+            },
+            es: {
+                hebrewTranslation: "En el principio creó Dios los cielos y la tierra",
+                title: "Génesis 1:1 El Sonido de la Creación",
+                subtitle: "Sistema de Frecuencia de la Trinidad Bíblica",
+                pattern: "Amplificador de Oración",
+                trinityTitle: "Frecuencias de la Fundación de la Trinidad",
+                formMatter: "Forma/Materia",
+                spiritDivine: "Espíritu/Divino",
+                beatPattern: "Patrón de Latido",
+                recipesTitle: "Recetas de Frecuencia de la Trinidad",
+                controlsTitle: "Controles de Frequencia",
+                duration: "Duración",
+                play: "REPRODUCIR",
+                pause: "PAUSAR",
+                stop: "DETENER",
+                export: "EXPORTAR WAV",
+                reset: "REINICIAR",
+                ready: "Listo para Generar Frecuencias Genesis",
+                stopped: "Detenido - Listo para Generar",
+                playing: "Reproduciendo",
+                remaining: "restante",
+                selected: "Seleccionado",
+                autoBalanced: "Volúmenes auto-balanceados",
+                addToHomeText: "¡Agregar a la Pantalla de Inicio para acceso rápido!",
+                // Category names
+                catBiblical: "Bíblico & Original",
+                catSolfeggio: "Solfeggio & Sanación",
+                catAngel: "Números Angelicales",
+                catMaster: "Números Maestros",
+                catCosmic: "Cósmico & Planetario",
+                catWellness: "Bienestar & Estados",
+                // Track names
+                trackGenesisCreation: "Creación de Génesis",
+                trackDivineAbundance: "Abundancia Divina",
+                track12Apostles: "12 Apóstoles",
+                track7Churches: "7 Iglesias",
+                track40Days: "40 Días",
+                track3Days: "3 Días",
+                trackSacredHealing: "Sanación Sagrada",
+                trackLoveFrequency: "Frecuencia del Amor",
+                trackLiberation396: "Liberación (396)",
+                trackResolution417: "Resolución (417)",
+                trackTransformation639: "Transformación (639)",
+                trackAwakening852: "Despertar (852)",
+                trackHigherSelf: "Yo Superior",
+                trackIntuition: "Intuición",
+                trackAngelNumbers: "Números Angelicales",
+                trackAngel222: "Ángel 222",
+                trackAngel333: "Ángel 333",
+                trackAngel444: "Ángel 444",
+                trackAngel555: "Ángel 555",
+                trackAngel666: "Ángel 666",
+                trackAngel777: "Ángel 777",
+                trackAngel888: "Ángel 888",
+                trackAngel999: "Ángel 999",
+                trackMaster1111: "Maestro 11:11",
+                trackMaster22: "Maestro 22",
+                trackMaster33: "Maestro 33",
+                trackMaster44: "Maestro 44",
+                trackMaster55: "Maestro 55",
+                trackEarthResonance: "Resonancia de la Tierra",
+                trackVenusLove: "Amor de Venus",
+                trackMarsAction: "Acción de Marte",
+                trackFibonacci144: "Fibonacci 144",
+                trackPi314: "Pi 314",
+                trackGoldenRatio: "Proporción Áurea",
+                trackPainRelief: "Alivio del Dolor",
+                trackStressRelief: "Alivio del Estrés",
+                trackSleepDeep: "Sueño Profundo",
+                trackFocusClear: "Enfoque Claro",
+                trackMemoryBoost: "Impulso de Memoria",
+                trackMiracleTone: "Tono Milagroso"
+            },
+            it: {
+                hebrewTranslation: "In principio Dio creò il cielo e la terra",
+                title: "Genesi 1:1 Il Suono della Creazione",
+                subtitle: "Sistema di Frequenza della Trinità Biblica",
+                pattern: "Amplificatore di Preghiera",
+                trinityTitle: "Frequenze della Fondazione della Trinità",
+                formMatter: "Forma/Materia",
+                spiritDivine: "Spirito/Divino",
+                beatPattern: "Schema del Battito",
+                recipesTitle: "Ricette di Frequenza della Trinità",
+                controlsTitle: "Controlli di Frequenza",
+                duration: "Durata",
+                play: "RIPRODUCI",
+                pause: "PAUSA",
+                stop: "FERMA",
+                export: "ESPORTA WAV",
+                reset: "RIPRISTINA",
+                ready: "Pronto per Generare Frequenze Genesis",
+                stopped: "Fermato - Pronto per Generare",
+                playing: "Riproduzione",
+                remaining: "rimanente",
+                selected: "Selezionato",
+                autoBalanced: "Volumi auto-bilanciati",
+                addToHomeText: "Aggiungi alla schermata Home per un accesso rapido!",
+                // Category names
+                catBiblical: "Biblico & Originale",
+                catSolfeggio: "Solfeggio & Guarigione",
+                catAngel: "Numeri Angelici",
+                catMaster: "Numeri Maestri",
+                catCosmic: "Cosmico & Planetario",
+                catWellness: "Benessere & Stati",
+                // Track names
+                trackGenesisCreation: "Creazione di Genesi",
+                trackDivineAbundance: "Abbondanza Divina",
+                track12Apostles: "12 Apostoli",
+                track7Churches: "7 Chiese",
+                track40Days: "40 Giorni",
+                track3Days: "3 Giorni",
+                trackSacredHealing: "Guarigione Sacra",
+                trackLoveFrequency: "Frequenza dell'Amore",
+                trackLiberation396: "Liberazione (396)",
+                trackResolution417: "Risoluzione (417)",
+                trackTransformation639: "Trasformazione (639)",
+                trackAwakening852: "Risveglio (852)",
+                trackHigherSelf: "Sé Superiore",
+                trackIntuition: "Intuizione",
+                trackAngelNumbers: "Numeri Angelici",
+                trackAngel222: "Angelo 222",
+                trackAngel333: "Angelo 333",
+                trackAngel444: "Angelo 444",
+                trackAngel555: "Angelo 555",
+                trackAngel666: "Angelo 666",
+                trackAngel777: "Angelo 777",
+                trackAngel888: "Angelo 888",
+                trackAngel999: "Angelo 999",
+                trackMaster1111: "Maestro 11:11",
+                trackMaster22: "Maestro 22",
+                trackMaster33: "Maestro 33",
+                trackMaster44: "Maestro 44",
+                trackMaster55: "Maestro 55",
+                trackEarthResonance: "Risonanza della Terra",
+                trackVenusLove: "Amore di Venere",
+                trackMarsAction: "Azione di Marte",
+                trackFibonacci144: "Fibonacci 144",
+                trackPi314: "Pi 314",
+                trackGoldenRatio: "Rapporto Aureo",
+                trackPainRelief: "Sollievo dal Dolore",
+                trackStressRelief: "Sollievo dallo Stress",
+                trackSleepDeep: "Sonno Profondo",
+                trackFocusClear: "Focus Chiaro",
+                trackMemoryBoost: "Incremento Memoria",
+                trackMiracleTone: "Tono Miracoloso"
+            }
+        };
+        
+        let currentLanguage = 'en';
+        
+        // Load saved language preference on startup
+        (function() {
+            const savedLanguage = localStorage.getItem('preferredLanguage');
+            if (savedLanguage && translations[savedLanguage]) {
+                currentLanguage = savedLanguage;
+                // Wait for DOM to be ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', () => changeLanguage(savedLanguage));
+                } else {
+                    changeLanguage(savedLanguage);
+                }
+            }
+        })();
+        
+        function closeAddToHome() {
+            const banner = document.getElementById('addToHome');
+            banner.style.display = 'none';
+            localStorage.setItem('hideAddToHome', 'true');
+        }
+        
+        // Check if user already dismissed the banner
+        if (localStorage.getItem('hideAddToHome') === 'true') {
+            const banner = document.getElementById('addToHome');
+            if (banner) banner.style.display = 'none';
+        }
+        
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            const t = translations[lang];
+            
+            // Save language preference
+            localStorage.setItem('preferredLanguage', lang);
+            
+            // Update active button state
+            document.querySelectorAll('.language-btn').forEach(btn => {
+                if (btn.getAttribute('data-lang') === lang) {
+                    btn.classList.add('active');
+                } else {
+                    btn.classList.remove('active');
+                }
+            });
+            
+            // Update all elements with data-translate attribute
+            document.querySelectorAll('[data-translate]').forEach(el => {
+                const key = el.getAttribute('data-translate');
+                if (t[key]) {
+                    el.textContent = t[key];
+                }
+            });
+            
+            // Update Trinity section labels
+            const trinityLabels = document.querySelectorAll('.trinity-freq .label');
+            if (trinityLabels[0]) trinityLabels[0].textContent = t.formMatter;
+            if (trinityLabels[1]) trinityLabels[1].textContent = t.spiritDivine;
+            if (trinityLabels[2]) trinityLabels[2].textContent = t.beatPattern;
+            
+            // Update buttons
+            const playBtn = document.getElementById('playBtn');
+            if (playBtn && playBtn.textContent.includes('PLAY')) {
+                playBtn.textContent = `▶ ${t.play}`;
+            }
+            document.getElementById('stopBtn').textContent = `■ ${t.stop}`;
+            document.getElementById('exportBtn').textContent = `⬇ ${t.export}`;
+            document.getElementById('resetBtn').textContent = `↺ ${t.reset}`;
+            
+            // Update status if not playing
+            const statusEl = document.getElementById('status');
+            if (statusEl && statusEl.textContent.includes('Ready')) {
+                statusEl.textContent = `□ ${t.ready}`;
+            }
+        }
+        
+        // Enhanced Trinity Frequency Recipes Database with Categories
+        // Order: Biblical, Angel Numbers, Cosmic & Planetary, Master Numbers, Solfeggio & Healing, Wellness & States
+        const trinityRecipes = {
+            "Chakra Frequencies": [
+                {
+                    name: "Root Chakra",
+                    frequencies: [37, 73, 396],
+                    description: "Grounding, safety, and stability. Associated with Liberation (396 Hz).",
+                    fullInfo: {
+                        whatItIs: "396 Hz is the Solfeggio frequency for liberating guilt and fear, working on the root chakra for grounding and stability.",
+                        benefits: "Promotes grounding, releases fear, and enhances feelings of safety and security.",
+                        howToUse: "Listen for 10-15 minutes during meditation or when you need grounding. Visualize roots connecting you to the earth."
+                    }
+                },
+                {
+                    name: "Sacral Chakra",
+                    frequencies: [37, 73, 417],
+                    description: "Creativity, pleasure, and emotional balance. Associated with Resolution (417 Hz).",
+                    fullInfo: {
+                        whatItIs: "417 Hz facilitates change and helps undo negative situations, working on the sacral chakra for creativity and emotional healing.",
+                        benefits: "Enhances creativity, emotional balance, and pleasure in life.",
+                        howToUse: "Use for 10-15 minutes to boost creativity or emotional healing. Focus on the lower abdomen."
+                    }
+                },
+                {
+                    name: "Solar Plexus Chakra",
+                    frequencies: [37, 73, 528],
+                    description: "Personal power, confidence, and transformation. Associated with Love Frequency (528 Hz).",
+                    fullInfo: {
+                        whatItIs: "528 Hz is the frequency of transformation and DNA repair, working on the solar plexus for personal power and confidence.",
+                        benefits: "Boosts confidence, personal power, and supports transformation.",
+                        howToUse: "Listen for 10-15 minutes to empower yourself before important tasks. Focus on the upper abdomen."
+                    }
+                },
+                {
+                    name: "Heart Chakra",
+                    frequencies: [37, 73, 639],
+                    description: "Love, compassion, and relationships. Associated with Transformation (639 Hz).",
+                    fullInfo: {
+                        whatItIs: "639 Hz promotes connection and love, working on the heart chakra for emotional healing and relationships.",
+                        benefits: "Opens the heart, enhances compassion, and heals relationships.",
+                        howToUse: "Use for 10-15 minutes to open your heart or heal relationships. Place hands on your heart while listening."
+                    }
+                },
+                {
+                    name: "Throat Chakra",
+                    frequencies: [37, 73, 741],
+                    description: "Communication, truth, and self-expression. Associated with Intuition (741 Hz).",
+                    fullInfo: {
+                        whatItIs: "741 Hz cleanses the body and opens the throat chakra for clear communication and self-expression.",
+                        benefits: "Improves communication, self-expression, and clarity.",
+                        howToUse: "Listen for 10-15 minutes before important conversations or creative work. Focus on the throat area."
+                    }
+                },
+                {
+                    name: "Third Eye Chakra",
+                    frequencies: [37, 73, 852],
+                    description: "Intuition, insight, and spiritual awareness. Associated with Awakening (852 Hz).",
+                    fullInfo: {
+                        whatItIs: "852 Hz awakens intuition and spiritual order, working on the third eye for insight and awareness.",
+                        benefits: "Enhances intuition, insight, and spiritual perception.",
+                        howToUse: "Use for 10-15 minutes during meditation or when seeking insight. Focus on the forehead between the eyes."
+                    }
+                },
+                {
+                    name: "Crown Chakra",
+                    frequencies: [37, 73, 963],
+                    description: "Spiritual connection, enlightenment, and unity. Associated with Higher Self (963 Hz).",
+                    fullInfo: {
+                        whatItIs: "963 Hz is the frequency of divine consciousness, working on the crown chakra for spiritual connection and enlightenment.",
+                        benefits: "Promotes spiritual connection, unity, and enlightenment.",
+                        howToUse: "Listen for 10-15 minutes during deep meditation or spiritual practice. Focus on the top of the head."
+                    }
+                }
+            ],
+            "Biblical & Original": [
+                {
+                    name: "Genesis Creation",
+                    frequencies: [37, 73],
+                    description: "Original creation pattern - form meets spirit",
+                    fullInfo: {
+                        whatItIs: "The Genesis Creation frequency combines the foundational 37 Hz (representing form and matter) with 73 Hz (representing spirit and the divine). These numbers are derived from the gematria value of Genesis 1:1 in Hebrew, encoding the very pattern of creation itself.",
+                        benefits: "This combination aligns you with the original creative force of the universe. It helps manifest intentions, brings clarity to new beginnings, and connects you to the divine blueprint of creation. Perfect for prayer amplification and spiritual manifestation work.",
+                        howToUse: "Listen for 5-10 minutes during morning meditation or prayer. Visualize your intentions being woven into the fabric of creation. Ideal for new moon rituals or when starting new projects."
+                    }
+                },
+                {
+                    name: "Divine Abundance",
+                    frequencies: [37, 73, 888],
+                    description: "Amplify manifestation with divine numerology",
+                    fullInfo: {
+                        whatItIs: "Divine Abundance adds 888 Hz to the Trinity foundation. In biblical numerology, 8 represents new beginnings and resurrection, while 888 is the gematria value of Jesus in Greek, representing divine abundance and eternal provision.",
+                        benefits: "Opens channels for divine prosperity and abundance in all areas of life. Helps release scarcity consciousness and aligns you with infinite supply. Particularly powerful for financial breakthroughs and recognizing opportunities.",
+                        howToUse: "Listen for 15-20 minutes while focusing on gratitude for what you have and openness to receive. Best used during full moon or Thursday (Jupiter's day). Journal your abundance wins afterward."
+                    }
+                },
+                {
+                    name: "12 Apostles",
+                    frequencies: [37, 73, 12],
+                    description: "Divine leadership and spiritual authority",
+                    fullInfo: {
+                        whatItIs: "The number 12 represents divine government, leadership, and spiritual authority. This frequency combination invokes the power of the 12 apostles and the 12 tribes of Israel, symbolizing complete divine order.",
+                        benefits: "Strengthens leadership abilities, provides spiritual authority in challenging situations, and helps you stand firm in your convictions. Excellent for those in ministry, teaching, or positions of spiritual guidance.",
+                        howToUse: "Use for 10-15 minutes before important decisions or leadership responsibilities. Pray for wisdom and discernment. Ideal for Sunday listening or before leading groups."
+                    }
+                },
+                {
+                    name: "7 Churches",
+                    frequencies: [37, 73, 7],
+                    description: "Spiritual completeness and perfection",
+                    fullInfo: {
+                        whatItIs: "Seven is the number of spiritual perfection and completion in Scripture. This frequency references the 7 churches in Revelation, representing the complete body of believers and spiritual wholeness.",
+                        benefits: "Brings a sense of completion to spiritual cycles, promotes wholeness and integration, and helps you recognize divine perfection in your journey. Useful for ending chapters and spiritual transitions.",
+                        howToUse: "Listen for 7 minutes during transitions or when seeking closure. Perfect for Saturday (Sabbath preparation) or when completing spiritual milestones. Reflect on your spiritual growth."
+                    }
+                },
+                {
+                    name: "40 Days",
+                    frequencies: [37, 73, 40],
+                    description: "Spiritual testing and transformation",
+                    fullInfo: {
+                        whatItIs: "Forty represents testing, trial, and transformation in Scripture—Jesus' 40 days in the wilderness, Noah's 40 days of rain, Israel's 40 years in the desert. This frequency supports you through transformative periods.",
+                        benefits: "Provides strength during trials, supports spiritual endurance, and helps you emerge transformed from difficult seasons. Accelerates spiritual maturity and deepens faith through challenges.",
+                        howToUse: "Use daily for 10-20 minutes during challenging periods or 40-day spiritual commitments. Journal insights and spiritual lessons. Combine with fasting or intensive prayer practices."
+                    }
+                },
+                {
+                    name: "3 Days",
+                    frequencies: [37, 73, 3],
+                    description: "Resurrection and divine completion",
+                    fullInfo: {
+                        whatItIs: "Three days represents resurrection power—the time between Christ's death and resurrection. This frequency carries the energy of divine completion and the power to resurrect dead situations.",
+                        benefits: "Brings new life to stagnant areas, restores hope in seemingly impossible situations, and activates resurrection power in your circumstances. Perfect for breakthrough moments.",
+                        howToUse: "Listen for 3 minutes three times daily during 3-day prayer intensives. Speak life over dead situations. Particularly powerful Friday through Sunday or during personal 3-day fasts."
+                    }
+                }
+            ],
+            "Solfeggio & Healing": [
+                {
+                    name: "Sacred Healing",
+                    frequencies: [37, 73, 432],
+                    description: "Universal healing with Trinity foundation",
+                    fullInfo: {
+                        whatItIs: "432 Hz is known as the 'natural frequency of the universe,' promoting healing and harmony with nature. Combined with the Trinity foundation, this creates a powerful healing environment at cellular and spiritual levels.",
+                        benefits: "Reduces stress and anxiety, promotes physical healing, aligns you with natural rhythms, and creates inner peace. Helps resolve emotional wounds and trauma at deep levels.",
+                        howToUse: "Listen for 20-30 minutes during healing sessions, before sleep, or when feeling physically unwell. Breathe deeply and allow the frequencies to permeate every cell. Can be used during energy healing work."
+                    }
+                },
+                {
+                    name: "Love Frequency",
+                    frequencies: [37, 73, 528],
+                    description: "DNA repair + Trinity foundation",
+                    fullInfo: {
+                        whatItIs: "528 Hz is called the 'Love Frequency' or 'Miracle Tone,' scientifically shown to repair DNA and promote cellular healing. It's the exact frequency used by genetic engineers to repair DNA.",
+                        benefits: "Repairs DNA damage, promotes cellular regeneration, opens the heart chakra, increases love and compassion, and facilitates profound healing at the genetic level. Helps release ancestral trauma.",
+                        howToUse: "Use for 15-20 minutes daily for DNA repair and heart healing. Place hands on heart while listening. Excellent for morning rituals or before important heart-centered conversations."
+                    }
+                },
+                {
+                    name: "Liberation (396)",
+                    frequencies: [37, 73, 396],
+                    description: "Fear release + Trinity foundation",
+                    fullInfo: {
+                        whatItIs: "396 Hz is the Solfeggio frequency for liberating guilt and fear. It works on the root chakra, helping to release deep-seated negative emotions and trauma from the subconscious.",
+                        benefits: "Releases fear, guilt, and trauma stored in the body. Helps break free from limiting beliefs and past conditioning. Creates safety and security at the foundational level of being.",
+                        howToUse: "Listen for 10-15 minutes while identifying fears or guilt to release. Breathe into areas of tension. Best used in evening or during shadow work. Journal afterward to process released emotions."
+                    }
+                },
+                {
+                    name: "Resolution (417)",
+                    frequencies: [37, 73, 417],
+                    description: "Negative energy clearing + Trinity",
+                    fullInfo: {
+                        whatItIs: "417 Hz facilitates change and helps undo negative situations. It cleanses traumatic experiences and clears destructive influences from past events, working on the sacral chakra.",
+                        benefits: "Clears negative energy and influences, facilitates positive change, removes energetic blockages, and helps break negative patterns. Excellent for clearing spaces and resetting energy.",
+                        howToUse: "Use for 15 minutes when feeling energetically heavy or stuck. Move your body gently while listening. Great for space clearing or after difficult interactions. Visualize light dissolving darkness."
+                    }
+                },
+                {
+                    name: "Transformation (639)",
+                    frequencies: [37, 73, 639],
+                    description: "Relationship healing + Trinity",
+                    fullInfo: {
+                        whatItIs: "639 Hz promotes connection, love, and understanding in relationships. It works on the heart chakra, facilitating communication and emotional balance in all types of relationships.",
+                        benefits: "Heals relationship conflicts, improves communication, promotes empathy and understanding, strengthens bonds with others, and helps forgive and release resentment.",
+                        howToUse: "Listen for 20 minutes before difficult conversations or relationship healing work. Can be used with partner present. Excellent for family gatherings or when healing from relationship trauma."
+                    }
+                },
+                {
+                    name: "Awakening (852)",
+                    frequencies: [37, 73, 852],
+                    description: "Spiritual order + Trinity base",
+                    fullInfo: {
+                        whatItIs: "852 Hz awakens intuition and returns you to spiritual order. It works on the third eye chakra, cutting through illusions and revealing truth, helping you see the divine order in all things.",
+                        benefits: "Awakens intuition and inner vision, reveals truth, strengthens spiritual perception, aligns you with divine order, and helps discern genuine spiritual guidance.",
+                        howToUse: "Use for 15-20 minutes during meditation or before making important decisions. Focus on third eye area. Best used in morning or during new spiritual practices. Keep a vision journal."
+                    }
+                },
+                {
+                    name: "Higher Self",
+                    frequencies: [37, 73, 963],
+                    description: "Pineal gland activation + Trinity",
+                    fullInfo: {
+                        whatItIs: "963 Hz is the frequency of divine consciousness and pineal gland activation. It represents the return to oneness and connection with the higher self and divine source.",
+                        benefits: "Activates pineal gland, connects you with higher consciousness, facilitates spiritual awakening, promotes unity consciousness, and opens channels for divine downloads and revelation.",
+                        howToUse: "Listen for 10-15 minutes during deep meditation or spiritual contemplation. Best used in darkness or with closed eyes. Ideal for crown chakra work or receiving spiritual insights."
+                    }
+                },
+                {
+                    name: "Intuition",
+                    frequencies: [37, 73, 741],
+                    description: "Third eye opening + Trinity base",
+                    fullInfo: {
+                        whatItIs: "741 Hz cleanses the body of toxins and electromagnetic radiation while opening the third eye. It promotes expression, solution-finding, and intuitive perception.",
+                        benefits: "Strengthens intuition, cleanses electromagnetic pollution, promotes detoxification, enhances problem-solving abilities, and helps express truth clearly.",
+                        howToUse: "Use for 15 minutes daily to develop intuition. Excellent after screen time or in urban environments. Ask questions and trust the answers that arise. Keep an intuition journal."
+                    }
+                }
+                       ],
+            "Angel Numbers": [
+                {
+                    name: "Angel Numbers",
+                    frequencies: [37, 73, 111],
+                    description: "Connect with angelic frequencies (111 = 37×3)",
+                    fullInfo: {
+                        whatItIs: "111 is a powerful angel number representing new beginnings, manifestation, and spiritual awakening. Mathematically, 111 = 37 × 3, creating a divine alignment with the Trinity foundation.",
+                        benefits: "Opens communication with angels and spirit guides, signals new beginnings, accelerates manifestation of thoughts into reality, and heightens spiritual awareness and synchronicities.",
+                        howToUse: "Listen for 11 minutes when you notice 11:11 on the clock. Focus on your intentions and desires. Perfect for manifesting work or when seeking angelic guidance. Pay attention to signs afterward."
+                    }
+                },
+                {
+                    name: "Angel 222",
+                    frequencies: [37, 73, 222],
+                    description: "Divine partnerships (222 = 37×6)",
+                    fullInfo: {
+                        whatItIs: "222 represents balance, harmony, and divine partnerships. The mathematical relationship to 37 (222 = 37×6) creates perfect harmony with the creation frequency.",
+                        benefits: "Brings balance to relationships, attracts divine partnerships and soul connections, promotes cooperation and harmony, and signals that your prayers are being answered.",
+                        howToUse: "Use for 15-20 minutes during relationship work or when seeking partnership. Visualize balanced relationships. Great for attracting business partners or romantic connections."
+                    }
+                },
+                {
+                    name: "Angel 333",
+                    frequencies: [37, 73, 333],
+                    description: "Ascended masters (333 = 37×9)",
+                    fullInfo: {
+                        whatItIs: "333 signals the presence of ascended masters and divine support. The 9 in the equation (333 = 37×9) represents spiritual completion and enlightenment.",
+                        benefits: "Connects you with ascended masters, confirms you're on the right path, provides divine protection and guidance, and accelerates spiritual growth and awakening.",
+                        howToUse: "Listen for 15 minutes when seeking guidance from higher realms. Call upon specific ascended masters. Best used during spiritual study or when facing spiritual questions."
+                    }
+                },
+                {
+                    name: "Angel 444",
+                    frequencies: [37, 73, 444],
+                    description: "Angelic protection (444 = 37×12)",
+                    fullInfo: {
+                        whatItIs: "444 is the frequency of divine protection and angels surrounding you. The connection to 12 (444 = 37×12) represents complete divine government and angelic order.",
+                        benefits: "Provides strong angelic protection, signals divine support, brings stability and foundation, and reassures you that you're exactly where you need to be.",
+                        howToUse: "Use for 15 minutes when feeling unsafe or uncertain. Visualize angels surrounding you with light. Excellent before travel or entering challenging situations."
+                    }
+                },
+                {
+                    name: "Angel 555",
+                    frequencies: [37, 73, 555],
+                    description: "Major changes (555 = 37×15)",
+                    fullInfo: {
+                        whatItIs: "555 signals major life changes and transformations ahead. The relationship to 15 (555 = 37×15) represents the transition through divine grace and mercy.",
+                        benefits: "Prepares you for positive change, releases resistance to necessary transitions, brings courage during transformation, and aligns you with divine timing.",
+                        howToUse: "Listen for 15-20 minutes during periods of change or when feeling resistant to transformation. Breathe through fear. Best during life transitions or when sensing something shifting."
+                    }
+                },
+                {
+                    name: "Angel 666",
+                    frequencies: [37, 73, 666],
+                    description: "Balance restoration (666 = 37×18)",
+                    fullInfo: {
+                        whatItIs: "Despite cultural misconceptions, 666 is about restoring balance between material and spiritual realms. The connection to 18 (666 = 37×18) represents life and chai (living).",
+                        benefits: "Restores balance between physical and spiritual life, helps release materialism, brings grounding to spiritual work, and reminds you to care for your physical needs.",
+                        howToUse: "Use for 15 minutes when feeling ungrounded or too focused on material concerns. Balance spiritual practice with practical action. Great for grounding after intense spiritual work."
+                    }
+                },
+                {
+                    name: "Angel 777",
+                    frequencies: [37, 73, 777],
+                    description: "Spiritual luck (777 = 37×21)",
+                    fullInfo: {
+                        whatItIs: "777 represents spiritual perfection and divine luck. The triple 7 multiplied through the creation frequency creates powerful spiritual momentum and favorable outcomes.",
+                        benefits: "Attracts spiritual blessings and 'lucky' opportunities, signals divine approval, opens doors to spiritual advancement, and brings confirmation of spiritual gifts.",
+                        howToUse: "Listen for 20 minutes before important opportunities or when seeking divine favor. Expect miraculous outcomes. Perfect before interviews, launches, or new ventures."
+                    }
+                },
+                {
+                    name: "Angel 888",
+                    frequencies: [37, 73, 888],
+                    description: "Infinite abundance (888 = 37×24)",
+                    fullInfo: {
+                        whatItIs: "888 represents infinite abundance and the completed work of Jesus (gematria value in Greek). The 24 (888 = 37×24) represents complete divine order in time and space.",
+                        benefits: "Opens infinite abundance channels, represents financial breakthrough, symbolizes eternal provision, and aligns you with the completed work of Christ for prosperity.",
+                        howToUse: "Use for 20-30 minutes during prosperity work or full moon abundance rituals. Visualize infinite supply. Speak declarations of abundance. Excellent for business success."
+                    }
+                },
+                {
+                    name: "Angel 999",
+                    frequencies: [37, 73, 999],
+                    description: "Completion phase (999 = 37×27)",
+                    fullInfo: {
+                        whatItIs: "999 signals completion of a major life cycle and preparation for a new chapter. The 27 (999 = 37×27) represents triple completion (3×3×3), a powerful ending.",
+                        benefits: "Helps release what's complete, provides closure to cycles, prepares you for new beginnings, and honors endings as sacred transitions.",
+                        howToUse: "Listen for 20 minutes during endings—jobs, relationships, or life phases. Honor what was and welcome what's coming. Perfect for waning moon or year-end reflection."
+                    }
+                }
+            ],
+            "Master Numbers": [
+                {
+                    name: "Master 11:11",
+                    frequencies: [37, 73, 11],
+                    description: "Portal activation + Trinity",
+                    fullInfo: {
+                        whatItIs: "11 is the master number of spiritual awakening and enlightenment. 11:11 is a spiritual portal and wake-up call from the universe, representing heightened spiritual awareness.",
+                        benefits: "Activates spiritual portals, accelerates awakening, heightens intuition, signals alignment with life purpose, and creates powerful manifestation opportunities.",
+                        howToUse: "Listen for 11 minutes at 11:11 AM or PM. Set clear intentions during portal times (11/11, solstices, equinoxes). Keep a synchronicity journal."
+                    }
+                },
+                {
+                    name: "Master 22",
+                    frequencies: [37, 73, 22],
+                    description: "Master builder + Trinity",
+                    fullInfo: {
+                        whatItIs: "22 is the Master Builder number, representing the ability to turn dreams into reality through practical application of spiritual wisdom. It bridges heaven and earth.",
+                        benefits: "Empowers building dreams into reality, provides practical spiritual wisdom, supports large-scale projects, and helps manifest divine blueprints on earth.",
+                        howToUse: "Use for 22 minutes while planning major projects or businesses. Excellent for entrepreneurs and visionaries. Best during waxing moon or when beginning construction of dreams."
+                    }
+                },
+                {
+                    name: "Master 33",
+                    frequencies: [37, 73, 33],
+                    description: "Master teacher + Trinity",
+                    fullInfo: {
+                        whatItIs: "33 is the Master Teacher, representing Christ consciousness and compassionate service. It combines the intuition of 11 with the building power of 22, adding selfless service.",
+                        benefits: "Activates Christ consciousness, enhances teaching abilities, promotes compassionate service, heals through love, and elevates consciousness to master level.",
+                        howToUse: "Listen for 30 minutes before teaching, healing work, or acts of service. Excellent for those in helping professions. Meditate on unconditional love while listening."
+                    }
+                },
+                {
+                    name: "Master 44",
+                    frequencies: [37, 73, 44],
+                    description: "Spiritual foundation + Trinity",
+                    fullInfo: {
+                        whatItIs: "44 is the Master Healer and builder of solid spiritual foundations. It represents the power to create stable structures in both physical and spiritual realms.",
+                        benefits: "Builds unshakeable spiritual foundation, provides discipline for spiritual practice, manifests stable abundance, and grounds higher consciousness into daily life.",
+                        howToUse: "Use for 20 minutes when establishing new spiritual practices or routines. Perfect for creating sacred space or starting spiritual businesses. Supports long-term goals."
+                    }
+                },
+                {
+                    name: "Master 55",
+                    frequencies: [37, 73, 55],
+                    description: "Change activation + Trinity",
+                    fullInfo: {
+                        whatItIs: "55 is the number of major life changes and personal freedom. It represents breaking free from limitations and embracing transformation with grace and excitement.",
+                        benefits: "Accelerates positive change, breaks limiting patterns, promotes personal freedom, supports bold moves, and helps embrace uncertainty with faith.",
+                        howToUse: "Listen for 15 minutes when contemplating major changes or feeling stuck. Use during eclipses or mercury retrograde endings. Dance or move while listening to embody change."
+                    }
+                }
+            ],
+            "Cosmic & Planetary": [
+                {
+                    name: "Earth Resonance",
+                    frequencies: [37, 73, 7.83],
+                    description: "Schumann resonance + Trinity",
+                    fullInfo: {
+                        whatItIs: "7.83 Hz is Earth's Schumann Resonance—the electromagnetic frequency of our planet's heartbeat. Combined with Trinity frequencies, this grounds you deeply into Earth's natural rhythm.",
+                        benefits: "Deeply grounds and centers you, reduces anxiety and stress, syncs you with Earth's natural rhythms, enhances meditation depth, and promotes physical healing through grounding.",
+                        howToUse: "Listen for 20-30 minutes when feeling ungrounded or spacey. Sit or lie directly on the earth if possible. Perfect after air travel or intense spiritual work. Barefoot recommended."
+                    }
+                },
+                {
+                    name: "Venus Love",
+                    frequencies: [37, 73, 221.23],
+                    description: "Venus orbital + Trinity harmony",
+                    fullInfo: {
+                        whatItIs: "221.23 Hz is the orbital frequency of Venus, the planet of love, beauty, and harmony. This frequency carries the essence of divine feminine energy and attraction.",
+                        benefits: "Attracts love and beauty, enhances creativity and artistic expression, promotes self-love and worthiness, harmonizes relationships, and activates divine feminine energy.",
+                        howToUse: "Use for 20 minutes during Venus hours (Friday morning) or when working with love and attraction. Excellent for self-care rituals, beauty treatments, or romantic intentions."
+                    }
+                },
+                {
+                    name: "Mars Action",
+                    frequencies: [37, 73, 144.72],
+                    description: "Mars energy + Trinity foundation",
+                    fullInfo: {
+                        whatItIs: "144.72 Hz is Mars' orbital frequency, carrying the warrior energy of action, courage, and manifestation power. Combined with Trinity, it provides spiritual strength and drive.",
+                        benefits: "Boosts courage and confidence, activates manifestation power, provides energy for action, helps overcome obstacles, and strengthens willpower and determination.",
+                        howToUse: "Listen for 15 minutes before important actions, competitions, or when needing courage. Best on Tuesday (Mars day) or when starting new ventures. Combine with physical exercise."
+                    }
+                },
+                {
+                    name: "Fibonacci 144",
+                    frequencies: [37, 73, 144],
+                    description: "Sacred geometry + Trinity",
+                    fullInfo: {
+                        whatItIs: "144 is a Fibonacci number representing sacred geometry and divine mathematical order. It appears throughout nature and Scripture (144,000 sealed ones in Revelation).",
+                        benefits: "Aligns you with natural divine order, activates sacred geometry in your energy field, promotes mathematical perfection in manifestation, and connects you to universal patterns.",
+                        howToUse: "Use for 20 minutes during manifestation work or when seeking divine order in chaos. Visualize geometric patterns. Excellent for artists, designers, and mathematicians."
+                    }
+                },
+                {
+                    name: "Pi 314",
+                    frequencies: [37, 73, 314],
+                    description: "Universal mathematics + Trinity",
+                    fullInfo: {
+                        whatItIs: "314 Hz represents Pi (3.14), the universal mathematical constant that appears throughout creation. This frequency aligns you with the mathematical perfection of the universe.",
+                        benefits: "Connects you to universal intelligence, enhances logical and intuitive thinking, promotes understanding of complex patterns, and aligns you with cosmic order.",
+                        howToUse: "Listen for 15-20 minutes when solving problems or seeking understanding. Excellent for students, scientists, and those seeking to understand life's mysteries."
+                    }
+                },
+                {
+                    name: "Golden Ratio",
+                    frequencies: [37, 73, 161.8],
+                    description: "Phi frequency + Trinity base",
+                    fullInfo: {
+                        whatItIs: "161.8 Hz represents Phi (1.618), the Golden Ratio found throughout nature—from DNA to galaxies. This is divine proportion made audible, the signature of Creator's design.",
+                        benefits: "Aligns your energy field with divine proportion, promotes natural harmony and beauty, enhances aesthetic sense, and attunes you to the sacred geometry of creation.",
+                        howToUse: "Use for 20 minutes during creative work or healing practices. Excellent for artists and healers. Visualize the golden spiral expanding from your heart."
+                    }
+                }
+            ],
+            "Wellness & States": [
+                {
+                    name: "Pain Relief",
+                    frequencies: [37, 73, 174],
+                    description: "Cellular regeneration + Trinity",
+                    fullInfo: {
+                        whatItIs: "174 Hz is the lowest of the Solfeggio frequencies, known for its anesthetic properties and pain relief effects. It works at the cellular level to reduce pain perception.",
+                        benefits: "Reduces physical pain and discomfort, promotes cellular healing and regeneration, provides natural anesthetic effects, and helps recover from injuries or surgery.",
+                        howToUse: "Listen for 20-30 minutes when experiencing pain. Focus breath and attention on painful areas. Can be used multiple times daily. Combine with ice or heat therapy."
+                    }
+                },
+                {
+                    name: "Stress Relief",
+                    frequencies: [37, 73, 10.5],
+                    description: "Nervous system calming + Trinity",
+                    fullInfo: {
+                        whatItIs: "10.5 Hz is an alpha-theta border frequency that calms the nervous system and promotes deep relaxation. It's the frequency of deep meditation and stress release.",
+                        benefits: "Deeply calms nervous system, reduces stress and anxiety, promotes relaxation, lowers blood pressure and heart rate, and facilitates emotional release and healing.",
+                        howToUse: "Use for 15-20 minutes when stressed or anxious. Breathe slowly and deeply. Perfect after work or during stressful periods. Can be used before sleep."
+                    }
+                },
+                {
+                    name: "Sleep Deep",
+                    frequencies: [37, 73, 0.5],
+                    description: "Delta wave enhancement + Trinity",
+                    fullInfo: {
+                        whatItIs: "0.5 Hz is in the deep delta range, the brainwave state of dreamless sleep and deep healing. This frequency entrains your brain to the deepest sleep state.",
+                        benefits: "Promotes deep, restorative sleep, enhances dream recall and lucid dreaming, facilitates physical healing during sleep, and resets the nervous system.",
+                        howToUse: "Listen for 30-60 minutes before bed or while falling asleep. Keep volume low. Can play on loop throughout the night. Establish consistent bedtime routine."
+                    }
+                },
+                {
+                    name: "Focus Clear",
+                    frequencies: [37, 73, 40],
+                    description: "Gamma clarity + Trinity foundation",
+                    fullInfo: {
+                        whatItIs: "40 Hz is a gamma frequency associated with peak cognitive performance, heightened focus, and processing of complex information. It's the frequency of flow states and insight.",
+                        benefits: "Enhances focus and concentration, improves memory and learning, promotes mental clarity and problem-solving, facilitates flow states, and boosts cognitive performance.",
+                        howToUse: "Listen for 20-30 minutes while studying, working, or doing creative tasks. Perfect for important mental work. Morning use maximizes natural alertness."
+                    }
+                },
+                {
+                    name: "Memory Boost",
+                    frequencies: [37, 73, 20.3],
+                    description: "Hyper-learning + Trinity",
+                    fullInfo: {
+                        whatItIs: "20.3 Hz is a beta frequency optimized for rapid learning and memory formation. This frequency enhances neural plasticity and information encoding.",
+                        benefits: "Improves memory formation and recall, accelerates learning, enhances neural connections, supports studying and skill acquisition, and boosts mental retention.",
+                        howToUse: "Use for 20-30 minutes while studying or learning new skills. Review material while listening. Best used during morning or early afternoon learning sessions."
+                    }
+                },
+                {
+                    name: "Miracle Tone",
+                    frequencies: [37, 73, 528],
+                    description: "Divine healing activation",
+                    fullInfo: {
+                        whatItIs: "528 Hz, also known as the 'Miracle Tone,' is the frequency of love and DNA repair. Research shows it can repair DNA damage and promote miraculous healing.",
+                        benefits: "Repairs DNA at molecular level, promotes miraculous healing, opens heart to love, facilitates transformation, and activates the miracle frequency within your cells.",
+                        howToUse: "Listen for 15-30 minutes daily for healing and transformation. Place hands on areas needing healing. Best used consistently over 21-40 days for deep cellular changes."
+                    }
+                }
+            ]
+        };
+
+        // Info modal functions
+        function showInfoModal(recipe) {
+            const modal = document.getElementById('infoModal');
+            const title = document.getElementById('modalTitle');
+            const freqs = document.getElementById('modalFreqs');
+            const body = document.getElementById('modalBody');
+            
+            title.textContent = recipe.name;
+            freqs.textContent = `🎵 ${recipe.frequencies.join(' Hz + ')} Hz`;
+            
+            if (recipe.fullInfo) {
+                body.innerHTML = `
+                    <h3>What It Is</h3>
+                    <p>${recipe.fullInfo.whatItIs}</p>
+                    
+                    <h3>Benefits</h3>
+                    <p>${recipe.fullInfo.benefits}</p>
+                    
+                    <h3>How To Use</h3>
+                    <p>${recipe.fullInfo.howToUse}</p>
+                `;
+            } else {
+                body.innerHTML = `<p>${recipe.description}</p>`;
+            }
+            
+            modal.classList.add('active');
+        }
+        
+        function closeInfoModal() {
+            const modal = document.getElementById('infoModal');
+            modal.classList.remove('active');
+        }
+        
+        // Close modal when clicking outside
+        document.addEventListener('click', (e) => {
+            const modal = document.getElementById('infoModal');
+            if (e.target === modal) {
+                closeInfoModal();
+            }
+        });
+
+        class FrequencyGenerator {
+            constructor() {
+                this.audioContext = null;
+                this.oscillators = [];
+                this.gainNodes = [];
+                this.isPlaying = false;
+                this.selectedRecipe = null;
+                this.countdownInterval = null;
+                this.startTime = null;
+                this.totalDuration = 0;
+                
+                this.initializeElements();
+                this.loadRecipes();
+                this.attachEventListeners();
+            }
+
+            initializeElements() {
+                this.elements = {
+                    freq1: document.getElementById('freq1'),
+                    freq2: document.getElementById('freq2'),
+                    freq3: document.getElementById('freq3'),
+                    volume1: document.getElementById('volume1'),
+                    volume2: document.getElementById('volume2'),
+                    volume3: document.getElementById('volume3'),
+                    volume1Value: document.getElementById('volume1Value'),
+                    volume2Value: document.getElementById('volume2Value'),
+                    volume3Value: document.getElementById('volume3Value'),
+                    duration: document.getElementById('duration'),
+                    playBtn: document.getElementById('playBtn'),
+                    stopBtn: document.getElementById('stopBtn'),
+                    exportBtn: document.getElementById('exportBtn'),
+                    resetBtn: document.getElementById('resetBtn'),
+                    status: document.getElementById('status'),
+                    recipes: document.getElementById('recipes')
+                };
+            }
+
+            loadRecipes() {
+                this.elements.recipes.innerHTML = '';
+                
+                // Define category order
+                const categoryOrder = [
+                    "Biblical & Original",
+                    "Angel Numbers",
+                    "Cosmic & Planetary",
+                    "Master Numbers",
+                    "Solfeggio & Healing",
+                    "Wellness & States",
+                    "Chakra Frequencies"
+                ];
+                
+                // Create category tabs in specified order
+                categoryOrder.forEach((category, categoryIndex) => {
+                    const categoryTab = document.createElement('div');
+                    categoryTab.className = 'category-tab';
+                    
+                    const categoryIcons = {
+                        "Biblical & Original": "✝️",
+                        "Solfeggio & Healing": "💚",
+                        "Angel Numbers": "👼",
+                        "Master Numbers": "🌟",
+                        "Cosmic & Planetary": "🌌",
+                        "Wellness & States": "🧘",
+                        "Chakra Frequencies": "🌀"
+                    };
+
+                    const categoryKeys = {
+                        "Biblical & Original": "catBiblical",
+                        "Solfeggio & Healing": "catSolfeggio",
+                        "Angel Numbers": "catAngel",
+                        "Master Numbers": "catMaster",
+                        "Cosmic & Planetary": "catCosmic",
+                        "Wellness & States": "catWellness",
+                        "Chakra Frequencies": "catChakra"
+                    };
+                    
+                    categoryTab.innerHTML = `
+                        <div class="category-header">
+                            <div class="category-title">
+                                <span class="category-icon">${categoryIcons[category] || '🎵'}</span>
+                                <span data-translate="${categoryKeys[category]}">${category}</span>
+                                <span class="category-icon">${categoryIcons[category] || '🎵'}</span>
+                            </div>
+                            <div class="category-arrow">▶</div>
+                        </div>
+                        <div class="category-content">
+                            <div class="category-tracks"></div>
+                        </div>
+                    `;
+                    
+                    const header = categoryTab.querySelector('.category-header');
+                    header.addEventListener('click', () => {
+                        categoryTab.classList.toggle('expanded');
+                    });
+                    
+                    const tracksContainer = categoryTab.querySelector('.category-tracks');
+                    
+                    // Add recipes to category
+                    trinityRecipes[category].forEach((recipe) => {
+                        const recipeElement = document.createElement('div');
+                        recipeElement.className = 'recipe-item';
+                        recipeElement.innerHTML = `
+                            <div class="recipe-info">
+                                <div class="recipe-name" data-translate="track${recipe.name.replace(/[^a-zA-Z0-9]/g, '').replace(/\s+/g, '')}">${recipe.name}</div>
+                                <div class="recipe-freqs">🎵 ${recipe.frequencies.join(' Hz + ')} Hz</div>
+                            </div>
+                            <div class="recipe-buttons">
+                                <button class="track-btn play-btn" title="Play this track">▶</button>
+                                <button class="track-btn info-btn" title="Learn more">ℹ</button>
+                            </div>
+                        `;
+                        
+                        const playBtn = recipeElement.querySelector('.play-btn');
+                        const infoBtn = recipeElement.querySelector('.info-btn');
+                        
+                        playBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.selectRecipe(recipe);
+                            // Auto-play after selection
+                            setTimeout(() => this.play(), 300);
+                        });
+                        
+                        infoBtn.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            showInfoModal(recipe);
+                        });
+                        
+                        // Also allow clicking the info area to load without playing
+                        const infoArea = recipeElement.querySelector('.recipe-info');
+                        infoArea.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            this.selectRecipe(recipe);
+                        });
+                        
+                        tracksContainer.appendChild(recipeElement);
+                    });
+                    
+                    this.elements.recipes.appendChild(categoryTab);
+                });
+            }
+
+            selectRecipe(recipe) {
+                // Remove previous selection
+                document.querySelectorAll('.recipe-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add selection to clicked recipe - find it by name
+                document.querySelectorAll('.recipe-item').forEach(item => {
+                    const nameElement = item.querySelector('.recipe-name');
+                    if (nameElement && nameElement.textContent === recipe.name) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Load recipe frequencies
+                const frequencies = [
+                    recipe.frequencies[0] || 37,
+                    recipe.frequencies[1] || 73,
+                    recipe.frequencies[2] || 0
+                ];
+                
+                this.elements.freq1.value = frequencies[0];
+                this.elements.freq2.value = frequencies[1];
+                this.elements.freq3.value = frequencies[2];
+                
+                // Apply therapeutic volume balancing (from Python generator)
+                const activeFreqs = frequencies.filter(f => f > 0);
+                const foundationFreq = Math.min(...activeFreqs);
+                
+                frequencies.forEach((freq, i) => {
+                    if (freq > 0) {
+                        let amplitude = 1.0;
+                        
+                        // Determine base amplitude based on frequency range
+                        if (freq === foundationFreq || freq <= 100) {
+                            amplitude = 1.0;
+                        } else if (freq <= 400) {
+                            amplitude = 0.2;
+                        } else if (freq <= 1000) {
+                            amplitude = 0.1;
+                        } else {
+                            amplitude = 0.05;
+                        }
+                        
+                        // Scale non-foundation frequencies by number of active frequencies
+                        // BUT only if they're NOT in the ≤100 Hz range (keep 37 & 73 at 100%)
+                        if (freq !== foundationFreq && freq > 100) {
+                            amplitude = amplitude / activeFreqs.length;
+                        }
+                        
+                        // Convert to percentage (0-100) and set volume
+                        const volumePercent = Math.round(amplitude * 100);
+                        const volumeElement = [this.elements.volume1, this.elements.volume2, this.elements.volume3][i];
+                        const volumeValueElement = [this.elements.volume1Value, this.elements.volume2Value, this.elements.volume3Value][i];
+                        
+                        volumeElement.value = volumePercent;
+                        volumeValueElement.textContent = `${volumePercent}%`;
+                    }
+                });
+                
+                this.selectedRecipe = recipe;
+                this.updateStatus(`✨ Selected: ${recipe.name} (Auto-balanced volumes)`);
+            }
+
+            attachEventListeners() {
+                this.elements.playBtn.addEventListener('click', () => this.play());
+                this.elements.stopBtn.addEventListener('click', () => this.stop());
+                this.elements.exportBtn.addEventListener('click', () => this.export());
+                this.elements.resetBtn.addEventListener('click', () => this.reset());
+                
+                // Individual volume controls
+                this.elements.volume1.addEventListener('input', (e) => {
+                    this.elements.volume1Value.textContent = `${e.target.value}%`;
+                    this.updateVolume();
+                });
+                
+                this.elements.volume2.addEventListener('input', (e) => {
+                    this.elements.volume2Value.textContent = `${e.target.value}%`;
+                    this.updateVolume();
+                });
+                
+                this.elements.volume3.addEventListener('input', (e) => {
+                    this.elements.volume3Value.textContent = `${e.target.value}%`;
+                    this.updateVolume();
+                });
+                
+                // Duration format validation
+                this.elements.duration.addEventListener('input', (e) => {
+                    this.validateTimeFormat(e.target);
+                });
+
+                // Duration quick buttons
+                document.querySelectorAll('.duration-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const time = e.target.dataset.time;
+                        this.elements.duration.value = time;
+                        this.updateStatus(`⏱️ Duration set to ${time}`);
+                    });
+                });
+                
+                // Auto-select first recipe (Genesis Creation)
+                setTimeout(() => {
+                    const firstCategory = Object.keys(trinityRecipes)[0];
+                    const firstRecipe = trinityRecipes[firstCategory][0];
+                    this.selectRecipe(firstRecipe);
+                }, 100);
+            }
+
+            async play() {
+                if (this.isPlaying) {
+                    this.stop();
+                    return;
+                }
+                
+                try {
+                    // Initialize audio context
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    // Resume if suspended
+                    if (this.audioContext.state === 'suspended') {
+                        await this.audioContext.resume();
+                    }
+                    
+                    // Get frequencies
+                    const frequencies = [
+                        parseFloat(this.elements.freq1.value),
+                        parseFloat(this.elements.freq2.value),
+                        parseFloat(this.elements.freq3.value)
+                    ].filter(freq => freq > 0);
+                    
+                    if (frequencies.length === 0) {
+                        this.updateStatus('⚠️ Please enter at least one frequency');
+                        return;
+                    }
+                    
+                    // Create oscillators and gain nodes with individual volumes
+                    const volumes = [
+                        parseFloat(this.elements.volume1.value) / 100,
+                        parseFloat(this.elements.volume2.value) / 100,
+                        parseFloat(this.elements.volume3.value) / 100
+                    ];
+                    
+                    const currentTime = this.audioContext.currentTime;
+                    const fadeInDuration = 0.5;  // 0.5 second fade in
+                    const fadeOutDuration = 0.1; // 0.1 second fade out
+                    const totalDuration = this.parseDuration();
+                    
+                    frequencies.forEach((freq, index) => {
+                        const oscillator = this.audioContext.createOscillator();
+                        const gainNode = this.audioContext.createGain();
+                        
+                        oscillator.type = 'sine';
+                        oscillator.frequency.setValueAtTime(freq, currentTime);
+                        
+                        // Start at 0 volume and fade in
+                        gainNode.gain.setValueAtTime(0, currentTime);
+                        gainNode.gain.linearRampToValueAtTime(volumes[index], currentTime + fadeInDuration);
+                        
+                        // Schedule fade out before ending
+                        const fadeOutStart = currentTime + totalDuration - fadeOutDuration;
+                        gainNode.gain.setValueAtTime(volumes[index], fadeOutStart);
+                        gainNode.gain.linearRampToValueAtTime(0, currentTime + totalDuration);
+                        
+                        oscillator.connect(gainNode);
+                        gainNode.connect(this.audioContext.destination);
+                        
+                        oscillator.start(currentTime);
+                        oscillator.stop(currentTime + totalDuration);
+                        
+                        this.oscillators.push(oscillator);
+                        this.gainNodes.push(gainNode);
+                    });
+                    
+                    this.isPlaying = true;
+                    this.elements.playBtn.textContent = '⏸ PAUSE';
+                    
+                    // Start countdown timer
+                    this.totalDuration = this.parseDuration();
+                    this.startTime = Date.now();
+                    this.startCountdown();
+                    
+                    // Auto-stop after duration
+                    const duration = this.totalDuration * 1000;
+                    setTimeout(() => {
+                        if (this.isPlaying) {
+                            this.stop();
+                        }
+                    }, duration);
+                    
+                } catch (error) {
+                    console.error('Playback error:', error);
+                    this.updateStatus('❌ Playback error - please try again');
+                }
+            }
+
+            stop() {
+                // Fade out smoothly before stopping
+                const fadeOutTime = 0.1;
+                const currentTime = this.audioContext ? this.audioContext.currentTime : 0;
+                
+                this.gainNodes.forEach(gain => {
+                    try {
+                        gain.gain.cancelScheduledValues(currentTime);
+                        gain.gain.setValueAtTime(gain.gain.value, currentTime);
+                        gain.gain.linearRampToValueAtTime(0, currentTime + fadeOutTime);
+                    } catch (e) {}
+                });
+                
+                // Stop oscillators after fade out
+                setTimeout(() => {
+                    this.oscillators.forEach(osc => {
+                        try {
+                            osc.stop();
+                            osc.disconnect();
+                        } catch (e) {}
+                    });
+                    
+                    this.gainNodes.forEach(gain => {
+                        try {
+                            gain.disconnect();
+                        } catch (e) {}
+                    });
+                    
+                    this.oscillators = [];
+                    this.gainNodes = [];
+                }, fadeOutTime * 1000);
+                
+                this.isPlaying = false;
+                
+                // Clear countdown timer
+                if (this.countdownInterval) {
+                    clearInterval(this.countdownInterval);
+                    this.countdownInterval = null;
+                }
+                
+                // Restore original duration value
+                if (this.originalDuration) {
+                    this.elements.duration.value = this.originalDuration;
+                }
+                
+                this.elements.playBtn.textContent = '▶ PLAY';
+                this.updateStatus('□ Stopped - Ready to Generate');
+            }
+
+            startCountdown() {
+                // Store original duration to restore later
+                this.originalDuration = this.elements.duration.value;
+                
+                const updateCountdown = () => {
+                    if (!this.isPlaying) return;
+                    
+                    const elapsed = (Date.now() - this.startTime) / 1000;
+                    const remaining = Math.max(0, this.totalDuration - elapsed);
+                    
+                    const minutes = Math.floor(remaining / 60);
+                    const seconds = Math.floor(remaining % 60);
+                    const timeStr = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                    
+                    // Update duration input with countdown
+                    this.elements.duration.value = timeStr;
+                    
+                    const frequencies = [
+                        parseFloat(this.elements.freq1.value),
+                        parseFloat(this.elements.freq2.value),
+                        parseFloat(this.elements.freq3.value)
+                    ].filter(freq => freq > 0);
+                    
+                    this.updateStatus(`▶ Playing ${frequencies.join(' Hz + ')} Hz | ⏱️ ${timeStr} remaining`);
+                    
+                    if (remaining <= 0) {
+                        clearInterval(this.countdownInterval);
+                        this.countdownInterval = null;
+                    }
+                };
+                
+                updateCountdown();
+                this.countdownInterval = setInterval(updateCountdown, 1000);
+            }
+
+            updateVolume() {
+                if (this.isPlaying) {
+                    const volumes = [
+                        parseFloat(this.elements.volume1.value) / 100,
+                        parseFloat(this.elements.volume2.value) / 100,
+                        parseFloat(this.elements.volume3.value) / 100
+                    ];
+                    
+                    this.gainNodes.forEach((gainNode, index) => {
+                        gainNode.gain.setValueAtTime(volumes[index], this.audioContext.currentTime);
+                    });
+                }
+            }
+
+            validateTimeFormat(input) {
+                const value = input.value;
+                const timeRegex = /^([0-9]{1,2}):([0-5][0-9])$/;
+                
+                if (!timeRegex.test(value)) {
+                    // Auto-format common patterns
+                    if (value.length === 1) {
+                        input.value = `0${value}:00`;
+                    } else if (value.length === 2 && !value.includes(':')) {
+                        input.value = `${value}:00`;
+                    } else if (value.includes(':') && value.split(':')[1].length === 1) {
+                        const [min, sec] = value.split(':');
+                        input.value = `${min}:0${sec}`;
+                    }
+                }
+            }
+
+            parseDuration() {
+                const value = this.elements.duration.value;
+                const timeRegex = /^([0-9]{1,2}):([0-5][0-9])$/;
+                
+                if (timeRegex.test(value)) {
+                    const [min, sec] = value.split(':').map(Number);
+                    return min * 60 + sec;
+                }
+                
+                // Fallback to default 5 minutes
+                return 300;
+            }
+
+            export() {
+                // Create downloadable WAV file with current frequencies
+                const frequencies = [
+                    parseFloat(this.elements.freq1.value),
+                    parseFloat(this.elements.freq2.value),
+                    parseFloat(this.elements.freq3.value)
+                ].filter(freq => freq > 0);
+                
+                if (frequencies.length === 0) {
+                    this.updateStatus('⚠️ Please enter frequencies first');
+                    return;
+                }
+                
+                // Generate WAV file (simplified for demo)
+                const sampleRate = 44100;
+                const duration = this.parseDuration();
+                const numSamples = sampleRate * duration;
+                
+                // Create WAV buffer
+                const buffer = new ArrayBuffer(44 + numSamples * 2);
+                const view = new DataView(buffer);
+                
+                // WAV header
+                const writeString = (offset, string) => {
+                    for (let i = 0; i < string.length; i++) {
+                        view.setUint8(offset + i, string.charCodeAt(i));
+                    }
+                };
+                
+                writeString(0, 'RIFF');
+                view.setUint32(4, 36 + numSamples * 2, true);
+                writeString(8, 'WAVE');
+                writeString(12, 'fmt ');
+                view.setUint32(16, 16, true);
+                view.setUint16(20, 1, true);
+                view.setUint16(22, 1, true);
+                view.setUint32(24, sampleRate, true);
+                view.setUint32(28, sampleRate * 2, true);
+                view.setUint16(32, 2, true);
+                view.setUint16(34, 16, true);
+                writeString(36, 'data');
+                view.setUint32(40, numSamples * 2, true);
+                
+                // Generate sine wave data
+                const volumes = [
+                    parseFloat(this.elements.volume1.value) / 100,
+                    parseFloat(this.elements.volume2.value) / 100,
+                    parseFloat(this.elements.volume3.value) / 100
+                ];
+                
+                let offset = 44;
+                
+                for (let i = 0; i < numSamples; i++) {
+                    let sample = 0;
+                    const time = i / sampleRate;
+                    
+                    frequencies.forEach((freq, index) => {
+                        sample += Math.sin(2 * Math.PI * freq * time) * volumes[index];
+                    });
+                    
+                    sample = sample / frequencies.length * 0.8; // Scale to avoid clipping
+                    const intSample = Math.floor(sample * 32767);
+                    view.setInt16(offset, intSample, true);
+                    offset += 2;
+                }
+                
+                // Download the WAV file
+                const blob = new Blob([buffer], { type: 'audio/wav' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `genesis_${frequencies.join('_')}_hz.wav`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                this.updateStatus(`⬇ Exported: ${frequencies.join(' + ')} Hz`);
+            }
+
+            reset() {
+                this.stop();
+                
+                // Reset to Trinity defaults
+                this.elements.freq1.value = 37;
+                this.elements.freq2.value = 73;
+                this.elements.freq3.value = 0;
+                this.elements.volume1.value = 50;
+                this.elements.volume2.value = 50;
+                this.elements.volume3.value = 50;
+                this.elements.volume1Value.textContent = '50%';
+                this.elements.volume2Value.textContent = '50%';
+                this.elements.volume3Value.textContent = '50%';
+                this.elements.duration.value = '05:00';
+                
+                // Clear recipe selection
+                document.querySelectorAll('.recipe-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                this.selectedRecipe = null;
+                this.updateStatus('↺ Reset to Trinity Foundation');
+            }
+
+            updateStatus(message) {
+                this.elements.status.textContent = message;
+                this.elements.status.className = this.isPlaying ? 'status playing' : 'status stopped';
+            }
+        }
+
+        // Initialize generator when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            window.generator = new FrequencyGenerator();
+        });
+    </script>
+</body>
+</html>

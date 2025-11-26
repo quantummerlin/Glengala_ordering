@@ -1,0 +1,11 @@
+            }
+        }
+
+        .sacred-geometry {
+            display: none;
+        }
+        
+        .language-selector {
+            display: flex;
+            justify-content: center;
+            gap: 15px;

@@ -1,0 +1,22 @@
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize the frequency generator first
+    window.generator = new FrequencyGenerator();
+    
+    // Cleanup on page unload to prevent memory leaks
+    window.addEventListener('beforeunload', function() {
+        if (window.generator && window.generator.isPlaying) {
+            window.generator.stop();
+        }
+        // Clear any notification intervals
+        if (typeof notificationInterval !== 'undefined' && notificationInterval) {
+            clearInterval(notificationInterval);
+        }
+        // Remove visibility change listeners
+        if (typeof handleVisibilityChange !== 'undefined') {
+            document.removeEventListener('visibilitychange', handleVisibilityChange);
+        }
+    });
+    
+    // Update progress section if available
+    if (typeof instructionsSections !== 'undefined') {
+        initializeCompanionCategories(); // Update progress section with loaded data

@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis Frequency Generator - Sacred Frequencies PWA</title>
+    <meta http-equiv="refresh" content="0; url=Genesis%20FG%20Freemium.html">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="/Frequency-Generator/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Frequency-Generator/Genesis.png">
+    <link rel="apple-touch-icon" href="/Frequency-Generator/Genesis.png">
+    <meta name="theme-color" content="#1a0033">
+    <meta name="description" content="Experience sacred frequencies that shaped creation itself. Access the Trinity frequencies (37Hz, 73Hz) for meditation, healing, and spiritual growth.">
+    <meta name="keywords" content="sacred frequencies, solfeggio, 37hz, 73hz, meditation, healing, spiritual, frequency generator, PWA">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌟</text></svg>">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a0033 50%, #2d1b69 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero {
+            max-width: 800px;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fbbf24, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #e0e7ff;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
+            color: #1a0033;
+            border: none;
+            border-radius: 50px;
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 25px rgba(251, 191, 36, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(251, 191, 36, 0.4);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1000px;
+            margin: 40px 0;
+        }
+
+        .feature {
+            background: rgba(26, 0, 51, 0.8);
+            border-radius: 15px;
+            padding: 25px;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .feature h3 {
+            color: #fbbf24;
+            margin-bottom: 15px;
+        }
+
+        .feature p {
+            color: #d1d5db;
+            line-height: 1.5;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #9ca3af;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="hero">
+        <h1>🌟 Genesis Frequency Generator</h1>
+        <p class="subtitle">
+            Experience the sacred frequencies that shaped creation itself.<br>
+            Access the Trinity frequencies (37Hz + 73Hz) for meditation, healing, and spiritual growth.
+        </p>
+
+        <a href="Genesis%20FG%20Freemium.html" class="cta-button">
+            🚀 Launch Frequency Generator
+        </a>
+    </div>
+
+    <div class="features">
+        <div class="feature">
+            <h3>🎵 Sacred Frequencies</h3>
+            <p>Generate powerful vibrational frequencies based on the Hebrew text of Genesis 1:1 using ancient gematria science.</p>
+        </div>
+
+        <div class="feature">
+            <h3>📱 PWA Experience</h3>
+            <p>Install as a native app on your device. Works offline with full functionality.</p>
+        </div>
+
+        <div class="feature">
+            <h3>🧘 Meditation & Healing</h3>
+            <p>Perfect for meditation, energy healing, sleep enhancement, and spiritual practices.</p>
+        </div>
+
+        <div class="feature">
+            <h3>⚡ Real-time Generation</h3>
+            <p>Advanced Web Audio API generates frequencies in real-time with precise controls.</p>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>✨ May the sacred vibrations bring peace, healing, and spiritual awakening ✨</p>
+    </div>
+
+    <script>
+        // Auto-redirect after 10 seconds for direct access
+        setTimeout(() => {
+            if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+                window.location.href = 'Genesis%20FG%20Freemium.html';
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
+                <button id="playBtn" class="button button-primary">▶ PLAY</button>
+                <button id="stopBtn" class="button button-secondary">⏹ STOP</button>
+            </div>
+        </div>
+
+        <!-- Progress and Status -->
+        <div class="progress-section">
+            <div id="progressContainer" style="display: none;">
+                <div class="progress-bar">
+                    <div id="progressFill" class="progress-fill"></div>
+                </div>
+                <div id="timeDisplay">00:00 / 05:00</div>
+            </div>
+            <div id="status">Ready to begin your frequency session</div>
+        </div>
+    </div>
+
+    <!-- Modal Containers -->
+    <div id="immersiveWelcome" class="info-modal" style="z-index:5000;">
+        <div class="info-modal-content" style="max-width: 500px; text-align: center; background: linear-gradient(135deg, rgba(26,0,51,0.95), rgba(139,92,246,0.9)); border: 2px solid rgba(251,191,36,0.5);">
+            <div class="info-modal-header" style="color: #fbbf24; font-size: 28px; margin-bottom: 20px;">Welcome to Genesis</div>
+            <div class="info-modal-body" style="color: #fff; font-size: 18px; line-height: 1.6;">
+                <p style="margin-bottom: 20px;">You are about to experience the sacred frequencies that shaped creation itself.</p>
+                <p style="margin-bottom: 20px; color: #c4b5fd;">Take a deep breath, set your intention, and let the vibrations guide you.</p>
+                <div style="display: flex; gap: 15px; justify-content: center; margin-top: 30px;">
+                    <button onclick="showFrequencyBenefits()" style="background: linear-gradient(90deg, #fbbf24, #f59e0b); color: #1a0033; border: none; border-radius: 25px; padding: 15px 30px; font-size: 18px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 15px rgba(251,191,36,0.3);">Next</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Additional modals would go here -->
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>

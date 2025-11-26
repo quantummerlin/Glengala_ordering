@@ -1,0 +1,10 @@
+5:    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+6:    <meta name="apple-mobile-web-app-capable" content="yes">
+7:    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+8:    <meta name="apple-mobile-web-app-title" content="Genesis Frequency Generator">
+9:    <meta name="mobile-web-app-capable" content="yes">
+1895:            /* Improve button visibility on mobile */
+9017:                // Haptic feedback for mobile
+9027:                // Check for silent mode on mobile devices (premium feature)
+9322:                // Check if we're on a mobile device
+9329:                    // Check if the device has vibration API (mobile indicator)

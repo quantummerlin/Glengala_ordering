@@ -1,0 +1,11 @@
+                                           frequencies.includes(73);
+                    
+                    if (!isDefaultTrinity) {
+                        // Custom frequencies limited to 30 seconds
+                        const maxDuration = 30 * 1000; // 30 seconds in milliseconds
+                        const currentDuration = parseInt(this.elements.duration.value.split(':')[0]) * 60 * 1000 + 
+                                               parseInt(this.elements.duration.value.split(':')[1]) * 1000;
+                        
+                        if (currentDuration > maxDuration) {
+                            alert('Custom frequencies limited to 30 seconds in free version. Use duration buttons for longer sessions or upgrade to Premium!');
+                            this.elements.duration.value = '00:30';

@@ -1,0 +1,2 @@
+4047:                document.addEventListener('DOMContentLoaded', function() {
+10639:document.addEventListener('DOMContentLoaded', function() {

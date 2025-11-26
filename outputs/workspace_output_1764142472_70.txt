@@ -1,0 +1,73 @@
+3018:                            37 × 73 = 2701
+3054:                        Built on the Trinity Foundation: 37 Hz + 73 Hz + one intention frequency
+3114:                                <span style="font-size:12px;color:#a78bfa;">This is the pure 37 + 73 Hz foundation</span>
+3317:            <div class="gematria" style="font-size: 18px;">37 Hz + 73 Hz</div>
+3318:            <div class="gematria" style="font-size: 15px; margin-top: -15px;" data-translate="pattern">Prayer Amplifier</div>
+3443:                                    <li><strong>Start with Trinity Foundation</strong> — Begin with the core 37 Hz + 73 Hz frequencies</li>
+3958:                pattern: "Prayer Amplifier",
+4626:                    frequencies: [37, 73, 396],
+4636:                    frequencies: [37, 73, 417],
+4646:                    frequencies: [37, 73, 528],
+4656:                    frequencies: [37, 73, 639],
+4666:                    frequencies: [37, 73, 741],
+4676:                    frequencies: [37, 73, 852],
+4686:                    frequencies: [37, 73, 963],
+4698:                    frequencies: [37, 73],
+4701:                        whatItIs: "The Genesis Creation frequency combines the foundational 37 Hz (representing form and matter) with 73 Hz (representing spirit and the divine). These numbers are derived from the gematria value of Genesis 1:1 in Hebrew, encoding the very pattern of creation itself.",
+4708:                    frequencies: [37, 73, 888],
+4718:                    frequencies: [37, 73, 12],
+4728:                    frequencies: [37, 73, 7],
+4738:                    frequencies: [37, 73, 40],
+4748:                    frequencies: [37, 73, 3],
+4760:                    frequencies: [37, 73, 432],
+4770:                    frequencies: [37, 73, 528],
+4780:                    frequencies: [37, 73, 396],
+4790:                    frequencies: [37, 73, 417],
+4800:                    frequencies: [37, 73, 639],
+4810:                    frequencies: [37, 73, 852],
+4820:                    frequencies: [37, 73, 963],
+4830:                    frequencies: [37, 73, 741],
+4842:                    frequencies: [37, 73, 111],
+4852:                    frequencies: [37, 73, 222],
+4862:                    frequencies: [37, 73, 333],
+4872:                    frequencies: [37, 73, 444],
+4882:                    frequencies: [37, 73, 555],
+4892:                    frequencies: [37, 73, 666],
+4902:                    frequencies: [37, 73, 777],
+4912:                    frequencies: [37, 73, 888],
+4922:                    frequencies: [37, 73, 999],
+4934:                    frequencies: [37, 73, 11],
+4944:                    frequencies: [37, 73, 22],
+4954:                    frequencies: [37, 73, 33],
+4964:                    frequencies: [37, 73, 44],
+4974:                    frequencies: [37, 73, 55],
+4986:                    frequencies: [37, 73, 7.83],
+4996:                    frequencies: [37, 73, 221.23],
+5006:                    frequencies: [37, 73, 144.72],
+5016:                    frequencies: [37, 73, 144],
+5026:                    frequencies: [37, 73, 314],
+5036:                    frequencies: [37, 73, 161.8],
+5048:                    frequencies: [37, 73, 174],
+5058:                    frequencies: [37, 73, 10.5],
+5068:                    frequencies: [37, 73, 0.5],
+5078:                    frequencies: [37, 73, 40],
+5088:                    frequencies: [37, 73, 20.3],
+5098:                    frequencies: [37, 73, 528],
+5126:                                37 × 73 = 2701
+5164:                                    <span style="font-size:14px;color:#a78bfa;">This is the pure 37 + 73 Hz foundation</span>
+5216:                                37 is a prime number. 73 is its mirror—also prime.
+5219:                                <b>37 × 73 = 2701</b>
+5248:                            There are no coincidences. Your journey with 37 and 73 Hz begins now.
+5256:                title: 'Why 37 & 73 Hz Work',
+5261:                            <b>37 Hz</b> and <b>73 Hz</b> aren't arbitrary numbers—they're the <b>mathematical fingerprint of creation</b>, 
+5266:                                <b style="color:#fbbf24;">37 × 73 = 2701</b> — the only factorization
+5269:                                37 = the 12th prime | 73 = the 21st prime (mirror of 12)<br>
+5314:                            Every track is built on the Trinity Foundation (37 + 73 Hz), with additional frequencies 
+5384:                            The Trinity Foundation consists of <b style="color:#fbbf24;">37 Hz</b>, <b style="color:#fbbf24;">73 Hz</b>, and <b style="color:#fbbf24;">2701 Hz</b> — the frequencies encoded in Genesis 1:1.
+5391:                                <b>37 × 73 = 2701</b>
+5499:                                The sacred numbers (3, 7, 11, 37, 73, 108) that form the foundation of Genesis frequencies appear throughout spiritual traditions worldwide. Your journey follows this same mathematical harmony.
+5571:                                <span style="color:#ffffff;">A: The frequencies are based on established principles of sound healing and sacred geometry. While individual experiences vary, many users report profound benefits. The mathematical relationships (37×73=2701) are mathematically sound and connect to ancient wisdom traditions.</span>
+5679:                                <span style="color:#ffffff;">Ancient Hebrew numerology traditions, with special reference to Genesis 1:1 analysis and the mathematical relationships between 37, 73, and 2701.</span>
+5971:                description: 'Master the sacred Trinity frequencies (37, 73, 2701 Hz)',
+9538:                        // BUT only if they're NOT in the ≤100 Hz range (keep 37 & 73 at 100%)
+9641:                    // Check if using custom frequencies (not the default Trinity: 37, 73, 0)

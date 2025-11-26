@@ -1,0 +1,11 @@
+                    // Get current frequencies
+                    const frequencies = [
+                        parseFloat(this.elements.freq1.value) || 0,
+                        parseFloat(this.elements.freq2.value) || 0,
+                        parseFloat(this.elements.freq3.value) || 0
+                    ].filter(freq => freq > 0);
+                    
+                    // Check if using custom frequencies (not the default Trinity: 37, 73, 0)
+                    const isDefaultTrinity = frequencies.length === 2 && 
+                                           frequencies.includes(37) && 
+                                           frequencies.includes(73);

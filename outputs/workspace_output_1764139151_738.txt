@@ -1,0 +1,16 @@
+                }
+                
+                try {
+                    // Initialize audio context
+                    if (!this.audioContext) {
+                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    }
+                    
+                    // Resume if suspended
+                    if (this.audioContext.state === 'suspended') {
+                        await this.audioContext.resume();
+                    }
+
+                    // Enable background audio for premium users
+                    const isPremium = localStorage.getItem('premiumAccessGranted') === 'true';
+                    if (isPremium && !backgroundAudioEnabled) {

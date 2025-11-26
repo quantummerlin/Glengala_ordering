@@ -1,0 +1,17 @@
+179:            .recipes {
+1152:        .recipes {
+1266:        .category-tracks {
+2843:            .recipes {
+3654:                                    <li><strong>Explore Categories</strong> — Try different recipes for healing, focus, sleep, manifestation</li>
+3755:            <div class="section-title" data-translate="recipesTitle">Trinity Frequency Recipes</div>
+3756:            <div class="recipes" id="recipes">
+4203:                recipesTitle: "🌟 Trinity Frequency Recipes 🌟",
+4390:                recipesTitle: "🌟 Receitas de Frequência da Trindade 🌟",
+4524:                recipesTitle: "🌟 Recetas de Frecuencia de la Trinidad 🌟",
+4658:                recipesTitle: "🌟 Ricette di Frequenza della Trinità 🌟",
+9625:                    recipes: document.getElementById('recipes')
+9630:                this.elements.recipes.innerHTML = '';
+9678:                            <div class="category-tracks"></div>
+9687:                    const tracksContainer = categoryTab.querySelector('.category-tracks');
+9689:                    // Add recipes to category
+9729:                    this.elements.recipes.appendChild(categoryTab);

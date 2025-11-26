@@ -1,0 +1,12 @@
+4024:            if (typeof instructionsSections !== 'undefined') {
+5934:            if (typeof confetti !== 'undefined') {
+6016:            if (typeof confetti !== 'undefined') {
+9559:                showToast('🎉 App added to home screen! Achievement unlocked!', 'success');
+9621:                showToast('🎉 App added to home screen! Achievement unlocked!', 'success');
+9649:                        showToast('🔔 Notifications enabled! You\'ll receive gentle reminders.', 'info');
+9724:        function showToast(message, type = 'info') {
+9749:        window.showToast = showToast;
+9763:        if (typeof notificationInterval !== 'undefined' && notificationInterval) {
+9767:        if (typeof handleVisibilityChange !== 'undefined') {
+9773:    if (typeof instructionsSections !== 'undefined') {
+9832:            showToast('Welcome back! Ready to explore sacred frequencies? 🌟');

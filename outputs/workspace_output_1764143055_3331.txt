@@ -1,0 +1,35 @@
+3780:                        <input type="range" id="volume1" min="0" max="100" value="50">
+3781:                        <div class="range-value" id="volume1Value">50%</div>
+3789:                        <input type="range" id="volume2" min="0" max="100" value="50">
+3790:                        <div class="range-value" id="volume2Value">50%</div>
+3798:                        <input type="range" id="volume3" min="0" max="100" value="50">
+3799:                        <div class="range-value" id="volume3Value">50%</div>
+9613:                    volume1: document.getElementById('volume1'),
+9614:                    volume2: document.getElementById('volume2'),
+9615:                    volume3: document.getElementById('volume3'),
+9616:                    volume1Value: document.getElementById('volume1Value'),
+9617:                    volume2Value: document.getElementById('volume2Value'),
+9618:                    volume3Value: document.getElementById('volume3Value'),
+9786:                        const volumeElement = [this.elements.volume1, this.elements.volume2, this.elements.volume3][i];
+9787:                        const volumeValueElement = [this.elements.volume1Value, this.elements.volume2Value, this.elements.volume3Value][i];
+9805:                this.elements.volume1.addEventListener('input', (e) => {
+9806:                    this.elements.volume1Value.textContent = `${e.target.value}%`;
+9810:                this.elements.volume2.addEventListener('input', (e) => {
+9811:                    this.elements.volume2Value.textContent = `${e.target.value}%`;
+9815:                this.elements.volume3.addEventListener('input', (e) => {
+9816:                    this.elements.volume3Value.textContent = `${e.target.value}%`;
+9950:                        parseFloat(this.elements.volume1.value) / 100,
+9951:                        parseFloat(this.elements.volume2.value) / 100,
+9952:                        parseFloat(this.elements.volume3.value) / 100
+10153:                        parseFloat(this.elements.volume1.value) / 100,
+10154:                        parseFloat(this.elements.volume2.value) / 100,
+10155:                        parseFloat(this.elements.volume3.value) / 100
+10287:                    parseFloat(this.elements.volume1.value) / 100,
+10288:                    parseFloat(this.elements.volume2.value) / 100,
+10289:                    parseFloat(this.elements.volume3.value) / 100
+10336:                this.elements.volume1.value = 50;
+10337:                this.elements.volume2.value = 50;
+10338:                this.elements.volume3.value = 50;
+10339:                this.elements.volume1Value.textContent = '50%';
+10340:                this.elements.volume2Value.textContent = '50%';
+10341:                this.elements.volume3Value.textContent = '50%';

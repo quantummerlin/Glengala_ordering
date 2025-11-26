@@ -1,0 +1,75 @@
+                        parseFloat(this.elements.freq1.value),
+                        parseFloat(this.elements.freq2.value),
+                        parseFloat(this.elements.freq3.value)
+                    ].filter(freq => freq > 0);
+                    
+                    // Check if using custom frequencies (not the default Trinity: 37, 73, 0)
+                    const isDefaultTrinity = frequencies.length === 2 && 
+                                           frequencies.includes(37) && 
+                                           frequencies.includes(73);
+                    
+                    if (!isDefaultTrinity) {
+                        // Custom frequencies limited to 30 seconds
+                        const maxDuration = 30 * 1000; // 30 seconds in milliseconds
+                        const currentDuration = parseInt(this.elements.duration.value.split(':')[0]) * 60 * 1000 + 
+                                               parseInt(this.elements.duration.value.split(':')[1]) * 1000;
+                        
+                        if (currentDuration > maxDuration) {
+                            alert('Custom frequencies limited to 30 seconds in free version. Use duration buttons for longer sessions or upgrade to Premium!');
+--
+                        parseFloat(this.elements.freq1.value),
+                        parseFloat(this.elements.freq2.value),
+                        parseFloat(this.elements.freq3.value)
+                    ].filter(freq => freq > 0);
+                    
+                    if (frequencies.length === 0) {
+                        this.updateStatus('⚠️ Please enter at least one frequency');
+                        return;
+                    }
+                    
+                    // Create oscillators and gain nodes with individual volumes
+                    const volumes = [
+                        parseFloat(this.elements.volume1.value) / 100,
+                        parseFloat(this.elements.volume2.value) / 100,
+                        parseFloat(this.elements.volume3.value) / 100
+                    ];
+                    
+                    const currentTime = this.audioContext.currentTime;
+--
+                        parseFloat(this.elements.freq1.value),
+                        parseFloat(this.elements.freq2.value),
+                        parseFloat(this.elements.freq3.value)
+                    ].filter(freq => freq > 0);
+                    
+                    this.updateStatus(`▶ Playing ${frequencies.join(' Hz + ')} Hz | ⏱️ ${timeStr} remaining`);
+                    
+                    if (remaining <= 0) {
+                        clearInterval(this.countdownInterval);
+                        this.countdownInterval = null;
+                    }
+                };
+                
+                updateCountdown();
+                this.countdownInterval = setInterval(updateCountdown, 1000);
+            }
+
+            updateVolume() {
+--
+                    parseFloat(this.elements.freq1.value),
+                    parseFloat(this.elements.freq2.value),
+                    parseFloat(this.elements.freq3.value)
+                ].filter(freq => freq > 0);
+                
+                if (frequencies.length === 0) {
+                    this.updateStatus('⚠️ Please enter frequencies first');
+                    return;
+                }
+                
+                // Generate WAV file (simplified for demo)
+                const sampleRate = 44100;
+                const duration = this.parseDuration();
+                const numSamples = sampleRate * duration;
+
+                // Create WAV buffer
+                const buffer = new ArrayBuffer(44 + numSamples * 2);
+                const view = new DataView(buffer);

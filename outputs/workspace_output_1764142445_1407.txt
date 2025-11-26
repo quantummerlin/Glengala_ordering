@@ -1,0 +1,5 @@
+10260:        function sendGentleNotification() {
+10315:        function showToast(message, type = 'info') {
+10344:document.addEventListener('DOMContentLoaded', function() {
+10349:    window.addEventListener('beforeunload', function() {
+10431:    window.addEventListener('storage', function(e) {

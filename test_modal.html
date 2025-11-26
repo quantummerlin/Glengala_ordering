@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Modal Flow</title>
+</head>
+<body>
+    <h1>Testing Modal Flow</h1>
+    <button onclick="clearStorageAndReload()">Clear localStorage and Test as New User</button>
+    <button onclick="openApp()">Open App</button>
+    <button onclick="checkStorage()">Check Current localStorage State</button>
+
+    <script>
+        function clearStorageAndReload() {
+            // Clear localStorage multiple times to ensure it's cleared
+            localStorage.clear();
+            localStorage.removeItem('onboardingComplete');
+            console.log('localStorage cleared, onboardingComplete:', localStorage.getItem('onboardingComplete'));
+
+            // Small delay to ensure clearing is complete, then open new window
+            setTimeout(() => {
+                console.log('Opening app in new window...');
+                const timestamp = Date.now();
+                const newWindow = window.open(`http://localhost:8000/Genesis%20FG%20Freemium.html?test=${timestamp}`, '_blank');
+
+                // Add a message to the new window to check if modal shows
+                if (newWindow) {
+                    newWindow.onload = function() {
+                        console.log('New window loaded, checking localStorage...');
+                        console.log('New window onboardingComplete:', newWindow.localStorage.getItem('onboardingComplete'));
+
+                        setTimeout(() => {
+                            const modal = newWindow.document.getElementById('immersiveWelcome');
+                            if (modal && modal.classList.contains('active')) {
+                                console.log('✅ Modal is active and should be visible');
+                            } else {
+                                console.log('❌ Modal is not active or not found');
+                                console.log('Modal element:', modal);
+                                console.log('Modal classes:', modal ? modal.className : 'N/A');
+                                console.log('onboardingComplete in new window:', newWindow.localStorage.getItem('onboardingComplete'));
+                            }
+                        }, 500);
+                    };
+                }
+            }, 200);
+        }
+
+        function checkStorage() {
+            console.log('Current localStorage state:');
+            console.log('onboardingComplete:', localStorage.getItem('onboardingComplete'));
+            console.log('All keys:', Object.keys(localStorage));
+            alert(`onboardingComplete: ${localStorage.getItem('onboardingComplete')}\nAll keys: ${Object.keys(localStorage).join(', ')}`);
+        }
+
+        function testModalDirectly() {
+            localStorage.clear();
+            // Test if modal shows on current page
+            setTimeout(() => {
+                const modal = document.getElementById('immersiveWelcome');
+                if (modal) {
+                    modal.classList.add('active');
+                    console.log('Modal should be visible now');
+                } else {
+                    console.log('Modal element not found');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

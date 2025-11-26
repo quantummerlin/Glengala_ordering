@@ -1,0 +1,6 @@
+Serving HTTP on 0.0.0.0 port 8081 (http://0.0.0.0:8081/) ...
+127.0.0.1 - - [26/Nov/2025 06:45:34] "GET /?_gl=1*11gg2fk*_gcl_aw*R0NMLjE3NjI3NzE4NjMuQ2p3S0NBaUF0OGJJQmhCcEVpd0F6SDF3NlhiMWR0MEhMcmppYTBkMlh2NmgycVVQTTBOSXlkWktOaUkwbGRoejBPd2h2U1FzNExTU2FCb0N6WFVRQXZEX0J3RQ..*_gcl_au*MTAyNjM2NjAwNC4xNzYzNDA5ODI4*_ga*OTIzMjY2ODM5LjE3NDc4MTU2OTc.*_ga_8NW18Q4WF2*czE3NjQwOTg3NDAkbzIxNSRnMSR0MTc2NDEzNzk4OSRqMiRsMCRoMTAzMzkwNzQzNg..&password=a1306e91-be8c-4ffd-ae84-8e2253e59ba3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 06:45:35] "GET /styles.css?password=a1306e91-be8c-4ffd-ae84-8e2253e59ba3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 06:45:35] "GET /app.js?password=a1306e91-be8c-4ffd-ae84-8e2253e59ba3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 06:45:36] "GET /Genesis%20FG%20Freemium.html?password=a1306e91-be8c-4ffd-ae84-8e2253e59ba3 HTTP/1.1" 200 -
+127.0.0.1 - - [26/Nov/2025 06:45:37] "GET /Genesis.png?password=a1306e91-be8c-4ffd-ae84-8e2253e59ba3 HTTP/1.1" 200 -

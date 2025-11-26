@@ -1,0 +1,16 @@
+                        parseFloat(this.elements.freq1.value) || 0,
+                        parseFloat(this.elements.freq2.value) || 0,
+                        parseFloat(this.elements.freq3.value) || 0
+                    ].filter(freq => freq > 0);
+                    
+                    // Check if using custom frequencies (not the default Trinity: 37, 73, 0)
+                    const isDefaultTrinity = frequencies.length === 2 && 
+                                           frequencies.includes(37) && 
+                                           frequencies.includes(73);
+                    
+                    if (!isDefaultTrinity) {
+                        // Custom frequencies limited to 30 seconds
+                        const maxDuration = 30 * 1000; // 30 seconds in milliseconds
+                        const currentDuration = parseInt(this.elements.duration.value.split(':')[0]) * 60 * 1000 + 
+                                               parseInt(this.elements.duration.value.split(':')[1]) * 1000;
+                        

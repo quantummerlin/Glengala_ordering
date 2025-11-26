@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Genesis FG Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #1a0033; color: white; }
+        .test-section { margin: 20px 0; padding: 15px; background: rgba(139,92,246,0.2); border-radius: 8px; }
+        .success { color: #4ade80; }
+        .error { color: #f87171; }
+        .test-btn { background: #8b5cf6; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; margin: 5px; }
+    </style>
+<script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
+</head>
+<body>
+    <h1>🧪 Genesis Frequency Generator - Test Suite</h1>
+    
+    <div class="test-section">
+        <h3>🔍 Path Validation</h3>
+        <div id="path-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>🎵 Audio Context Test</h3>
+        <div id="audio-tests"></div>
+        <button class="test-btn" onclick="testAudioContext()">Test Audio Context</button>
+    </div>
+    
+    <div class="test-section">
+        <h3>📱 Mobile Features</h3>
+        <div id="mobile-tests"></div>
+    </div>
+    
+    <div class="test-section">
+        <h3>💾 Storage Test</h3>
+        <div id="storage-tests"></div>
+        <button class="test-btn" onclick="testStorage()">Test LocalStorage</button>
+    </div>
+
+    <script>
+        // Test file paths
+        function testPaths() {
+            const paths = [
+                'manifest.json',
+                'Genesis.png', 
+                'app.js',
+                'sw.js'
+            ];
+            
+            const results = document.getElementById('path-tests');
+            results.innerHTML = '';
+            
+            paths.forEach(path => {
+                fetch(path, { method: 'HEAD' })
+                    .then(response => {
+                        const status = response.ok ? 'success' : 'error';
+                        results.innerHTML += `<div class="${status}">✓ ${path}: ${response.status}</div>`;
+                    })
+                    .catch(error => {
+                        results.innerHTML += `<div class="error">✗ ${path}: Failed to load</div>`;
+                    });
+            });
+        }
+        
+        // Test audio context
+        function testAudioContext() {
+            const results = document.getElementById('audio-tests');
+            results.innerHTML = '';
+            
+            try {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) {
+                    const audioContext = new AudioContext();
+                    results.innerHTML += `<div class="success">✓ AudioContext available: ${audioContext.state}</div>`;
+                    
+                    // Test resume functionality
+                    if (audioContext.state === 'suspended') {
+                        audioContext.resume().then(() => {
+                            results.innerHTML += `<div class="success">✓ AudioContext resumed successfully</div>`;
+                        });
+                    }
+                } else {
+                    results.innerHTML += `<div class="error">✗ AudioContext not supported</div>`;
+                }
+            } catch (error) {
+                results.innerHTML += `<div class="error">✗ AudioContext error: ${error.message}</div>`;
+            }
+        }
+        
+        // Test localStorage
+        function testStorage() {
+            const results = document.getElementById('storage-tests');
+            results.innerHTML = '';
+            
+            try {
+                localStorage.setItem('test-key', 'test-value');
+                const value = localStorage.getItem('test-key');
+                if (value === 'test-value') {
+                    results.innerHTML += `<div class="success">✓ LocalStorage working</div>`;
+                    localStorage.removeItem('test-key');
+                } else {
+                    results.innerHTML += `<div class="error">✗ LocalStorage read/write mismatch</div>`;
+                }
+            } catch (error) {
+                results.innerHTML += `<div class="error">✗ LocalStorage error: ${error.message}</div>`;
+            }
+        }
+        
+        // Test mobile features
+        function testMobileFeatures() {
+            const results = document.getElementById('mobile-tests');
+            results.innerHTML = '';
+            
+            // Test vibration API
+            if ('vibrate' in navigator) {
+                results.innerHTML += `<div class="success">✓ Vibration API available</div>`;
+            } else {
+                results.innerHTML += `<div class="error">✗ Vibration API not available</div>`;
+            }
+            
+            // Test standalone mode
+            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
+            results.innerHTML += `<div class="${isStandalone ? 'success' : 'error'}">✓ Standalone mode: ${isStandalone}</div>`;
+            
+            // Test service worker
+            if ('serviceWorker' in navigator) {
+                results.innerHTML += `<div class="success">✓ Service Worker API available</div>`;
+            } else {
+                results.innerHTML += `<div class="error">✗ Service Worker API not available</div>`;
+            }
+        }
+        
+        // Run all tests on load
+        window.addEventListener('load', () => {
+            testPaths();
+            testMobileFeatures();
+        });
+    </script>
+</body>
+</html>

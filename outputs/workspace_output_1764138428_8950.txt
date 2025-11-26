@@ -1,0 +1,27 @@
+8764:                this.oscillators = [];
+8765:                this.gainNodes = [];
+9083:                        this.audioContext = new (window.AudioContext || window.webkitAudioContext)();
+9111:                    // Create oscillators and gain nodes with individual volumes
+9124:                        const oscillator = this.audioContext.createOscillator();
+9125:                        const gainNode = this.audioContext.createGain();
+9127:                        oscillator.type = 'sine';
+9128:                        oscillator.frequency.setValueAtTime(freq, currentTime);
+9131:                        gainNode.gain.setValueAtTime(0, currentTime);
+9132:                        gainNode.gain.linearRampToValueAtTime(volumes[index], currentTime + fadeInDuration);
+9136:                        gainNode.gain.setValueAtTime(volumes[index], fadeOutStart);
+9137:                        gainNode.gain.linearRampToValueAtTime(0, currentTime + totalDuration);
+9139:                        oscillator.connect(gainNode);
+9140:                        gainNode.connect(this.audioContext.destination);
+9142:                        oscillator.start(currentTime);
+9143:                        oscillator.stop(currentTime + totalDuration);
+9145:                        this.oscillators.push(oscillator);
+9146:                        this.gainNodes.push(gainNode);
+9221:                this.gainNodes.forEach(gain => {
+9231:                // Stop oscillators after fade out
+9233:                    this.oscillators.forEach(osc => {
+9238:                            console.warn('Error stopping oscillator:', e);
+9242:                    this.gainNodes.forEach(gain => {
+9250:                    this.oscillators = [];
+9251:                    this.gainNodes = [];
+9321:                    this.gainNodes.forEach((gainNode, index) => {
+9322:                        gainNode.gain.setValueAtTime(volumes[index], this.audioContext.currentTime);

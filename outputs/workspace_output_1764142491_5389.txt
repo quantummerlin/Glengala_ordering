@@ -1,0 +1,21 @@
+                });
+            }
+
+            selectRecipe(recipe) {
+                // Remove previous selection
+                document.querySelectorAll('.recipe-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Add selection to clicked recipe - find it by name
+                document.querySelectorAll('.recipe-item').forEach(item => {
+                    const nameElement = item.querySelector('.recipe-name');
+                    if (nameElement && nameElement.textContent === recipe.name) {
+                        item.classList.add('active');
+                    }
+                });
+                
+                // Load recipe frequencies
+                const frequencies = [
+                    recipe.frequencies[0] || 37,
+                    recipe.frequencies[1] || 73,

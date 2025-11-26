@@ -1,0 +1,2 @@
+2886:                        <div id="instructionsAccordion" class="instructions-accordion">
+8638:            const accordion = document.getElementById('instructionsAccordion');

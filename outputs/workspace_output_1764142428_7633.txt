@@ -1,0 +1,21 @@
+                            Complete your first session to start unlocking achievements! 🚀
+                        </div>
+                    `}
+                </div>
+            `;
+        }
+
+        function getRecentUnlocks(count = 3) {
+            if (!userProgress.achievementUnlockDates) return [];
+            
+            const unlocks = Object.entries(userProgress.achievementUnlockDates)
+                .map(([id, timestamp]) => ({
+                    id,
+                    achievement: ACHIEVEMENTS[id],
+                    timestamp
+                }))
+                .filter(u => u.achievement)
+                .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+                .slice(0, count);
+            
+            return unlocks;

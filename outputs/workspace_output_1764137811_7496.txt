@@ -1,0 +1,30 @@
+3161:                        // Instructions panel toggle function
+3162:                        window.toggleInstructions = function() {
+3172:                                overlay.onclick = function() { window.toggleInstructions(); };
+3197:                        window.handleCompanionClick = function(event) {
+3208:                function showAddToHomePopup() {
+3211:                function closeAddToHomePopup() {
+3216:                document.addEventListener('DOMContentLoaded', function() {
+3224:        // Modal flow functions for first-time users
+3225:        function showFrequencyBenefits() {
+3230:        function showHowToUse() {
+3235:        function showPWATip() {
+3240:        function showUpgradeBenefits() {
+3257:        function skipToApp() {
+3270:        function closeUpgradeBenefitsModal() {
+3274:        // Debug function to force show upgrade modal (call forceShowUpgrade() in console)
+3275:        window.forceShowUpgrade = function() {
+3316:        // Freemium upgrade functions
+3317:        function showUpgradeModal() {
+3333:        function closeUpgradeModal() {
+3340:        function updatePremiumFeatures() {
+3957:        (function() {
+3961:                // Don't call changeLanguage here, wait for DOM and function to be ready
+3966:        function closeAddToHome() {
+3978:        function changeLanguage(lang) {
+4024:            if (typeof instructionsSections !== 'undefined') {
+5146:            lastSessionDate: null,
+5183:            lastSession: null,
+5584:        function recordSession(duration, frequencies = [], trackId = null, category = null, metadata = {}) {
+5639:        function updateStreak(today) {
+5661:        function checkAllAchievements() {

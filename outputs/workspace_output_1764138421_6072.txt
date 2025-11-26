@@ -1,0 +1,8 @@
+3170:                                overlay.id = 'instructionsOverlay';
+3184:                                var overlay = document.getElementById('instructionsOverlay');
+9524:        let pwaPromptShown = false;
+9545:                if (userProgress.totalSessions >= 3 && !pwaPromptShown) {
+9569:            if (pwaPromptShown) return;
+9570:            pwaPromptShown = true;
+9573:            prompt.id = 'pwaPrompt';
+9605:            const prompt = document.getElementById('pwaPrompt');

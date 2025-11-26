@@ -1,0 +1,11 @@
+    <meta name="theme-color" content="#6B46C1">
+    <title>🌟 Genesis Frequency Generator (Free)</title>
+
+    <link rel="manifest" href="/Frequency-Generator/manifest.json">
+    <link rel="icon" type="image/png" sizes="192x192" href="/Frequency-Generator/Genesis.png">
+    <link rel="apple-touch-icon" href="/Frequency-Generator/Genesis.png">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;

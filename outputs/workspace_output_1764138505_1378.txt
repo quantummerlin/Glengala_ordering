@@ -1,0 +1,48 @@
+13:    <link rel="manifest" href="/Frequency-Generator/manifest.json">
+14:    <link rel="icon" type="image/png" sizes="192x192" href="/Frequency-Generator/Genesis.png">
+15:    <link rel="apple-touch-icon" href="/Frequency-Generator/Genesis.png">
+27:            background: url('/Frequency-Generator/Genesis.png') center center/cover fixed;
+471:            background: url('/Frequency-Generator/Genesis.png') center center/cover;
+514:            background: url('/Frequency-Generator/Genesis.png') center center/cover;
+813:            background: rgba(255, 255, 255, 0.05), url('/Frequency-Generator/Genesis.png') center center/cover;
+861:            background: rgba(255, 255, 255, 0.05), url('Genesis.png') center center/cover;
+888:            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+998:            background: url('Genesis.png') center center/cover;
+1053:            background: rgba(139, 92, 246, 0.1), url('Genesis.png') center center/cover;
+1085:            background: rgba(139, 92, 246, 0.15), url('Genesis.png') center center/cover;
+1114:            background: rgba(139, 92, 246, 0.25), url('Genesis.png') center center/cover;
+1168:            background: rgba(255, 255, 255, 0.05), url('Genesis.png') center center/cover;
+1202:            background: rgba(139, 92, 246, 0.1), url('Genesis.png') center center/cover;
+1215:            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+1256:            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+1290:            background: rgba(139, 92, 246, 0.4), url('Genesis.png') center center/cover;
+1304:            background: rgba(34, 197, 94, 0.3), url('Genesis.png') center center/cover;
+1313:            background: linear-gradient(135deg, rgba(34, 197, 94, 0.4), rgba(22, 163, 74, 0.4)), url('Genesis.png') center center/cover;
+1345:            background: rgba(251, 191, 36, 0.3), url('Genesis.png') center center/cover;
+1419:            background: linear-gradient(135deg, rgba(26,0,51,0.98), rgba(139,92,246,0.9)), url('Genesis.png') center center/cover;
+1543:            background: url('Genesis.png') center center/cover;
+1589:            background: rgba(255, 255, 255, 0.02), url('Genesis.png') center center/cover;
+1704:            background: rgba(26, 0, 51, 0.5), url('Genesis.png') center center/cover;
+1737:            background: rgba(139, 92, 246, 0.2), url('Genesis.png') center center/cover;
+1751:            background: rgba(251, 191, 36, 0.2), url('Genesis.png') center center/cover;
+2919:                                    <li><strong>Explore Categories</strong> — Try different recipes for healing, focus, sleep, manifestation</li>
+4111:                        benefits: "This combination aligns you with the original creative force of the universe. It helps manifest intentions, brings clarity to new beginnings, and connects you to the divine blueprint of creation. Perfect for prayer amplification and spiritual manifestation work.",
+4118:                    description: "Amplify manifestation with divine numerology",
+4254:                        whatItIs: "111 is a powerful angel number representing new beginnings, manifestation, and spiritual awakening. Mathematically, 111 = 37 × 3, creating a divine alignment with the Trinity foundation.",
+4255:                        benefits: "Opens communication with angels and spirit guides, signals new beginnings, accelerates manifestation of thoughts into reality, and heightens spiritual awareness and synchronicities.",
+4256:                        howToUse: "Listen for 11 minutes when you notice 11:11 on the clock. Focus on your intentions and desires. Perfect for manifesting work or when seeking angelic guidance. Pay attention to signs afterward."
+4347:                        benefits: "Activates spiritual portals, accelerates awakening, heightens intuition, signals alignment with life purpose, and creates powerful manifestation opportunities.",
+4357:                        benefits: "Empowers building dreams into reality, provides practical spiritual wisdom, supports large-scale projects, and helps manifest divine blueprints on earth.",
+4377:                        benefits: "Builds unshakeable spiritual foundation, provides discipline for spiritual practice, manifests stable abundance, and grounds higher consciousness into daily life.",
+4418:                        whatItIs: "144.72 Hz is Mars' orbital frequency, carrying the warrior energy of action, courage, and manifestation power. Combined with Trinity, it provides spiritual strength and drive.",
+4419:                        benefits: "Boosts courage and confidence, activates manifestation power, provides energy for action, helps overcome obstacles, and strengthens willpower and determination.",
+4429:                        benefits: "Aligns you with natural divine order, activates sacred geometry in your energy field, promotes mathematical perfection in manifestation, and connects you to universal patterns.",
+4430:                        howToUse: "Use for 20 minutes during manifestation work or when seeking divine order in chaos. Visualize geometric patterns. Excellent for artists, designers, and mathematicians."
+4700:                                <li>✨ <b>Amplified manifestation</b> — Intentions take root in fertile soil</li>
+4938:                            <b>Days 15-21:</b> Integration. Combine frequencies with specific intentions for manifestation.
+9676:                    icon: '/Genesis.png'
+9681:                    icon: '/Genesis.png'
+9686:                    icon: '/Genesis.png'
+9691:                    icon: '/Genesis.png'
+9696:                    icon: '/Genesis.png'
+9705:                badge: '/Genesis.png',

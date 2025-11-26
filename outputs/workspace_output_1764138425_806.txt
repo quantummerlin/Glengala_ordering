@@ -1,0 +1,10 @@
+3162:                        window.toggleInstructions = function() {
+3172:                                overlay.onclick = function() { window.toggleInstructions(); };
+3197:                        window.handleCompanionClick = function(event) {
+3208:                function showAddToHomePopup() {
+3211:                function closeAddToHomePopup() {
+3216:                document.addEventListener('DOMContentLoaded', function() {
+3225:        function showFrequencyBenefits() {
+3230:        function showHowToUse() {
+3235:        function showPWATip() {
+3240:        function showUpgradeBenefits() {
