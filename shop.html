@@ -227,13 +227,19 @@
     </button>
 
     <script src="products-data.js"></script>
+    <!-- Critical scripts first -->
+    <script src="products-data.js"></script>
     <script src="translations.js"></script>
-    <script src="live-pricing.js?v=20251127e"></script>
-    <script src="gamification.js?v=20251127e"></script>
-    <script src="in-app-notifications.js?v=20251127e"></script>
-    <script src="push-notifications.js?v=20251127e"></script>
-    <script src="checkout-system.js?v=20251127e"></script>
-    <script src="shop-functions-enhanced.js?v=20251127e"></script>
+    
+    <!-- Core functionality -->
+    <script src="live-pricing.js?v=20251127f"></script>
+    <script src="shop-functions-enhanced.js?v=20251127f"></script>
+    <script src="checkout-system.js?v=20251127f"></script>
+    
+    <!-- Non-critical - defer loading -->
+    <script src="gamification.js?v=20251127f" defer></script>
+    <script src="in-app-notifications.js?v=20251127f" defer></script>
+    <script src="push-notifications.js?v=20251127f" defer></script>
     <script>
         // Add fadeOut animation
         const welcomeStyle = document.createElement('style');
@@ -263,25 +269,6 @@
                 .then(reg => console.log('Service Worker registered:', reg))
                 .catch(err => console.error('Service Worker registration failed:', err));
         }
-        
-        // Test function for debugging customization
-        // Load customization immediately and also on a delay for fallback
-        function loadHeaderCustomization() {
-            if (window.shop && typeof shop.loadCustomization === 'function') {
-                shop.loadCustomization();
-            }
-        }
-        
-        // Load immediately when DOM is ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', loadHeaderCustomization);
-        } else {
-            loadHeaderCustomization();
-        }
-        
-        // Also load after a short delay as fallback
-        setTimeout(loadHeaderCustomization, 100);
-        setTimeout(loadHeaderCustomization, 500);
     </script>
 </body>
 </html>

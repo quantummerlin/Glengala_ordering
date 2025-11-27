@@ -11,8 +11,11 @@ class LivePricingSystem {
     }
 
     async init() {
-        // Load products immediately
-        await this.fetchProducts();
+        // Check localStorage cache first for instant display
+        this.loadFromCache();
+        
+        // Then fetch fresh data in background
+        this.fetchProducts();
         
         // Set up periodic updates
         this.startPeriodicUpdates();
@@ -26,6 +29,27 @@ class LivePricingSystem {
                 this.checkForUpdates();
             }
         });
+    }
+    
+    loadFromCache() {
+        try {
+            const cached = localStorage.getItem('glengala_products');
+            if (cached) {
+                const data = JSON.parse(cached);
+                // Only use cache if less than 15 minutes old
+                const cacheAge = Date.now() - new Date(data.updated_at).getTime();
+                if (cacheAge < this.updateInterval) {
+                    this.products = data.products;
+                    window.products = data.products;
+                    this.lastUpdate = new Date(data.updated_at);
+                    console.log('⚡ Loaded', this.products.length, 'products from cache');
+                    return true;
+                }
+            }
+        } catch (e) {
+            console.log('Cache load failed:', e);
+        }
+        return false;
     }
 
     async fetchProducts() {

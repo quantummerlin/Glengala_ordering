@@ -121,24 +121,15 @@ function showAdminPanel() {
     // Load dark mode preference
     loadDarkMode();
     
-    // Initialize admin functionality
-    // Auto-open emoji picker if requested
-    setTimeout(() => {
-        const overlay = document.getElementById('emojiPickerOverlay');
-        if (overlay && overlay.classList.contains('show')) {
-            console.warn('Emoji picker is showing automatically! This should not happen.');
-        }
-    }, 500);
+    // Initialize admin functionality immediately
     loadProducts();
     
-    // Initialize customization system with longer delay to ensure DOM is ready
+    // Initialize customization system with minimal delay
     setTimeout(() => {
         initializeCustomization();
-        // Apply saved gradient to admin header
         loadAndApplyAdminGradient();
-        // Load categories
         loadCategories();
-    }, 500);
+    }, 50);
 }
 
 function logout() {
@@ -692,6 +683,13 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load products from products-data.js
 async function loadProducts() {
     console.log('loadProducts called - fetching from API');
+    const list = document.getElementById('productList');
+    
+    // Show loading indicator
+    if (list) {
+        list.innerHTML = '<li style="text-align: center; padding: 40px; color: #888;"><div style="font-size: 2em; margin-bottom: 10px;">⏳</div>Loading products...</li>';
+    }
+    
     try {
         const response = await fetch(`${apiBase}/products`);
         if (!response.ok) {
@@ -704,20 +702,13 @@ async function loadProducts() {
         // Add increment field to existing products if missing
         allProducts.forEach(product => {
             if (!product.increment) {
-                // Set default increment based on unit
-                if (product.unit === 'kg') {
-                    product.increment = '100g';
-                } else {
-                    product.increment = '1';
-                }
+                product.increment = product.unit === 'kg' ? '100g' : '1';
             }
-            // Ensure active is boolean
             product.active = product.active === 1 || product.active === true;
         });
         
-        // Sort all products alphabetically before displaying, with blank names at the bottom
+        // Sort and display
         sortProductsAlphabetically(allProducts);
-        
         displayProducts(allProducts);
         console.log(`Loaded ${allProducts.length} products from API`);
     } catch (error) {
@@ -730,7 +721,9 @@ async function loadProducts() {
             sortProductsAlphabetically(allProducts);
             displayProducts(allProducts);
         } else {
-            alert('Error loading products. Please ensure the Flask server is running.');
+            if (list) {
+                list.innerHTML = '<li style="text-align: center; padding: 40px; color: #e74c3c;">❌ Error loading products. Please ensure the server is running.</li>';
+            }
         }
     }
 }

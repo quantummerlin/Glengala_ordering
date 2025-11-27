@@ -1,18 +1,21 @@
 // Glengala Fresh - Service Worker for PWA
 // Provides offline support and live price updates
 
-const CACHE_NAME = 'glengala-v3';
-const API_CACHE = 'glengala-api-v3';
+const CACHE_NAME = 'glengala-v4';
+const API_CACHE = 'glengala-api-v4';
 
-// Files to cache for offline use
+// Files to cache for offline use - critical assets only
 const STATIC_ASSETS = [
   '/shop.html',
   '/admin.html',
   '/shop-styles.css',
   '/checkout-styles.css',
   '/admin.css',
+  '/admin-styles.css',
+  '/products-data.js',
   '/shop-functions-enhanced.js',
   '/checkout-system.js',
+  '/live-pricing.js',
   '/admin.js',
   '/translations.js',
   '/manifest.json'

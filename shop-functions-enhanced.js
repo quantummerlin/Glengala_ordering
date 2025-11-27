@@ -242,10 +242,8 @@ class GlengalaShop {
             // Add click handlers for category toggles
             this.addCategoryToggleHandlers();
             
-            // Load products into each category after DOM is ready
-            setTimeout(() => {
-                this.loadProductsIntoCategories();
-            }, 100);
+            // Load products into each category immediately
+            this.loadProductsIntoCategories();
             
         } catch (error) {
             console.error('❌ Error generating sections:', error);
