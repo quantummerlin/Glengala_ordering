@@ -51,11 +51,15 @@ class GlengalaShop {
                     return;
                 }
             } catch (error) {
-                console.log('⚠️ API unavailable, using static products');
+                console.log('⚠️ API unavailable, using static products:', error.message);
             }
         }
-        // If API fails, products-data.js is already loaded
-        console.log('📦 Using static products data');
+        // If API fails, ensure window.products has the static data
+        if (!window.products || window.products.length === 0) {
+            // products-data.js should have set window.products
+            console.log('📦 Using static products data:', (window.products || []).length, 'products');
+        }
+        this.productsLoaded = true;
     }
 
     setupEventListeners() {
@@ -175,7 +179,12 @@ class GlengalaShop {
     }
 
     renderShop() {
-        if (!this.activeCategories) {
+        console.log('🏪 renderShop called');
+        console.log('  - activeCategories:', this.activeCategories?.length || 0);
+        console.log('  - window.products:', (window.products || []).length);
+        
+        if (!this.activeCategories || this.activeCategories.length === 0) {
+            console.error('❌ No active categories to render');
             return;
         }
         

@@ -185,7 +185,12 @@ function loadProducts() {
     if (saved) {
         products = JSON.parse(saved);
     }
+    // Always ensure window.products is set
+    window.products = products;
 }
+
+// Set window.products immediately on script load as fallback
+window.products = products;
 
 // Export functions for use in other scripts
 if (typeof module !== 'undefined' && module.exports) {
