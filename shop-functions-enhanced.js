@@ -416,7 +416,7 @@ class GlengalaShop {
         const emoji = this.getProductEmoji(product);
         const unitInfo = this.getUnitInfo(product);
         
-        // List item format for better mobile UX
+        // Two-line list item format for mobile
         return `
             <li class="product-list-item" data-product-id="${product.id}" style="
                 background: #222;
@@ -429,8 +429,8 @@ class GlengalaShop {
                 box-shadow: 0 2px 6px rgba(0,0,0,0.2);
             ">
                 <div class="product-photo-list" style="
-                    width: 60px;
-                    height: 60px;
+                    width: 55px;
+                    height: 55px;
                     flex-shrink: 0;
                     border-radius: 8px;
                     overflow: hidden;
@@ -438,37 +438,37 @@ class GlengalaShop {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    font-size: 2em;
+                    font-size: 1.8em;
                 ">
                     ${product.photo ? `<img src="${product.photo}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">` : emoji}
                 </div>
                 
-                <div class="product-info-list" style="flex: 1; min-width: 0;">
-                    <div class="product-name-list" style="font-weight: 600; color: #fff; font-size: 1em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                <div class="product-details" style="flex: 1; min-width: 0;">
+                    <div class="product-name-list" style="font-weight: 600; color: #fff; font-size: 0.95em; margin-bottom: 6px; line-height: 1.2;">
                         ${product.name}
                     </div>
-                    <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1.1em;">
-                        $${product.price.toFixed(2)} <span style="color: #888; font-size: 0.85em; font-weight: normal;">${unitInfo.display}</span>
+                    <div class="product-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
+                        <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1em;">
+                            $${product.price.toFixed(2)} <span style="color: #888; font-size: 0.8em; font-weight: normal;">${unitInfo.display}</span>
+                        </div>
+                        <div class="product-controls-list" style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
+                            <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
+                                <button onclick="shop.updateQuantity(${product.id}, -1)" style="width: 28px; height: 28px; border: none; background: #444; color: #fff; font-size: 1.1em; cursor: pointer;">−</button>
+                                <input type="number" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}" style="width: 38px; height: 28px; border: none; background: #333; color: #fff; text-align: center; font-size: 0.9em; -moz-appearance: textfield;" onwheel="this.blur()">
+                                <button onclick="shop.updateQuantity(${product.id}, 1)" style="width: 28px; height: 28px; border: none; background: #444; color: #fff; font-size: 1.1em; cursor: pointer;">+</button>
+                            </div>
+                            <button onclick="shop.addToCart(${product.id})" style="
+                                background: #22c55e;
+                                color: #fff;
+                                border: none;
+                                border-radius: 6px;
+                                padding: 6px 10px;
+                                font-weight: 600;
+                                font-size: 0.85em;
+                                cursor: pointer;
+                            ">Add</button>
+                        </div>
                     </div>
-                </div>
-                
-                <div class="product-controls-list" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
-                    <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
-                        <button onclick="shop.updateQuantity(${product.id}, -1)" style="width: 32px; height: 32px; border: none; background: #444; color: #fff; font-size: 1.2em; cursor: pointer;">−</button>
-                        <input type="number" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}" style="width: 45px; height: 32px; border: none; background: #333; color: #fff; text-align: center; font-size: 0.95em; -moz-appearance: textfield;" onwheel="this.blur()">
-                        <button onclick="shop.updateQuantity(${product.id}, 1)" style="width: 32px; height: 32px; border: none; background: #444; color: #fff; font-size: 1.2em; cursor: pointer;">+</button>
-                    </div>
-                    <button onclick="shop.addToCart(${product.id})" style="
-                        background: #22c55e;
-                        color: #fff;
-                        border: none;
-                        border-radius: 6px;
-                        padding: 8px 14px;
-                        font-weight: 600;
-                        font-size: 0.9em;
-                        cursor: pointer;
-                        white-space: nowrap;
-                    ">🛒 Add</button>
                 </div>
             </li>
         `;
