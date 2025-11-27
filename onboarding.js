@@ -90,11 +90,11 @@ class GlengalaOnboarding {
                     </div>
 
                     <div class="welcome-buttons">
-                        <button class="welcome-btn-primary" onclick="glengalaOnboarding.closeWelcome(true)">
-                            Start Shopping
+                        <button class="welcome-btn-primary" onclick="glengalaOnboarding.closeWelcome(false)">
+                            👋 Show Me Around
                         </button>
-                        <button class="welcome-btn-secondary" onclick="glengalaOnboarding.closeWelcome(false)">
-                            Show Me Around
+                        <button class="welcome-btn-secondary" onclick="glengalaOnboarding.closeWelcome(true)">
+                            Start Shopping
                         </button>
                     </div>
                     
