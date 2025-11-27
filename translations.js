@@ -133,13 +133,13 @@ const translations = {
 class LocalizationManager {
     constructor() {
         this.currentLang = localStorage.getItem('glengalaLanguage') || 'en';
-        this.isDarkMode = localStorage.getItem('glengalaDarkMode') !== 'false'; // Default to true
         this.init();
     }
 
     init() {
         this.applyLanguage(this.currentLang);
-        this.applyTheme(this.isDarkMode);
+        // Always dark mode - sleek black look
+        document.body.classList.add('theme-dark');
         this.setupEventListeners();
     }
 
@@ -196,32 +196,6 @@ class LocalizationManager {
                 }
             });
         });
-    }
-
-    applyTheme(isDark) {
-        this.isDarkMode = isDark;
-        localStorage.setItem('glengalaDarkMode', isDark.toString());
-        
-        if (isDark) {
-            document.body.classList.add('theme-dark');
-            document.getElementById('themeIcon').textContent = '☀️';
-            document.getElementById('themeText').textContent = 'Light Mode';
-        } else {
-            document.body.classList.remove('theme-dark');
-            document.getElementById('themeIcon').textContent = '🌙';
-            document.getElementById('themeText').textContent = 'Dark Mode';
-        }
-    }
-
-    toggleTheme() {
-        this.applyTheme(!this.isDarkMode);
-    }
-}
-
-// Global functions
-function toggleDarkMode() {
-    if (localizationManager) {
-        localizationManager.toggleTheme();
     }
 }
 

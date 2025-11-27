@@ -1,7 +1,6 @@
 // Glengala Fresh Shop Functions - Original 6 Tab System with Collapsible Menus
 const shop = {
     cart: [],
-    isDarkMode: false,
     currentLanguage: 'en',
     collapsedCategories: new Set(['vegetables', 'fruits', 'herbs', 'juices', 'nuts', 'flowers']),
 
@@ -22,9 +21,7 @@ const shop = {
                 flowers: "Fresh Flowers"
             },
             addToCart: "Add to Cart",
-            confirmOrder: "Confirm Order",
-            darkMode: "☀️ Light Mode",
-            lightMode: "🌙 Dark Mode"
+            confirmOrder: "Confirm Order"
         },
         zh: {
             shopName: "格林加拉生鲜",
@@ -41,9 +38,7 @@ const shop = {
                 flowers: "鲜花"
             },
             addToCart: "加入购物车",
-            confirmOrder: "确认订单",
-            darkMode: "☀️ 浅色模式",
-            lightMode: "🌙 深色模式"
+            confirmOrder: "确认订单"
         },
         vi: {
             shopName: "Glengala Tươi",
@@ -60,9 +55,7 @@ const shop = {
                 flowers: "Hoa Tươi"
             },
             addToCart: "Thêm Vào Giỏ",
-            confirmOrder: "Xác Nhận Đơn Hàng",
-            darkMode: "☀️ Chế Độ Sáng",
-            lightMode: "🌙 Chế Độ Tối"
+            confirmOrder: "Xác Nhận Đơn Hàng"
         },
         ar: {
             shopName: "جلينجالا الطازج",
@@ -79,9 +72,7 @@ const shop = {
                 flowers: "زهور طازجة"
             },
             addToCart: "أضف إلى السلة",
-            confirmOrder: "تأكيد الطلب",
-            darkMode: "☀️ الوضع النهاري",
-            lightMode: "🌙 الوضع الليلي"
+            confirmOrder: "تأكيد الطلب"
         }
     },
 
@@ -497,49 +488,6 @@ const shop = {
                 el.textContent = t.categories[category];
             });
         });
-        
-        // Update dark mode button
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        if (darkModeToggle) {
-            const themeText = document.getElementById('themeText');
-            if (themeText) {
-                themeText.textContent = this.isDarkMode ? t.darkMode : t.lightMode;
-            }
-        }
-    },
-
-    // Dark mode functions
-    toggleDarkMode() {
-        this.isDarkMode = !this.isDarkMode;
-        document.body.classList.toggle('dark-mode', this.isDarkMode);
-        
-        const themeIcon = document.getElementById('themeIcon');
-        const themeText = document.getElementById('themeText');
-        
-        if (themeIcon) {
-            themeIcon.textContent = this.isDarkMode ? '☀️' : '🌙';
-        }
-        if (themeText) {
-            themeText.textContent = this.isDarkMode ? 
-                this.translations[this.currentLanguage].darkMode : 
-                this.translations[this.currentLanguage].lightMode;
-        }
-        
-        localStorage.setItem('glengala_dark_mode', this.isDarkMode);
-    },
-
-    loadDarkMode() {
-        const saved = localStorage.getItem('glengala_dark_mode');
-        if (saved === 'true') {
-            this.isDarkMode = true;
-            document.body.classList.add('dark-mode');
-            
-            const themeIcon = document.getElementById('themeIcon');
-            const themeText = document.getElementById('themeText');
-            
-            if (themeIcon) themeIcon.textContent = '☀️';
-            if (themeText) themeText.textContent = this.translations[this.currentLanguage].darkMode;
-        }
     },
 
     // Storage functions

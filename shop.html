@@ -20,90 +20,11 @@
     <link rel="stylesheet" href="onboarding-styles.css?v=20251127h">
     <link rel="stylesheet" href="rewards-styles.css?v=20251127h">
     
-    <!-- Welcome Message Script - Must load before body -->
-    <script>
-        // Define closeWelcome function immediately
-        function closeWelcome() {
-            const welcomeMsg = document.getElementById('welcomeMessage');
-            if (!welcomeMsg) return;
-            welcomeMsg.style.animation = 'fadeOut 0.3s ease-out';
-            setTimeout(() => {
-                welcomeMsg.style.display = 'none';
-                localStorage.setItem('glengala_welcomed', 'true');
-            }, 300);
-        }
-    </script>
+
     
 <script src="https://sites.super.myninja.ai/_assets/ninja-daytona-script.js"></script>
 </head>
-<body>
-    <!-- Welcome Message & Install Prompt -->
-    <div id="welcomeMessage" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(8px);
-        -webkit-backdrop-filter: blur(8px);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 100000;
-        animation: fadeIn 0.5s ease-in;
-    ">
-        <div style="
-            background: white;
-            border-radius: 24px;
-            padding: 24px 28px;
-            max-width: 400px;
-            margin: 20px;
-            text-align: center;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: slideUp 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
-        ">
-            <img src="Glengala Logo.png" alt="Glengala Fresh" style="width: 70px; margin-bottom: 12px;">
-            <h1 style="color: #2d5016; margin: 0 0 8px 0; font-size: 24px; font-weight: 700;">🌱 Welcome to Glengala Fresh!</h1>
-            <p style="color: #666; font-size: 15px; line-height: 1.4; margin: 0 0 16px 0;">
-                Fresh produce from Melbourne's Epping Market
-            </p>
-            <div style="background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%); border-left: 3px solid #667eea; padding: 10px 12px; margin-bottom: 16px; text-align: left; border-radius: 10px;">
-                <strong style="color: #667eea; font-size: 13px;">💡 Pro Tip:</strong>
-                <p style="margin: 4px 0 0 0; color: #555; font-size: 13px; line-height: 1.4;">
-                    Save to home screen for quick access<br>
-                    Tap 📤 → "Add to Home Screen"
-                </p>
-            </div>
-            <button onclick="closeWelcome()" style="
-                background: #000000;
-                color: white;
-                border: none;
-                padding: 12px 32px;
-                font-size: 15px;
-                font-weight: 600;
-                border-radius: 14px;
-                cursor: pointer;
-                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-                transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                width: 100%;
-            " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 8px 25px rgba(0, 0, 0, 0.4)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 6px 20px rgba(0, 0, 0, 0.3)'">
-                🛒 Start Shopping
-            </button>
-        </div>
-    </div>
-
-    <style>
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        @keyframes slideUp {
-            from { transform: translateY(50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
-
+<body class="theme-dark">
     <div class="shop-container">
         <!-- Trust Ribbon -->
         <div class="trust-ribbon">
@@ -183,13 +104,7 @@
     </div>
     </div>
 
-    <!-- Dark Mode Toggle -->
-    <div class="dark-mode-toggle">
-        <button id="darkModeToggle" class="dark-mode-btn" onclick="toggleDarkMode()">
-            <span id="themeIcon">☀️</span>
-            <span id="themeText">Light Mode</span>
-        </button>
-    </div>
+
 
     <!-- Fixed Cart Button -->
     <div style="width:100%;display:flex;justify-content:center;position:fixed;bottom:80px;left:0;z-index:1000;pointer-events:auto;">
@@ -273,26 +188,8 @@
     <script src="in-app-notifications.js?v=20251127h" defer></script>
     <script src="push-notifications.js?v=20251127h" defer></script>
     <script>
-        // Add fadeOut animation
-        const welcomeStyle = document.createElement('style');
-        welcomeStyle.textContent = '@keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }';
-        document.head.appendChild(welcomeStyle);
-        
-        // Check if user has seen welcome before OR if running as PWA
+        // Initialization script
         window.addEventListener('DOMContentLoaded', () => {
-            const isStandalone = window.matchMedia('(display-mode: standalone)').matches || 
-                                window.navigator.standalone || 
-                                document.referrer.includes('android-app://');
-            
-            if (localStorage.getItem('glengala_welcomed') === 'true' || isStandalone) {
-                const welcomeMsg = document.getElementById('welcomeMessage');
-                if (welcomeMsg) {
-                    welcomeMsg.style.display = 'none';
-                }
-                if (isStandalone) {
-                    console.log('✅ Running as PWA - Welcome message hidden');
-                }
-            }
             
             // Update rewards badge
             setTimeout(() => {
