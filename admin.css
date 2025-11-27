@@ -563,8 +563,8 @@ body {
 
 /* Product List Styles */
 .product-list {
-    max-height: 400px;
-    overflow-y: auto;
+    max-height: none;
+    overflow-y: visible;
     border: 1px solid #ddd;
     border-radius: 4px;
     background: white;

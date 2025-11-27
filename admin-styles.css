@@ -748,7 +748,8 @@ th {
 }
 
 .menu-content.expanded {
-    max-height: 10000px;
+    max-height: none;
+    overflow: visible;
     padding: 15px 15px 0 15px;
 }
 
