@@ -197,12 +197,16 @@ class GlengalaShop {
     generateCategorySections() {
         const categoriesContainer = document.getElementById('categoriesContainer');
         if (!categoriesContainer) {
+            console.error('❌ categoriesContainer not found');
             return;
         }
         
         if (!this.activeCategories || this.activeCategories.length === 0) {
+            console.error('❌ No active categories');
             return;
         }
+        
+        console.log('🏪 Generating category sections for', this.activeCategories.length, 'categories');
         
         try {
             const htmlContent = this.activeCategories.map(category => {
@@ -213,24 +217,24 @@ class GlengalaShop {
                 const arrowSymbol = isCollapsed ? '▼' : '▲';
                 
                 return `
-                <div style="background: white; border: 1px solid #e0e0e0; margin: 10px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.1); overflow: hidden;">
-                    <div class="category-header-dynamic" style="background: #333; color: white; padding: 15px; cursor: pointer; position: relative; overflow: hidden; font-size: 1.2rem;" data-category="${category.id}">
+                <div style="background: #1a1a1a; border: 1px solid #333; margin: 10px; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.3); overflow: hidden;">
+                    <div class="category-header-dynamic" style="background: linear-gradient(135deg, #222, #333); color: white; padding: 15px; cursor: pointer; position: relative; overflow: hidden; font-size: 1.2rem;" data-category="${category.id}">
                         <span style="font-size: 1.2em; margin-right: 10px;">${category.emoji}</span>
                         <span style="font-weight: bold;">${category.name}</span>
                         <span class="category-arrow" style="float: right; transition: transform 0.3s ease;">${arrowSymbol}</span>
-                        <div class="gradient-line" style="position: absolute; bottom: 0; left: -100%; width: 100%; height: 3px; background: linear-gradient(90deg, #f40606, #47018e); transition: left 0.6s ease;"></div>
+                        <div class="gradient-line" style="position: absolute; bottom: 0; left: -100%; width: 100%; height: 3px; background: linear-gradient(90deg, #4ade80, #22c55e); transition: left 0.6s ease;"></div>
                     </div>
-                    <div id="${category.id}Content" style="display: ${displayStyle}; padding: 20px; background: white;">
-                        <div id="${category.id}Products" class="products-grid">
-                            <!-- Products will be loaded here -->
-                        </div>
+                    <div id="${category.id}Content" style="display: ${displayStyle}; padding: 10px; background: #1a1a1a;">
+                        <ul id="${category.id}Products" class="products-list" style="list-style: none; padding: 0; margin: 0;">
+                            <!-- Products will be loaded here as list items -->
+                        </ul>
                     </div>
                 </div>
             `;
             }).join('');
             
             categoriesContainer.innerHTML = htmlContent;
-
+            console.log('✅ Category sections created');
             
             // Apply the same gradient as the header to category tabs
             this.applySavedGradientToCategories();
@@ -244,7 +248,7 @@ class GlengalaShop {
             }, 100);
             
         } catch (error) {
-            // Silent error handling for production
+            console.error('❌ Error generating sections:', error);
         }
     }
 
@@ -412,31 +416,61 @@ class GlengalaShop {
         const emoji = this.getProductEmoji(product);
         const unitInfo = this.getUnitInfo(product);
         
+        // List item format for better mobile UX
         return `
-            <div class="product-card fade-in" data-product-id="${product.id}">
-                ${product.mostPopular ? '<div class="special-badge">🔥 Popular</div>' : ''}
-                <div class="product-photo">
-                    ${product.photo ? `<img src="${product.photo}" alt="${product.name}">` : emoji}
+            <li class="product-list-item" data-product-id="${product.id}" style="
+                background: #222;
+                border-radius: 10px;
+                margin-bottom: 10px;
+                padding: 12px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+            ">
+                <div class="product-photo-list" style="
+                    width: 60px;
+                    height: 60px;
+                    flex-shrink: 0;
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background: #333;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 2em;
+                ">
+                    ${product.photo ? `<img src="${product.photo}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">` : emoji}
                 </div>
-                <div class="product-name">${product.name}</div>
-                <div class="product-price">$${product.price.toFixed(2)} ${unitInfo.display}</div>
                 
-                <div class="quantity-info">
-                    <div class="quantity-selector">
-                        <div class="quantity-wrapper">
-                            <input type="number" id="qty-${product.id}" class="quantity-input" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}">
-                            <div class="quantity-controls">
-                                <button class="quantity-btn up-btn" onclick="shop.updateQuantity(${product.id}, 1)">▲</button>
-                                <button class="quantity-btn down-btn" onclick="shop.updateQuantity(${product.id}, -1)">▼</button>
-                            </div>
-                        </div>
+                <div class="product-info-list" style="flex: 1; min-width: 0;">
+                    <div class="product-name-list" style="font-weight: 600; color: #fff; font-size: 1em; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                        ${product.name}
+                    </div>
+                    <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1.1em;">
+                        $${product.price.toFixed(2)} <span style="color: #888; font-size: 0.85em; font-weight: normal;">${unitInfo.display}</span>
                     </div>
                 </div>
                 
-                <button class="add-to-cart" onclick="shop.addToCart(${product.id})">
-                    <span data-translate="addToCart">🛒 Add</span>
-                </button>
-            </div>
+                <div class="product-controls-list" style="display: flex; align-items: center; gap: 8px; flex-shrink: 0;">
+                    <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
+                        <button onclick="shop.updateQuantity(${product.id}, -1)" style="width: 32px; height: 32px; border: none; background: #444; color: #fff; font-size: 1.2em; cursor: pointer;">−</button>
+                        <input type="number" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}" style="width: 45px; height: 32px; border: none; background: #333; color: #fff; text-align: center; font-size: 0.95em; -moz-appearance: textfield;" onwheel="this.blur()">
+                        <button onclick="shop.updateQuantity(${product.id}, 1)" style="width: 32px; height: 32px; border: none; background: #444; color: #fff; font-size: 1.2em; cursor: pointer;">+</button>
+                    </div>
+                    <button onclick="shop.addToCart(${product.id})" style="
+                        background: #22c55e;
+                        color: #fff;
+                        border: none;
+                        border-radius: 6px;
+                        padding: 8px 14px;
+                        font-weight: 600;
+                        font-size: 0.9em;
+                        cursor: pointer;
+                        white-space: nowrap;
+                    ">🛒 Add</button>
+                </div>
+            </li>
         `;
     }
 
