@@ -190,6 +190,10 @@ class GlengalaShop {
         
         // Generate category sections first
         this.generateCategorySections();
+        
+        // Update in-cart indicators for items already in cart
+        this.updateProductCartIndicators();
+        this.updateFloatingSubtotal();
     }
 
 
@@ -415,6 +419,11 @@ class GlengalaShop {
         const unitInfo = this.getUnitInfo(product);
         const initialDisplay = this.formatQuantityDisplay(quantityOptions.min, quantityOptions.increment, product.unit);
         
+        // Check if already in cart
+        const cartItem = this.cart.find(item => item.id === product.id);
+        const inCartDisplay = cartItem ? this.formatCartQuantity(cartItem) : '';
+        const inCartTotal = cartItem ? `$${cartItem.total.toFixed(2)}` : '';
+        
         // Two-line list item format for mobile
         return `
             <li class="product-list-item" data-product-id="${product.id}" style="
@@ -426,6 +435,7 @@ class GlengalaShop {
                 align-items: center;
                 gap: 12px;
                 box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+                ${cartItem ? 'border-left: 3px solid #22c55e;' : ''}
             ">
                 <div class="product-photo-list" style="
                     width: 55px;
@@ -438,13 +448,18 @@ class GlengalaShop {
                     align-items: center;
                     justify-content: center;
                     font-size: 1.8em;
+                    position: relative;
                 ">
                     ${product.photo ? `<img src="${product.photo}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: cover;">` : emoji}
+                    ${cartItem ? `<div style="position:absolute;top:-4px;right:-4px;background:#22c55e;color:#fff;font-size:0.65em;font-weight:700;padding:2px 5px;border-radius:8px;">✓</div>` : ''}
                 </div>
                 
                 <div class="product-details" style="flex: 1; min-width: 0;">
-                    <div class="product-name-list" style="font-weight: 600; color: #fff; font-size: 0.95em; margin-bottom: 6px; line-height: 1.2;">
-                        ${product.name}
+                    <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:6px;">
+                        <div class="product-name-list" style="font-weight: 600; color: #fff; font-size: 0.95em; line-height: 1.2; flex:1;">
+                            ${product.name}
+                        </div>
+                        ${cartItem ? `<div id="in-cart-${product.id}" style="background:rgba(34,197,94,0.15); color:#22c55e; font-size:0.75em; font-weight:600; padding:3px 8px; border-radius:10px; white-space:nowrap; margin-left:8px;">${inCartDisplay} = ${inCartTotal}</div>` : `<div id="in-cart-${product.id}" style="display:none;"></div>`}
                     </div>
                     <div class="product-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
                         <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1em;">
@@ -466,7 +481,7 @@ class GlengalaShop {
                                 font-weight: 600;
                                 font-size: 0.85em;
                                 cursor: pointer;
-                            ">Add</button>
+                            ">${cartItem ? '+' : 'Add'}</button>
                         </div>
                     </div>
                 </div>
@@ -750,6 +765,8 @@ class GlengalaShop {
         console.log('Cart now has', this.cart.length, 'items, total items:', this.cart.reduce((sum, item) => sum + item.quantity, 0));
         this.saveAllData();
         this.updateCartDisplay();
+        this.updateProductCardInCart(productId);
+        this.updateFloatingSubtotal();
         this.showAddedToCartNotification(product.name);
     }
 
@@ -757,6 +774,128 @@ class GlengalaShop {
         this.cart = this.cart.filter(item => item.id !== productId);
         this.saveAllData();
         this.updateCartDisplay();
+        this.updateProductCardInCart(productId);
+        this.updateFloatingSubtotal();
+    }
+    
+    // Update all product card in-cart indicators (used on page load and after cart changes)
+    updateProductCartIndicators() {
+        // Update indicators for all items in cart
+        this.cart.forEach(item => {
+            this.updateProductCardInCart(item.id);
+        });
+        console.log('🛒 Updated cart indicators for', this.cart.length, 'items');
+    }
+    
+    // Update the in-cart indicator on a product card
+    updateProductCardInCart(productId) {
+        const cartItem = this.cart.find(item => item.id === productId);
+        const inCartEl = document.getElementById(`in-cart-${productId}`);
+        const productCard = document.querySelector(`[data-product-id="${productId}"]`);
+        
+        if (inCartEl) {
+            if (cartItem) {
+                const display = this.formatCartQuantity(cartItem);
+                const total = `$${cartItem.total.toFixed(2)}`;
+                inCartEl.innerHTML = `${display} = ${total}`;
+                inCartEl.style.display = 'block';
+                inCartEl.style.background = 'rgba(34,197,94,0.15)';
+                inCartEl.style.color = '#22c55e';
+                inCartEl.style.fontSize = '0.75em';
+                inCartEl.style.fontWeight = '600';
+                inCartEl.style.padding = '3px 8px';
+                inCartEl.style.borderRadius = '10px';
+                inCartEl.style.whiteSpace = 'nowrap';
+                inCartEl.style.marginLeft = '8px';
+            } else {
+                inCartEl.style.display = 'none';
+            }
+        }
+        
+        // Update card border
+        if (productCard) {
+            productCard.style.borderLeft = cartItem ? '3px solid #22c55e' : 'none';
+        }
+        
+        // Update Add button text
+        const addBtn = productCard?.querySelector('button[onclick*="addToCart"]');
+        if (addBtn) {
+            addBtn.textContent = cartItem ? '+' : 'Add';
+        }
+    }
+    
+    // Create or update floating subtotal bar
+    updateFloatingSubtotal() {
+        let subtotalBar = document.getElementById('floatingSubtotal');
+        const subtotal = this.cart.reduce((sum, item) => sum + item.total, 0);
+        const itemCount = this.cart.length;
+        
+        if (itemCount === 0) {
+            if (subtotalBar) subtotalBar.remove();
+            return;
+        }
+        
+        // Calculate delivery threshold progress
+        const toFreeDelivery = Math.max(0, 50 - subtotal);
+        const progressPercent = Math.min(100, (subtotal / 50) * 100);
+        
+        if (!subtotalBar) {
+            subtotalBar = document.createElement('div');
+            subtotalBar.id = 'floatingSubtotal';
+            subtotalBar.style.cssText = `
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                background: linear-gradient(to top, #1a1a1a 0%, #222 100%);
+                padding: 12px 16px;
+                padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
+                z-index: 1000;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
+                border-top: 1px solid #333;
+            `;
+            document.body.appendChild(subtotalBar);
+            
+            // Add padding to body to prevent content being hidden
+            document.body.style.paddingBottom = '100px';
+        }
+        
+        subtotalBar.innerHTML = `
+            <div style="max-width: 600px; margin: 0 auto;">
+                ${toFreeDelivery > 0 ? `
+                    <div style="margin-bottom: 8px;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8em; margin-bottom: 4px;">
+                            <span style="color: #888;">Free delivery progress</span>
+                            <span style="color: ${progressPercent >= 100 ? '#22c55e' : '#fbbf24'};">$${toFreeDelivery.toFixed(2)} to go</span>
+                        </div>
+                        <div style="height: 4px; background: #333; border-radius: 2px; overflow: hidden;">
+                            <div style="height: 100%; width: ${progressPercent}%; background: linear-gradient(90deg, #22c55e, #16a34a); border-radius: 2px; transition: width 0.3s;"></div>
+                        </div>
+                    </div>
+                ` : `
+                    <div style="text-align: center; color: #22c55e; font-size: 0.8em; margin-bottom: 8px;">
+                        🎉 FREE delivery unlocked!
+                    </div>
+                `}
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <div style="color: #888; font-size: 0.8em;">${itemCount} item${itemCount > 1 ? 's' : ''} in basket</div>
+                        <div style="color: #fff; font-size: 1.3em; font-weight: 700;">$${subtotal.toFixed(2)}</div>
+                    </div>
+                    <button onclick="shop.toggleCart()" style="
+                        background: linear-gradient(135deg, #22c55e, #16a34a);
+                        color: #fff;
+                        border: none;
+                        padding: 12px 24px;
+                        border-radius: 10px;
+                        font-weight: 600;
+                        font-size: 1em;
+                        cursor: pointer;
+                        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+                    ">View Basket →</button>
+                </div>
+            </div>
+        `;
     }
 
     updateCartDisplay() {
