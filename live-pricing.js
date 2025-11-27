@@ -1,5 +1,5 @@
 // Glengala Fresh - Live Pricing System
-// Fetches prices from API and updates in real-time
+// Database-first with local cache for instant display
 
 class LivePricingSystem {
     constructor() {
@@ -7,15 +7,22 @@ class LivePricingSystem {
         this.products = [];
         this.lastUpdate = null;
         this.updateInterval = 900000; // 15 minutes in milliseconds
+        this.isLoading = true;
         this.init();
     }
 
     async init() {
-        // Check localStorage cache first for instant display
-        this.loadFromCache();
+        // Show loading state
+        this.isLoading = true;
         
-        // Then fetch fresh data in background
-        this.fetchProducts();
+        // Step 1: Load from cache for INSTANT display (if available)
+        const cacheLoaded = this.loadFromCache();
+        
+        // Step 2: Immediately fetch from database (primary source)
+        // This runs in parallel - cache shows instantly, then gets updated
+        await this.fetchProducts();
+        
+        this.isLoading = false;
         
         // Set up periodic updates
         this.startPeriodicUpdates();
@@ -36,13 +43,18 @@ class LivePricingSystem {
             const cached = localStorage.getItem('glengala_products');
             if (cached) {
                 const data = JSON.parse(cached);
-                // Only use cache if less than 15 minutes old
                 const cacheAge = Date.now() - new Date(data.updated_at).getTime();
+                
+                // Use cache for instant display (any age OK for initial display)
+                this.products = data.products;
+                window.products = data.products;
+                this.lastUpdate = new Date(data.updated_at);
+                
+                console.log('⚡ Instant load:', this.products.length, 'products from cache');
+                
+                // If cache is recent (under 15 min), skip initial API fetch
                 if (cacheAge < this.updateInterval) {
-                    this.products = data.products;
-                    window.products = data.products;
-                    this.lastUpdate = new Date(data.updated_at);
-                    console.log('⚡ Loaded', this.products.length, 'products from cache');
+                    console.log('📦 Cache is fresh, will update in background');
                     return true;
                 }
             }
@@ -53,9 +65,11 @@ class LivePricingSystem {
     }
 
     async fetchProducts() {
-        console.log('📥 Fetching products from API:', `${this.apiBase}/products`);
+        console.log('🌐 Fetching products from database...');
         try {
-            const response = await fetch(`${this.apiBase}/products`);
+            const response = await fetch(`${this.apiBase}/products`, {
+                cache: 'no-cache' // Always get fresh from database
+            });
             if (!response.ok) {
                 throw new Error(`HTTP ${response.status}: ${response.statusText}`);
             }
@@ -64,13 +78,16 @@ class LivePricingSystem {
             this.products = data.products;
             this.lastUpdate = new Date(data.updated_at);
             
-            console.log('✅ Fetched', this.products.length, 'products from API');
+            console.log('✅ Loaded', this.products.length, 'products from database (with photos)');
             
-            // Update UI
+            // Update global products array IMMEDIATELY
+            window.products = this.products;
+            
+            // Update UI with fresh database data
             this.updateProductDisplay();
             this.updateLastUpdateTime();
             
-            // Store in localStorage as backup
+            // Cache for next instant load
             localStorage.setItem('glengala_products', JSON.stringify({
                 products: this.products,
                 updated_at: this.lastUpdate.toISOString()
@@ -78,15 +95,19 @@ class LivePricingSystem {
             
             return this.products;
         } catch (error) {
-            console.error('Failed to fetch products:', error);
+            console.error('❌ Database fetch failed:', error.message);
             
-            // Fallback to localStorage
-            const cached = localStorage.getItem('glengala_products');
-            if (cached) {
-                const data = JSON.parse(cached);
-                this.products = data.products;
-                this.lastUpdate = new Date(data.updated_at);
-                this.showOfflineMessage();
+            // Fallback to cache if database unavailable
+            if (!this.products || this.products.length === 0) {
+                const cached = localStorage.getItem('glengala_products');
+                if (cached) {
+                    const data = JSON.parse(cached);
+                    this.products = data.products;
+                    window.products = this.products;
+                    this.lastUpdate = new Date(data.updated_at);
+                    console.log('📦 Using cached data:', this.products.length, 'products');
+                    this.showOfflineMessage();
+                }
             }
             
             return this.products;

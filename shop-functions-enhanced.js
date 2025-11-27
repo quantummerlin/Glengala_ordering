@@ -19,13 +19,13 @@ class GlengalaShop {
         // Mark as ready NOW so live pricing can update during product fetch
         this.shopReady = true;
         
-        // Load products from API, fallback to static data
-        await this.loadProductsFromAPI();
-        loadProducts();
+        // Wait for live pricing to load products from database
+        // This ensures we have photos and latest prices
+        await this.waitForProducts();
+        
         this.loadAllData();
         this.updateCartDisplay(); // Update cart count immediately after loading
         this.loadBanner();
-        // Don't auto-render here, let it be called explicitly
         this.setupEventListeners();
         this.setupMobileOptimizations();
         this.setupDataManagement();
@@ -38,28 +38,31 @@ class GlengalaShop {
         this.renderShop();
     }
 
-    async loadProductsFromAPI() {
-        // Try to load products from live pricing API
-        if (window.livePricing) {
-            try {
-                const apiProducts = await livePricing.fetchProducts();
-                if (apiProducts && apiProducts.length > 0) {
-                    // Replace global products array with API data
-                    window.products = apiProducts;
-                    this.productsLoaded = true;
-                    console.log('✅ Loaded', apiProducts.length, 'products from API');
-                    return;
-                }
-            } catch (error) {
-                console.log('⚠️ API unavailable, using static products:', error.message);
+    async waitForProducts() {
+        // If livePricing has already loaded products, use them
+        if (window.livePricing && window.livePricing.products && window.livePricing.products.length > 0) {
+            window.products = window.livePricing.products;
+            console.log('✅ Using', window.products.length, 'products from live pricing');
+            return;
+        }
+        
+        // Wait for live pricing to finish loading (max 3 seconds)
+        let attempts = 0;
+        while (attempts < 30) {
+            await new Promise(r => setTimeout(r, 100));
+            if (window.livePricing && !window.livePricing.isLoading && window.livePricing.products.length > 0) {
+                window.products = window.livePricing.products;
+                console.log('✅ Loaded', window.products.length, 'products from database');
+                return;
             }
+            attempts++;
         }
-        // If API fails, ensure window.products has the static data
+        
+        // Fallback to static products if database not available
         if (!window.products || window.products.length === 0) {
-            // products-data.js should have set window.products
-            console.log('📦 Using static products data:', (window.products || []).length, 'products');
+            console.log('⚠️ Using static products data');
+            loadProducts(); // From products-data.js
         }
-        this.productsLoaded = true;
     }
 
     setupEventListeners() {
