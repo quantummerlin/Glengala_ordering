@@ -1733,3 +1733,125 @@ body.theme-dark .language-selector select {
     padding-top: 8px;
     border-top: 1px solid var(--border);
 }
+
+/* ============================================
+   DARK MODE COMPREHENSIVE OVERRIDES
+   Remove all white backgrounds for sleek look
+   ============================================ */
+
+body.theme-dark {
+    background: #0a0a0a !important;
+    color: #e5e5e5;
+}
+
+body.theme-dark .shop-container {
+    background: #0a0a0a;
+}
+
+/* Product Cards - Dark */
+body.theme-dark .product-card {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #e5e5e5;
+}
+
+body.theme-dark .product-name {
+    color: #fff;
+}
+
+body.theme-dark .product-price {
+    color: #4ade80;
+}
+
+body.theme-dark .product-photo {
+    background: linear-gradient(135deg, #222, #1a1a1a);
+    border-color: #333;
+}
+
+body.theme-dark .quantity-info {
+    background: #222;
+    border-color: #333;
+}
+
+/* Search & Language Selectors - Dark */
+body.theme-dark .search-bar,
+body.theme-dark .language-selector-top {
+    background: #111;
+    border-color: #333;
+}
+
+body.theme-dark .search-input {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #fff;
+}
+
+body.theme-dark .search-input::placeholder {
+    color: #888;
+}
+
+/* Modals - Dark */
+body.theme-dark .story-modal-content {
+    background: #1a1a1a;
+    color: #e5e5e5;
+}
+
+body.theme-dark .story-modal-content h2 {
+    color: #fff;
+}
+
+body.theme-dark .story-modal-content p {
+    color: #ccc;
+}
+
+body.theme-dark .story-close {
+    color: #888;
+}
+
+body.theme-dark .story-close:hover {
+    color: #ff4444;
+}
+
+/* Trust Ribbon - Dark */
+body.theme-dark .trust-ribbon {
+    background: #111;
+    border-color: #333;
+    color: #ccc;
+}
+
+/* Footer Menu - Dark */
+body.theme-dark .footer-menu {
+    background: #111;
+    border-color: #333;
+}
+
+body.theme-dark .footer-menu a {
+    color: #ccc;
+}
+
+/* Quantity Input - Dark */
+body.theme-dark input[type="number"],
+body.theme-dark input[type="text"],
+body.theme-dark select {
+    background: #222;
+    border-color: #444;
+    color: #fff;
+}
+
+/* Buttons in Dark Mode */
+body.theme-dark .add-to-cart-btn,
+body.theme-dark .checkout-btn {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+}
+
+/* Category Headers already styled inline in JS */
+
+/* Remove any remaining white backgrounds */
+body.theme-dark [style*="background: white"],
+body.theme-dark [style*="background:#fff"],
+body.theme-dark [style*="background: #fff"],
+body.theme-dark [style*="background:#ffffff"],
+body.theme-dark [style*="background: #ffffff"] {
+    background: #1a1a1a !important;
+}

@@ -548,3 +548,54 @@ body.dark-mode .dark-mode-btn {
         font-size: 1.5rem;
     }
 }
+
+/* ============================================
+   DARK MODE OVERRIDES FOR SHOP.CSS
+   ============================================ */
+
+body.theme-dark .language-selector-top {
+    background: #111;
+    border-color: #333;
+}
+
+body.theme-dark .language-selector-top select {
+    background: #222;
+    color: #fff;
+    border-color: #444;
+}
+
+body.theme-dark .search-bar {
+    background: #111;
+}
+
+body.theme-dark .search-input {
+    background: #1a1a1a;
+    border-color: #333;
+    color: #fff;
+}
+
+body.theme-dark .categories-container {
+    background: #0a0a0a;
+}
+
+body.theme-dark .category-header {
+    background: #1a1a1a;
+    color: #fff;
+}
+
+body.theme-dark .category-content {
+    background: #111;
+}
+
+body.theme-dark .product-card {
+    background: #1a1a1a;
+    border-color: #333;
+}
+
+body.theme-dark .product-name {
+    color: #fff;
+}
+
+body.theme-dark .product-price {
+    color: #4ade80;
+}

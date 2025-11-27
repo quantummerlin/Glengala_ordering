@@ -830,13 +830,19 @@ class GlengalaShop {
     // Create or update floating subtotal bar
     updateFloatingSubtotal() {
         let subtotalBar = document.getElementById('floatingSubtotal');
+        const fixedCartBtn = document.querySelector('[onclick="openCart()"]')?.parentElement;
         const subtotal = this.cart.reduce((sum, item) => sum + item.total, 0);
         const itemCount = this.cart.length;
         
         if (itemCount === 0) {
             if (subtotalBar) subtotalBar.remove();
+            // Show fixed cart button when cart is empty
+            if (fixedCartBtn) fixedCartBtn.style.display = 'flex';
             return;
         }
+        
+        // Hide fixed cart button when floating subtotal is showing
+        if (fixedCartBtn) fixedCartBtn.style.display = 'none';
         
         // Calculate delivery threshold progress
         const toFreeDelivery = Math.max(0, 50 - subtotal);
@@ -853,7 +859,7 @@ class GlengalaShop {
                 background: linear-gradient(to top, #1a1a1a 0%, #222 100%);
                 padding: 12px 16px;
                 padding-bottom: calc(12px + env(safe-area-inset-bottom, 0));
-                z-index: 1000;
+                z-index: 1001;
                 box-shadow: 0 -4px 20px rgba(0,0,0,0.4);
                 border-top: 1px solid #333;
             `;
@@ -885,7 +891,7 @@ class GlengalaShop {
                         <div style="color: #888; font-size: 0.8em;">${itemCount} item${itemCount > 1 ? 's' : ''} in basket</div>
                         <div style="color: #fff; font-size: 1.3em; font-weight: 700;">$${subtotal.toFixed(2)}</div>
                     </div>
-                    <button onclick="shop.toggleCart()" style="
+                    <button onclick="openCart()" style="
                         background: linear-gradient(135deg, #22c55e, #16a34a);
                         color: #fff;
                         border: none;
