@@ -6,7 +6,7 @@ class LivePricingSystem {
         this.apiBase = window.location.origin + '/api';
         this.products = [];
         this.lastUpdate = null;
-        this.updateInterval = 300000; // 5 minutes in milliseconds
+        this.updateInterval = 900000; // 15 minutes in milliseconds
         this.init();
     }
 
