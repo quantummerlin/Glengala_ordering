@@ -650,8 +650,9 @@ class GlengalaShop {
         const cartCount = document.getElementById('cartCount');
         if (cartCount) {
             const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
-            console.log('Updating cart count. Cart array:', this.cart.length, 'Total items (sum of quantities):', totalItems);
             cartCount.textContent = totalItems.toString();
+            // Hide badge if empty
+            cartCount.style.display = totalItems > 0 ? 'inline-flex' : 'none';
         }
         
         // Update full cart display if elements exist
@@ -660,24 +661,31 @@ class GlengalaShop {
         if (!cartItems || !cartTotal) return;
         
         if (this.cart.length === 0) {
-            cartItems.innerHTML = '<div class="empty-cart">Your cart is empty</div>';
-            cartTotal.textContent = 'Total: $0.00';
+            cartItems.innerHTML = `
+                <div style="text-align:center; padding:40px 20px; color:#888;">
+                    <div style="font-size:3rem; margin-bottom:16px;">🛒</div>
+                    <div style="font-size:1.1rem; margin-bottom:8px;">Your cart is empty</div>
+                    <div style="font-size:0.9rem; color:#666;">Add some fresh produce to get started!</div>
+                </div>
+            `;
+            cartTotal.innerHTML = '';
             return;
         }
+        
         cartItems.innerHTML = this.cart.map(item => {
             const quantityDisplay = this.formatCartQuantity(item);
             const priceBreakdown = this.formatPriceBreakdown(item);
             
             return `
-                <div class="cart-item">
-                    <div>
-                        <div class="cart-item-name">${item.name}</div>
-                        <div class="cart-item-quantity">${quantityDisplay}</div>
-                        <div class="cart-item-breakdown">${priceBreakdown}</div>
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #333;">
+                    <div style="flex:1;">
+                        <div style="color:#fff; font-weight:600; font-size:1rem; margin-bottom:4px;">${item.name}</div>
+                        <div style="color:#888; font-size:0.85rem;">${quantityDisplay}</div>
+                        <div style="color:#666; font-size:0.8rem;">${priceBreakdown}</div>
                     </div>
-                    <div>
-                        <div class="cart-item-price">$${item.total.toFixed(2)}</div>
-                        <button onclick="shop.removeFromCart(${item.id})" style="background: none; border: none; color: #e53e3e; cursor: pointer; font-size: 1.2em;">✕</button>
+                    <div style="display:flex; align-items:center; gap:12px;">
+                        <div style="color:#4ade80; font-weight:bold; font-size:1.1rem;">$${item.total.toFixed(2)}</div>
+                        <button onclick="shop.removeFromCart(${item.id})" style="background:#ff4444; border:none; color:#fff; width:28px; height:28px; border-radius:50%; cursor:pointer; font-size:1rem; display:flex; align-items:center; justify-content:center;">✕</button>
                     </div>
                 </div>
             `;
@@ -686,35 +694,15 @@ class GlengalaShop {
         const totalItems = this.cart.reduce((sum, item) => sum + item.quantity, 0);
         const subtotal = this.cart.reduce((sum, item) => sum + item.total, 0);
         
-        // Calculate delivery fee if checkout system is available
-        let deliveryFee = 0;
-        let deliveryInfo = '';
-        if (window.checkoutSystem && window.checkoutSystem.customerInfo) {
-            const { fulfilment, postcode } = window.checkoutSystem.customerInfo;
-            if (fulfilment === 'delivery' && postcode) {
-                const fee = window.checkoutSystem.calculateDeliveryFee(subtotal, postcode);
-                if (fee !== null) {
-                    deliveryFee = fee;
-                    if (fee === 0) {
-                        deliveryInfo = '<div class="delivery-info free">🚚 Free Delivery!</div>';
-                    } else {
-                        deliveryInfo = `<div class="delivery-info">🚚 Delivery: $${fee.toFixed(2)}</div>`;
-                    }
-                } else {
-                    deliveryInfo = '<div class="delivery-info unavailable">🚚 Delivery not available to this postcode</div>';
-                }
-            } else if (fulfilment === 'pickup') {
-                deliveryInfo = '<div class="delivery-info pickup">🏪 Pickup (Free)</div>';
-            }
-        }
-        
-        const totalPrice = subtotal + deliveryFee;
-        
-        cartCount.textContent = totalItems;
         cartTotal.innerHTML = `
-            <div class="cart-subtotal">Subtotal: $${subtotal.toFixed(2)}</div>
-            ${deliveryInfo}
-            <div class="cart-final-total">Total: $${totalPrice.toFixed(2)}</div>
+            <div style="display:flex; justify-content:space-between; color:#888; font-size:0.95rem; margin-bottom:8px;">
+                <span>${totalItems} item${totalItems !== 1 ? 's' : ''}</span>
+                <span>Subtotal: $${subtotal.toFixed(2)}</span>
+            </div>
+            <div style="display:flex; justify-content:space-between; color:#fff; font-size:1.2rem; font-weight:bold;">
+                <span>Total</span>
+                <span style="color:#4ade80;">$${subtotal.toFixed(2)}</span>
+            </div>
         `;
     }
 
@@ -1161,11 +1149,35 @@ Thank you! 🌱`;
     }
 }
 
-// Cart toggle functionality
+// Cart open/close functionality
+function openCart() {
+    const overlay = document.getElementById('cartOverlay');
+    if (overlay) {
+        overlay.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scroll
+        if (shop) shop.updateCartDisplay();
+    }
+}
+
+function closeCart(event) {
+    // If event exists and target is not the overlay background, don't close
+    if (event && event.target.id !== 'cartOverlay') return;
+    
+    const overlay = document.getElementById('cartOverlay');
+    if (overlay) {
+        overlay.style.display = 'none';
+        document.body.style.overflow = ''; // Restore scrolling
+    }
+}
+
+// Legacy toggle function for backwards compatibility
 function toggleCart() {
-    const cartContent = document.getElementById('cartContent');
-    if (!cartContent) return;
-    cartContent.style.display = cartContent.style.display === 'block' ? 'none' : 'block';
+    const overlay = document.getElementById('cartOverlay');
+    if (overlay && overlay.style.display === 'block') {
+        closeCart();
+    } else {
+        openCart();
+    }
 }
 
 // Category toggle functionality
