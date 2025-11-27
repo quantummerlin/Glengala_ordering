@@ -132,7 +132,14 @@ def init_db():
                   shop_description TEXT,
                   contact_phone TEXT,
                   contact_email TEXT,
+                  customization_json TEXT,
                   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP)''')
+    
+    # Add customization_json column if it doesn't exist (migration)
+    try:
+        c.execute('ALTER TABLE settings ADD COLUMN customization_json TEXT')
+    except:
+        pass  # Column already exists)
     
     # Insert default settings if not exists
     c.execute('INSERT OR IGNORE INTO settings (id) VALUES (1)')
@@ -169,14 +176,31 @@ def get_settings():
     conn.close()
     if settings:
         result = dict(settings)
+        # Parse customization_json if it exists
+        if result.get('customization_json'):
+            try:
+                full_settings = json.loads(result['customization_json'])
+                # Merge with basic fields
+                result.update(full_settings)
+            except:
+                pass
         # Ensure shopHeader is present and complete
-        if 'shopHeader' not in result or not result['shopHeader']:
+        if 'shopHeader' not in result or not result.get('shopHeader'):
             result['shopHeader'] = {
                 'backgroundType': 'default',
                 'backgroundColor': '#000000',
-                'gradientStartColor': '#000000',
-                'gradientEndColor': '#333333',
-                'gradientDirection': '135deg'
+                'gradientStartColor': result.get('gradient_start', '#000000'),
+                'gradientEndColor': result.get('gradient_end', '#333333'),
+                'gradientDirection': '135deg',
+                'shopName': result.get('shop_name', 'Glengala Fresh'),
+                'shopDetails': result.get('shop_description', '')
+            }
+        if 'trustRibbon' not in result or not result.get('trustRibbon'):
+            result['trustRibbon'] = {
+                'enabled': True,
+                'text': '🤬 We hand-pick the freshest produce from Melbourne\'s Epping Market.',
+                'backgroundColor': '#f6fdf7',
+                'textColor': '#1f4d2c'
             }
         return jsonify(result)
     else:
@@ -198,6 +222,12 @@ def get_settings():
                 'gradientStartColor': '#000000',
                 'gradientEndColor': '#333333',
                 'gradientDirection': '135deg'
+            },
+            'trustRibbon': {
+                'enabled': True,
+                'text': '🤬 We hand-pick the freshest produce from Melbourne\'s Epping Market.',
+                'backgroundColor': '#f6fdf7',
+                'textColor': '#1f4d2c'
             }
         })
 
@@ -220,9 +250,13 @@ def get_product(product_id):
 def update_settings():
     """Update shop customization settings"""
     data = request.json
+    print(f"Saving settings: {data}")
     
     conn = sqlite3.connect(DB_PATH)
     c = conn.cursor()
+    
+    # Store the full settings object as JSON
+    customization_json = json.dumps(data)
     
     c.execute('''UPDATE settings SET
                  primary_color = ?,
@@ -234,6 +268,7 @@ def update_settings():
                  shop_description = ?,
                  contact_phone = ?,
                  contact_email = ?,
+                 customization_json = ?,
                  updated_at = CURRENT_TIMESTAMP
                  WHERE id = 1''',
               (data.get('primary_color', '#2FA44F'),
@@ -244,7 +279,8 @@ def update_settings():
                data.get('shop_name', 'Glengala Fresh'),
                data.get('shop_description'),
                data.get('contact_phone'),
-               data.get('contact_email')))
+               data.get('contact_email'),
+               customization_json))
     
     conn.commit()
     conn.close()

@@ -500,22 +500,13 @@ async function saveCustomization() {
         const settings = customizationSystem.getCurrentSettings();
         console.log('Saving customization to API:', settings);
         
+        // Send the full settings object to the API
         const response = await fetch(`${apiBase}/settings`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                primary_color: settings.primaryColor,
-                secondary_color: settings.secondaryColor,
-                gradient_start: settings.color1,
-                gradient_end: settings.color2,
-                gradient_angle: settings.angle,
-                shop_name: settings.shopName || 'Glengala Fresh',
-                shop_description: settings.shopDescription,
-                contact_phone: settings.contactPhone,
-                contact_email: settings.contactEmail
-            })
+            body: JSON.stringify(settings)
         });
         
         if (!response.ok) {
@@ -524,6 +515,9 @@ async function saveCustomization() {
         
         const result = await response.json();
         console.log('Settings saved to API:', result);
+        
+        // Also save to localStorage for faster local access
+        customizationSystem.saveSettings(settings);
         
         customizationSystem.updateGradientPreview();
         customizationSystem.applyGradientToAdminHeader(settings);
@@ -1415,3 +1409,100 @@ document.addEventListener('keydown', function(event) {
         closeEmojiPicker();
     }
 });
+
+// ===== Push Notifications Functions =====
+
+// Load pending price changes for notification panel
+async function loadPendingPriceChanges() {
+    const container = document.getElementById('pendingChanges');
+    if (!container) return;
+    
+    try {
+        const response = await fetch(`${apiBase}/price-changes?since=1970-01-01`);
+        if (!response.ok) throw new Error('Failed to fetch price changes');
+        
+        const data = await response.json();
+        const allChanges = data.changes || data || [];
+        
+        // Filter to unnotified changes only from last 24 hours
+        const yesterday = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
+        const recentChanges = allChanges.filter(c => c.changed_at > yesterday);
+        
+        if (recentChanges.length === 0) {
+            container.innerHTML = '<p style="margin: 0; color: #999;">✓ No pending price changes to notify</p>';
+        } else {
+            const increases = recentChanges.filter(c => c.new_price > c.old_price).length;
+            const decreases = recentChanges.filter(c => c.new_price < c.old_price).length;
+            
+            container.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>
+                        <strong style="font-size: 24px; color: #667eea;">${recentChanges.length}</strong>
+                        <span style="color: #666;"> price changes in last 24h</span>
+                    </div>
+                    <div style="text-align: right; font-size: 14px;">
+                        ${decreases > 0 ? `<div style="color: #10b981;">📉 ${decreases} price drop${decreases > 1 ? 's' : ''}</div>` : ''}
+                        ${increases > 0 ? `<div style="color: #f59e0b;">📈 ${increases} price increase${increases > 1 ? 's' : ''}</div>` : ''}
+                    </div>
+                </div>
+                <div style="margin-top: 10px; padding-top: 10px; border-top: 1px solid #e5e7eb;">
+                    <small style="color: #999;">Last checked: ${new Date().toLocaleTimeString()}</small>
+                </div>
+            `;
+        }
+    } catch (error) {
+        console.error('Error loading price changes:', error);
+        container.innerHTML = '<p style="margin: 0; color: #e74c3c;">⚠️ Could not load price changes. Is the API running?</p>';
+    }
+}
+
+// Send price notifications to all subscribers
+async function sendPriceNotifications() {
+    const button = event.target;
+    const resultDiv = document.getElementById('notificationResult');
+    
+    // Disable button and show loading
+    button.disabled = true;
+    button.innerHTML = '⏳ Sending...';
+    resultDiv.style.display = 'block';
+    resultDiv.innerHTML = '<p style="color: #666;">Sending notifications to subscribers...</p>';
+    
+    try {
+        const response = await fetch(`${apiBase}/send-price-notifications`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        if (!response.ok) throw new Error('Failed to send notifications');
+        
+        const result = await response.json();
+        
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+            <div style="background: #d1fae5; color: #065f46; padding: 15px; border-radius: 8px; border: 1px solid #10b981;">
+                <strong>✓ Success!</strong><br>
+                ${result.message}<br>
+                <small>Sent at ${new Date().toLocaleTimeString()}</small>
+            </div>
+        `;
+        
+        // Reload pending changes after a delay
+        setTimeout(() => {
+            loadPendingPriceChanges();
+            resultDiv.style.display = 'none';
+        }, 3000);
+        
+    } catch (error) {
+        console.error('Error sending notifications:', error);
+        resultDiv.style.display = 'block';
+        resultDiv.innerHTML = `
+            <div style="background: #fee2e2; color: #991b1b; padding: 15px; border-radius: 8px; border: 1px solid #ef4444;">
+                <strong>✗ Error</strong><br>
+                Failed to send notifications. Please check the API connection.
+            </div>
+        `;
+    } finally {
+        button.disabled = false;
+        button.innerHTML = '📢 Send Notifications Now';
+    }
+}
