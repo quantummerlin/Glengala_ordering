@@ -413,6 +413,7 @@ class GlengalaShop {
         const quantityOptions = this.getQuantityOptions(product);
         const emoji = this.getProductEmoji(product);
         const unitInfo = this.getUnitInfo(product);
+        const initialDisplay = this.formatQuantityDisplay(quantityOptions.min, quantityOptions.increment, product.unit);
         
         // Two-line list item format for mobile
         return `
@@ -452,7 +453,8 @@ class GlengalaShop {
                         <div class="product-controls-list" style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
                             <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
                                 <button onclick="shop.updateQuantity(${product.id}, -1)" style="width: 28px; height: 28px; border: none; background: #444; color: #fff; font-size: 1.1em; cursor: pointer;">−</button>
-                                <input type="number" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}" style="width: 38px; height: 28px; border: none; background: #333; color: #fff; text-align: center; font-size: 0.9em; -moz-appearance: textfield;" onwheel="this.blur()">
+                                <input type="hidden" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}">
+                                <span id="qty-display-${product.id}" style="min-width: 42px; height: 28px; background: #333; color: #fff; text-align: center; font-size: 0.85em; display: flex; align-items: center; justify-content: center; padding: 0 4px;">${initialDisplay}</span>
                                 <button onclick="shop.updateQuantity(${product.id}, 1)" style="width: 28px; height: 28px; border: none; background: #444; color: #fff; font-size: 1.1em; cursor: pointer;">+</button>
                             </div>
                             <button onclick="shop.addToCart(${product.id})" style="
@@ -486,20 +488,59 @@ class GlengalaShop {
     }
 
     getQuantityOptions(product) {
-        // Get increment setting (default to '1' if not specified)
+        // Get increment setting from either increment field or unit field
         const increment = product.increment || '1';
+        const unit = product.unit || 'each';
         
-        // Set step, min, and max based on increment type
+        // Check unit for weight-based products (hundredg, halfkg)
+        if (unit === 'hundredg') {
+            return { step: 1, min: 1, max: 50, increment: '100g' };  // 1 = 100g
+        }
+        if (unit === 'halfkg') {
+            return { step: 1, min: 1, max: 20, increment: '500g' };  // 1 = 500g
+        }
+        
+        // Check increment field for products with kg unit
         switch (increment) {
             case '100g':
-                return { step: 0.1, min: 0.1, max: 5 };  // 100g = 0.1kg increments
+                return { step: 0.1, min: 0.1, max: 5, increment: '100g' };  // 100g = 0.1kg increments
             case '500g':
-                return { step: 0.5, min: 0.5, max: 10 }; // 500g = 0.5kg increments
+                return { step: 0.5, min: 0.5, max: 10, increment: '500g' }; // 500g = 0.5kg increments
             case '1':
-                return { step: 1, min: 1, max: 20 };     // whole number increments
             default:
-                return { step: 1, min: 1, max: 10 };     // fallback
+                // Whole number increments
+                return { step: 1, min: 1, max: 20, increment: '1' };
         }
+    }
+
+    formatQuantityDisplay(value, increment, unit) {
+        // Handle unit-based products (hundredg, halfkg)
+        if (unit === 'hundredg') {
+            const grams = value * 100;
+            if (grams >= 1000) {
+                return `${grams / 1000}kg`;
+            }
+            return `${grams}g`;
+        }
+        if (unit === 'halfkg') {
+            const grams = value * 500;
+            if (grams >= 1000) {
+                return `${grams / 1000}kg`;
+            }
+            return `${grams}g`;
+        }
+        
+        // Handle increment-based products (kg with 100g/500g increments)
+        if (increment === '100g' || increment === '500g') {
+            const grams = Math.round(value * 1000);
+            if (grams >= 1000) {
+                return `${grams / 1000}kg`;
+            }
+            return `${grams}g`;
+        }
+        
+        // Whole numbers
+        return value.toString();
     }
 
     getUnitInfo(product) {
@@ -521,6 +562,14 @@ class GlengalaShop {
                 } else {
                     description = 'Select by weight';
                 }
+                break;
+            case 'hundredg':
+                display = 'per kg';  // Price is per kg, sold in 100g increments
+                description = 'Sold in 100g increments';
+                break;
+            case 'halfkg':
+                display = 'per kg';  // Price is per kg, sold in 500g increments
+                description = 'Sold in 500g increments';
                 break;
             case 'each':
                 display = 'each';
@@ -546,8 +595,21 @@ class GlengalaShop {
     }
 
     calculateItemTotal(product, quantity) {
-        // For all units, the price is multiplied by the quantity
-        // This works whether it's:
+        const unit = product.unit || 'each';
+        
+        // For hundredg: quantity is number of 100g units, price is per kg
+        // So 6 × 100g at $6.99/kg = 0.6kg × $6.99 = $4.19
+        if (unit === 'hundredg') {
+            return product.price * (quantity * 0.1); // quantity × 100g = quantity × 0.1kg
+        }
+        
+        // For halfkg: quantity is number of 500g units, price is per kg
+        // So 3 × 500g at $3.99/kg = 1.5kg × $3.99 = $5.99
+        if (unit === 'halfkg') {
+            return product.price * (quantity * 0.5); // quantity × 500g = quantity × 0.5kg
+        }
+        
+        // For all other units, price is multiplied directly by quantity
         // - $10 per kg × 0.3kg = $3.00
         // - $5 per bunch × 2 bunches = $10.00
         // - $3 each × 4 items = $12.00
@@ -556,25 +618,65 @@ class GlengalaShop {
 
     formatCartQuantity(item) {
         const increment = item.increment || '1';
+        const unit = item.unit || 'each';
         
+        // Handle unit-based weight products (hundredg, halfkg)
+        if (unit === 'hundredg') {
+            const grams = item.quantity * 100;
+            if (grams >= 1000) {
+                return `${grams / 1000}kg`;
+            }
+            return `${grams}g`;
+        }
+        if (unit === 'halfkg') {
+            const grams = item.quantity * 500;
+            if (grams >= 1000) {
+                return `${grams / 1000}kg`;
+            }
+            return `${grams}g`;
+        }
+        
+        // Handle increment-based products (kg with 100g/500g increments)
         if (increment === '100g' || increment === '500g') {
-            // Convert decimal back to grams for display
             const grams = Math.round(item.quantity * 1000);
             if (grams >= 1000) {
-                const kg = grams / 1000;
-                return `${kg}kg`;
-            } else {
-                return `${grams}g`;
+                return `${grams / 1000}kg`;
             }
-        } else {
-            // For whole numbers (bunches, each, punnets)
-            return `${item.quantity} ${this.getUnitDisplayName(item.unit, item.quantity)}`;
+            return `${grams}g`;
         }
+        
+        // For whole numbers (bunches, each, punnets, kg)
+        if (unit === 'kg') {
+            return `${item.quantity}kg`;
+        }
+        return `${item.quantity} ${this.getUnitDisplayName(item.unit, item.quantity)}`;
     }
 
     formatPriceBreakdown(item) {
-        const unitName = this.getUnitDisplayName(item.unit, 1);
-        return `$${item.price.toFixed(2)} ${unitName}`;
+        const increment = item.increment || '1';
+        const unit = item.unit || 'each';
+        
+        // Handle unit-based weight products - price is per kg, sold in increments
+        if (unit === 'hundredg') {
+            return `@ $${item.price.toFixed(2)}/kg (100g increments)`;
+        }
+        if (unit === 'halfkg') {
+            return `@ $${item.price.toFixed(2)}/kg (500g increments)`;
+        }
+        
+        if (increment === '100g' || increment === '500g') {
+            // Weight-based pricing: show "@ $4.99/kg"
+            return `@ $${item.price.toFixed(2)}/kg`;
+        } else {
+            // Unit-based pricing: show "@ $2.50 each" or "@ $3.00/bunch"
+            if (unit === 'kg') {
+                return `@ $${item.price.toFixed(2)}/kg`;
+            }
+            if (unit === 'each') {
+                return `@ $${item.price.toFixed(2)} each`;
+            }
+            return `@ $${item.price.toFixed(2)}/${item.unit}`;
+        }
     }
 
     getUnitDisplayName(unit, quantity) {
@@ -582,16 +684,23 @@ class GlengalaShop {
             'kg': 'per kg',
             'each': quantity === 1 ? 'item' : 'items',
             'bunch': quantity === 1 ? 'bunch' : 'bunches',
-            'punnet': quantity === 1 ? 'punnet' : 'punnets'
+            'punnet': quantity === 1 ? 'punnet' : 'punnets',
+            'hundredg': 'per 100g',
+            'halfkg': 'per 500g'
         };
         return names[unit] || unit;
     }
 
     updateQuantity(productId, change) {
         const input = document.getElementById(`qty-${productId}`);
+        const display = document.getElementById(`qty-display-${productId}`);
         if (!input) return;
         
-        const product = products.find(p => p.id === productId);
+        // Use window.products for latest data
+        const allProducts = window.products || products || [];
+        const product = allProducts.find(p => p.id === productId);
+        if (!product) return;
+        
         const options = this.getQuantityOptions(product);
         
         let newQuantity = parseFloat(input.value) + (change * options.step);
@@ -601,6 +710,11 @@ class GlengalaShop {
         if (newQuantity > options.max) newQuantity = options.max;
         
         input.value = newQuantity;
+        
+        // Update display to show human-readable format
+        if (display) {
+            display.textContent = this.formatQuantityDisplay(newQuantity, options.increment, product.unit);
+        }
     }
 
     addToCart(productId) {
@@ -663,9 +777,10 @@ class GlengalaShop {
         if (this.cart.length === 0) {
             cartItems.innerHTML = `
                 <div style="text-align:center; padding:40px 20px; color:#888;">
-                    <div style="font-size:3rem; margin-bottom:16px;">🛒</div>
-                    <div style="font-size:1.1rem; margin-bottom:8px;">Your cart is empty</div>
-                    <div style="font-size:0.9rem; color:#666;">Add some fresh produce to get started!</div>
+                    <div style="font-size:3rem; margin-bottom:16px;">🥬</div>
+                    <div style="font-size:1.1rem; margin-bottom:8px; color:#ccc;">Your basket is empty</div>
+                    <div style="font-size:0.9rem; color:#666;">Start adding some delicious fresh produce!</div>
+                    <div style="font-size:0.8rem; color:#555; margin-top:12px;">🏆 Every order earns you rewards</div>
                 </div>
             `;
             cartTotal.innerHTML = '';
@@ -747,30 +862,43 @@ class GlengalaShop {
     }
 
     showAddedToCartNotification(productName) {
+        // Check if close to a reward
+        let rewardHint = '';
+        if (typeof glengalaRewards !== 'undefined') {
+            const stats = glengalaRewards.getStats();
+            if (stats.ordersCount === 0) {
+                rewardHint = '<br><span style="font-size:0.85em;opacity:0.9;">🏆 Complete your first order to earn a reward!</span>';
+            }
+        }
+        
         // Create notification element
         const notification = document.createElement('div');
-        notification.innerHTML = `✅ ${productName} added to cart!`;
+        notification.innerHTML = `✨ ${productName} added!${rewardHint}`;
         notification.style.cssText = `
             position: fixed;
             top: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background: #38a169;
+            background: linear-gradient(135deg, #22c55e, #16a34a);
             color: white;
-            padding: 15px 25px;
-            border-radius: 8px;
-            font-weight: bold;
+            padding: 14px 24px;
+            border-radius: 12px;
+            font-weight: 600;
             z-index: 2000;
             animation: slideDown 0.3s ease;
             max-width: 90vw;
             text-align: center;
+            box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
         `;
 
         document.body.appendChild(notification);
 
         setTimeout(() => {
-            notification.remove();
-        }, 3000);
+            notification.style.opacity = '0';
+            notification.style.transform = 'translateX(-50%) translateY(-10px)';
+            notification.style.transition = 'all 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 2500);
     }
 
     saveCart() {

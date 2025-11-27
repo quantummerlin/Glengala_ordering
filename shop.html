@@ -14,9 +14,11 @@
     <link rel="apple-touch-icon" href="Glengala Logo.png">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="shop-styles.css?v=20251125k">
-    <link rel="stylesheet" href="checkout-styles.css?v=20251125k">
-    <link rel="stylesheet" href="gamification-styles.css?v=20251125k">
+    <link rel="stylesheet" href="shop-styles.css?v=20251127h">
+    <link rel="stylesheet" href="checkout-styles.css?v=20251127h">
+    <link rel="stylesheet" href="gamification-styles.css?v=20251127h">
+    <link rel="stylesheet" href="onboarding-styles.css?v=20251127h">
+    <link rel="stylesheet" href="rewards-styles.css?v=20251127h">
     
     <!-- Welcome Message Script - Must load before body -->
     <script>
@@ -127,7 +129,13 @@
                 <img src="Glengala Logo.png" alt="Glengala Fresh" class="logo">
                 <h1 data-translate="shopTitle">Glengala Fresh</h1>
                 <p class="shop-details" data-translate="shopDetails">Next day pickup or delivery • $8 delivery across 3020 • Free for orders over $50</p>
-
+                
+                <!-- Rewards Button -->
+                <button class="rewards-button" onclick="glengalaRewards.openRewardsPanel()" id="rewardsButton">
+                    <span class="rewards-icon">🏆</span>
+                    <span>Rewards</span>
+                    <span class="rewards-badge" id="rewardsBadge" style="display:none;">0</span>
+                </button>
             </div>
             
             <!-- Gamification Panel -->
@@ -252,14 +260,18 @@
     <script src="translations.js"></script>
     
     <!-- Core functionality -->
-    <script src="live-pricing.js?v=20251127g"></script>
-    <script src="shop-functions-enhanced.js?v=20251127g"></script>
-    <script src="checkout-system.js?v=20251127g"></script>
+    <script src="live-pricing.js?v=20251127h"></script>
+    <script src="shop-functions-enhanced.js?v=20251127h"></script>
+    <script src="checkout-system.js?v=20251127h"></script>
+    
+    <!-- Engagement & Rewards -->
+    <script src="rewards-system.js?v=20251127h"></script>
+    <script src="onboarding.js?v=20251127h"></script>
     
     <!-- Non-critical - defer loading -->
-    <script src="gamification.js?v=20251127g" defer></script>
-    <script src="in-app-notifications.js?v=20251127g" defer></script>
-    <script src="push-notifications.js?v=20251127g" defer></script>
+    <script src="gamification.js?v=20251127h" defer></script>
+    <script src="in-app-notifications.js?v=20251127h" defer></script>
+    <script src="push-notifications.js?v=20251127h" defer></script>
     <script>
         // Add fadeOut animation
         const welcomeStyle = document.createElement('style');
@@ -281,6 +293,18 @@
                     console.log('✅ Running as PWA - Welcome message hidden');
                 }
             }
+            
+            // Update rewards badge
+            setTimeout(() => {
+                if (typeof glengalaRewards !== 'undefined') {
+                    const freeDeliveries = glengalaRewards.getFreeDeliveryCount();
+                    const badge = document.getElementById('rewardsBadge');
+                    if (badge && freeDeliveries > 0) {
+                        badge.textContent = freeDeliveries;
+                        badge.style.display = 'inline-block';
+                    }
+                }
+            }, 500);
         });
         
         // Register service worker for PWA

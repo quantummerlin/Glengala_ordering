@@ -1,0 +1,366 @@
+/* Glengala Fresh - Onboarding Styles */
+/* Premium, adult-friendly welcome flow and tour */
+
+/* ========================================
+   WELCOME MODAL
+   ======================================== */
+
+.onboarding-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.onboarding-modal-overlay.visible {
+    opacity: 1;
+}
+
+.onboarding-modal {
+    background: linear-gradient(145deg, #1a1a1a, #222);
+    border-radius: 20px;
+    max-width: 420px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s ease;
+}
+
+.onboarding-modal-overlay.visible .onboarding-modal {
+    transform: scale(1) translateY(0);
+}
+
+.onboarding-modal-content {
+    padding: 40px 30px;
+    text-align: center;
+}
+
+.welcome-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    animation: gentle-bounce 2s ease-in-out infinite;
+}
+
+@keyframes gentle-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+.onboarding-modal h1 {
+    color: #fff;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin: 0 0 8px 0;
+    letter-spacing: -0.5px;
+}
+
+.welcome-subtitle {
+    color: #888;
+    font-size: 1rem;
+    margin: 0 0 28px 0;
+}
+
+/* Features row */
+.welcome-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 28px;
+}
+
+.welcome-feature {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #ccc;
+    font-size: 0.95rem;
+}
+
+.feature-icon {
+    font-size: 1.2rem;
+}
+
+/* Steps */
+.welcome-steps {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 32px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 12px;
+}
+
+.welcome-step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.step-number {
+    width: 32px;
+    height: 32px;
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.step-text {
+    color: #aaa;
+    font-size: 0.8rem;
+    text-align: center;
+    max-width: 80px;
+}
+
+/* Buttons */
+.welcome-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.welcome-btn-primary {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(34, 197, 94, 0.3);
+}
+
+.welcome-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.4);
+}
+
+.welcome-btn-primary:active {
+    transform: translateY(0);
+}
+
+.welcome-btn-secondary {
+    background: transparent;
+    color: #888;
+    border: 1px solid #444;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.welcome-btn-secondary:hover {
+    border-color: #666;
+    color: #aaa;
+}
+
+.welcome-footer {
+    color: #555;
+    font-size: 0.75rem;
+    margin: 24px 0 0 0;
+}
+
+/* ========================================
+   TOUR OVERLAY & HIGHLIGHT
+   ======================================== */
+
+.tour-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 9998;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.tour-overlay.visible {
+    opacity: 1;
+}
+
+.tour-highlight {
+    position: absolute;
+    border-radius: 12px;
+    box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    opacity: 0;
+    transition: all 0.3s ease;
+    pointer-events: none;
+}
+
+.tour-highlight.visible {
+    opacity: 1;
+    animation: highlight-pulse 2s ease-in-out infinite;
+}
+
+@keyframes highlight-pulse {
+    0%, 100% { box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.75), 0 0 0 4px rgba(34, 197, 94, 0.5); }
+    50% { box-shadow: 0 0 0 4000px rgba(0, 0, 0, 0.75), 0 0 0 8px rgba(34, 197, 94, 0.3); }
+}
+
+/* ========================================
+   TOUR TOOLTIP
+   ======================================== */
+
+.tour-tooltip {
+    position: absolute;
+    z-index: 10001;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+}
+
+.tour-tooltip.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.tour-tooltip-content {
+    background: linear-gradient(145deg, #222, #1a1a1a);
+    border-radius: 16px;
+    padding: 20px 24px;
+    min-width: 280px;
+    max-width: 320px;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.tour-step-indicator {
+    color: #22c55e;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.tour-tooltip h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+}
+
+.tour-tooltip p {
+    color: #999;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    margin: 0 0 16px 0;
+}
+
+.tour-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.tour-btn-skip {
+    background: transparent;
+    color: #666;
+    border: none;
+    padding: 10px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.tour-btn-skip:hover {
+    color: #999;
+}
+
+.tour-btn-next {
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.tour-btn-next:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+}
+
+/* ========================================
+   TOAST NOTIFICATION
+   ======================================== */
+
+.onboarding-toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: linear-gradient(135deg, #22c55e, #16a34a);
+    color: #fff;
+    padding: 14px 28px;
+    border-radius: 50px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    z-index: 10002;
+    opacity: 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 30px rgba(34, 197, 94, 0.4);
+}
+
+.onboarding-toast.visible {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ========================================
+   MOBILE ADJUSTMENTS
+   ======================================== */
+
+@media (max-width: 480px) {
+    .onboarding-modal-content {
+        padding: 30px 20px;
+    }
+
+    .onboarding-modal h1 {
+        font-size: 1.5rem;
+    }
+
+    .welcome-steps {
+        gap: 16px;
+        padding: 16px;
+    }
+
+    .step-text {
+        font-size: 0.7rem;
+        max-width: 70px;
+    }
+
+    .tour-tooltip-content {
+        min-width: 260px;
+        padding: 16px 20px;
+    }
+}

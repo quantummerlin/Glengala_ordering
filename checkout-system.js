@@ -61,13 +61,32 @@ class CheckoutSystem {
     }
 
     // Calculate delivery fee based on subtotal and postcode
-    calculateDeliveryFee(subtotal, postcode) {
+    calculateDeliveryFee(subtotal, postcode, applyReward = false) {
         if (!CHECKOUT_CONFIG.ELIGIBLE_POSTCODES.has(String(postcode))) {
             return null; // Delivery not available
         }
+        
+        // Check for free delivery reward
+        if (applyReward && typeof glengalaRewards !== 'undefined' && glengalaRewards.hasFreeDelivery()) {
+            return 0; // Free delivery from reward
+        }
+        
         if (subtotal >= 50) return CHECKOUT_CONFIG.DELIVERY_FEES.OVER_50;
         if (subtotal >= 30) return CHECKOUT_CONFIG.DELIVERY_FEES.UNDER_50;
         return CHECKOUT_CONFIG.DELIVERY_FEES.UNDER_30;
+    }
+    
+    // Check if free delivery reward is available
+    hasFreeDeliveryReward() {
+        return typeof glengalaRewards !== 'undefined' && glengalaRewards.hasFreeDelivery();
+    }
+    
+    // Apply free delivery reward
+    applyFreeDeliveryReward() {
+        if (typeof glengalaRewards !== 'undefined') {
+            return glengalaRewards.useFreeDelivery();
+        }
+        return false;
     }
 
     // Get cutoff status for next-day delivery
@@ -167,7 +186,52 @@ class CheckoutSystem {
         const body = encodeURIComponent(this.buildOrderText());
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent || '');
         const sep = isIOS ? '&' : '?';
+        
+        // Track order for achievements
+        this.trackOrderForRewards();
+        
+        // Use free delivery reward if applicable
+        if (this.customerInfo.fulfilment === 'delivery' && this.hasFreeDeliveryReward()) {
+            this.applyFreeDeliveryReward();
+        }
+        
         window.location.href = `sms:${CHECKOUT_CONFIG.OWNER_SMS_NUMBER}${sep}body=${body}`;
+    }
+    
+    // Track order for rewards system
+    trackOrderForRewards() {
+        if (typeof glengalaRewards === 'undefined') return;
+        
+        const subtotal = this.shop.cart.reduce((sum, item) => sum + item.total, 0);
+        const deliveryFee = (this.customerInfo.fulfilment === 'delivery') 
+            ? (this.calculateDeliveryFee(subtotal, this.customerInfo.postcode) || 0) 
+            : 0;
+        
+        const order = {
+            total: subtotal + deliveryFee,
+            items: this.shop.cart.map(item => ({
+                name: item.name,
+                category: item.category || 'other',
+                quantity: item.quantity,
+                total: item.total
+            }))
+        };
+        
+        const newAchievements = glengalaRewards.updateStats(order);
+        
+        // Show achievement popups after a delay (let SMS open first)
+        if (newAchievements.length > 0) {
+            setTimeout(() => {
+                glengalaRewards.showNewAchievements(newAchievements);
+                // Update badge
+                const freeDeliveries = glengalaRewards.getFreeDeliveryCount();
+                const badge = document.getElementById('rewardsBadge');
+                if (badge && freeDeliveries > 0) {
+                    badge.textContent = freeDeliveries;
+                    badge.style.display = 'inline-block';
+                }
+            }, 2000);
+        }
     }
 
     // Copy order to clipboard
@@ -175,6 +239,9 @@ class CheckoutSystem {
         try {
             await navigator.clipboard.writeText(this.buildOrderText());
             this.showToast('Order copied to clipboard! 📋');
+            
+            // Also track for rewards
+            this.trackOrderForRewards();
         } catch {
             const ta = document.createElement('textarea');
             ta.value = this.buildOrderText();
@@ -183,6 +250,9 @@ class CheckoutSystem {
             document.execCommand('copy');
             ta.remove();
             this.showToast('Order copied to clipboard! 📋');
+            
+            // Also track for rewards
+            this.trackOrderForRewards();
         }
     }
 
@@ -199,7 +269,8 @@ class CheckoutSystem {
     updateDeliveryUI() {
         const subtotal = this.shop.cart.reduce((sum, item) => sum + item.total, 0);
         const { postcode, fulfilment } = this.customerInfo;
-        const fee = this.calculateDeliveryFee(subtotal, postcode);
+        const hasFreeReward = this.hasFreeDeliveryReward();
+        const fee = this.calculateDeliveryFee(subtotal, postcode, hasFreeReward);
         
         // Update cart display with new delivery info
         if (this.shop && typeof this.shop.updateCart === 'function') {
@@ -213,6 +284,9 @@ class CheckoutSystem {
                 if (fee === null) {
                     deliveryMsgEl.textContent = 'Delivery is currently available to 3020 and 3022 only.';
                     deliveryMsgEl.style.color = '#d32f2f';
+                } else if (hasFreeReward) {
+                    deliveryMsgEl.innerHTML = '🏆 <strong>FREE delivery</strong> — Reward applied! 🎉';
+                    deliveryMsgEl.style.color = '#22c55e';
                 } else {
                     const toFree = Math.max(0, 50 - subtotal);
                     const tierText = fee === 0 ? 'FREE delivery unlocked 🎉' :
