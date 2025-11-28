@@ -42,6 +42,14 @@ class GlengalaOnboarding {
                 text: '👇 Tap the CART to see your order. Submit by 8pm and Wayne will send your invoice!',
                 position: 'left',
                 highlightLabel: '👇 CART'
+            },
+            {
+                target: '#rewardsButton, .rewards-button',
+                fallbackSelector: 'header',
+                title: '🏆 BONUS: Earn Rewards!',
+                text: '👇 Tap here to see your <strong>ACHIEVEMENTS</strong>! Earn free deliveries by ordering regularly, trying new categories, and reaching spending milestones!',
+                position: 'bottom',
+                highlightLabel: '👇 REWARDS'
             }
         ];
     }
@@ -82,7 +90,7 @@ class GlengalaOnboarding {
                         </div>
                         <div class="welcome-feature">
                             <span class="feature-icon">🏆</span>
-                            <span>Earn rewards as you shop</span>
+                            <span>Earn free deliveries!</span>
                         </div>
                     </div>
 
