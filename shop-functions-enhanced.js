@@ -834,19 +834,19 @@ class GlengalaShop {
     // Create or update floating subtotal bar
     updateFloatingSubtotal() {
         let subtotalBar = document.getElementById('floatingSubtotal');
-        const fixedCartBtn = document.querySelector('[onclick="openCart()"]')?.parentElement;
+        const fixedCartContainer = document.getElementById('fixedCartContainer') || document.querySelector('.fixed-cart-container');
         const subtotal = this.cart.reduce((sum, item) => sum + item.total, 0);
         const itemCount = this.cart.length;
         
         if (itemCount === 0) {
             if (subtotalBar) subtotalBar.remove();
             // Show fixed cart button when cart is empty
-            if (fixedCartBtn) fixedCartBtn.style.display = 'flex';
+            if (fixedCartContainer) fixedCartContainer.style.display = 'flex';
             return;
         }
         
         // Hide fixed cart button when floating subtotal is showing
-        if (fixedCartBtn) fixedCartBtn.style.display = 'none';
+        if (fixedCartContainer) fixedCartContainer.style.display = 'none';
         
         // Calculate delivery threshold progress
         const toFreeDelivery = Math.max(0, 50 - subtotal);
