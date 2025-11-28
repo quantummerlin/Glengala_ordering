@@ -464,32 +464,23 @@ class GlengalaShop {
                         </div>
                         ${cartItem ? `<div id="in-cart-${product.id}" style="background:rgba(34,197,94,0.15); color:#22c55e; font-size:0.75em; font-weight:600; padding:3px 8px; border-radius:10px; white-space:nowrap; margin-left:8px;">${inCartDisplay} = ${inCartTotal}</div>` : `<div id="in-cart-${product.id}" style="display:none;"></div>`}
                     </div>
-                    <div class="product-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                        <div style="display: flex; flex-direction: column; gap: 2px;">
-                            <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1em;">
-                                $${product.price.toFixed(2)} <span style="color: #888; font-size: 0.8em; font-weight: normal;">${unitInfo.display}</span>
+                    <div class="product-row" style="display: flex; flex-direction: column; gap: 6px;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; gap: 6px;">
+                            <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 0.95em; white-space: nowrap;">
+                                $${product.price.toFixed(2)}<span style="color: #666; font-size: 0.75em; font-weight: normal;">/${unitInfo.display}</span>
                             </div>
-                            <div id="preview-total-${product.id}" style="color: #fbbf24; font-size: 0.8em; font-weight: 600; display: flex; align-items: center; gap: 4px;">
-                                <span style="color: #888;">→</span> ${initialDisplay} = $${this.calculateItemTotal(product, quantityOptions.min).toFixed(2)}
+                            <div class="product-controls-list" style="display: flex; align-items: center; gap: 4px; flex-shrink: 0;">
+                                <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
+                                    <button onclick="shop.updateQuantity(${product.id}, -1)" style="width: 26px; height: 26px; border: none; background: #444; color: #fff; font-size: 1em; cursor: pointer;">−</button>
+                                    <input type="hidden" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}">
+                                    <span id="qty-display-${product.id}" style="min-width: 38px; height: 26px; background: #333; color: #fff; text-align: center; font-size: 0.8em; display: flex; align-items: center; justify-content: center; padding: 0 2px;">${initialDisplay}</span>
+                                    <button onclick="shop.updateQuantity(${product.id}, 1)" style="width: 26px; height: 26px; border: none; background: #444; color: #fff; font-size: 1em; cursor: pointer;">+</button>
+                                </div>
+                                <button onclick="shop.addToCart(${product.id})" style="background: #22c55e; color: #fff; border: none; border-radius: 6px; padding: 5px 8px; font-weight: 600; font-size: 0.8em; cursor: pointer;">${cartItem ? '+' : 'Add'}</button>
                             </div>
                         </div>
-                        <div class="product-controls-list" style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
-                            <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
-                                <button onclick="shop.updateQuantity(${product.id}, -1)" style="width: 28px; height: 28px; border: none; background: #444; color: #fff; font-size: 1.1em; cursor: pointer;">−</button>
-                                <input type="hidden" id="qty-${product.id}" value="${quantityOptions.min}" min="${quantityOptions.min}" max="${quantityOptions.max}" step="${quantityOptions.step}">
-                                <span id="qty-display-${product.id}" style="min-width: 42px; height: 28px; background: #333; color: #fff; text-align: center; font-size: 0.85em; display: flex; align-items: center; justify-content: center; padding: 0 4px;">${initialDisplay}</span>
-                                <button onclick="shop.updateQuantity(${product.id}, 1)" style="width: 28px; height: 28px; border: none; background: #444; color: #fff; font-size: 1.1em; cursor: pointer;">+</button>
-                            </div>
-                            <button onclick="shop.addToCart(${product.id})" style="
-                                background: #22c55e;
-                                color: #fff;
-                                border: none;
-                                border-radius: 6px;
-                                padding: 6px 10px;
-                                font-weight: 600;
-                                font-size: 0.85em;
-                                cursor: pointer;
-                            ">${cartItem ? '+' : 'Add'}</button>
+                        <div id="preview-total-${product.id}" style="background: rgba(251,191,36,0.1); border-radius: 6px; padding: 4px 8px; display: flex; align-items: center; justify-content: center; gap: 6px;">
+                            <span style="color: #fbbf24; font-size: 0.8em; font-weight: 600;">${initialDisplay} = $${this.calculateItemTotal(product, quantityOptions.min).toFixed(2)}</span>
                         </div>
                     </div>
                 </div>
@@ -744,7 +735,7 @@ class GlengalaShop {
         // Update live preview total
         if (previewTotal) {
             const total = this.calculateItemTotal(product, newQuantity);
-            previewTotal.innerHTML = `<span style="color: #888;">→</span> ${displayText} = $${total.toFixed(2)}`;
+            previewTotal.innerHTML = `<span style="color: #fbbf24; font-size: 0.8em; font-weight: 600;">${displayText} = $${total.toFixed(2)}</span>`;
         }
     }
 

@@ -11,28 +11,37 @@ class GlengalaOnboarding {
         this.tourStep = 0;
         this.tourSteps = [
             {
+                target: 'body',
+                fallbackSelector: 'body',
+                title: '📅 IMPORTANT: Ordering Schedule',
+                text: '⏰ Order <strong>Sunday–Thursday by 8pm</strong> for <strong>NEXT DAY</strong> pickup or delivery! Wayne personally reviews every order and sends you an invoice.',
+                position: 'center',
+                highlightLabel: '',
+                isInfoStep: true
+            },
+            {
                 target: '.category-nav, .category-tabs, [class*="category"]',
                 fallbackSelector: 'header',
-                title: '📂 STEP 1: Category Tabs',
-                text: '👆 This is the CATEGORY bar! Tap any category (Vegetables, Fruits, Herbs, etc.) to see products in that section.',
+                title: '📂 STEP 1: Pick a Category',
+                text: '👇 SEE THIS GREEN BAR? Tap any category to browse: Vegetables, Fruits, Herbs & more!',
                 position: 'bottom',
-                highlightLabel: 'CATEGORIES'
+                highlightLabel: '👇 TAP HERE'
             },
             {
                 target: '.product-list-item, .product-card',
                 fallbackSelector: '.products-container',
-                title: '🛒 STEP 2: Product Card',
-                text: '👆 This is a PRODUCT! Use the + and − buttons to select quantity. The yellow price shows your total BEFORE adding. Tap "Add" when ready!',
+                title: '🛒 STEP 2: Choose Products',
+                text: '👇 Each product shows price per unit. Use +/− to set quantity — the YELLOW BOX shows your total before adding!',
                 position: 'bottom',
-                highlightLabel: 'PRODUCT'
+                highlightLabel: '👇 PRODUCT'
             },
             {
                 target: '#cartButton, .cart-button, [onclick*="toggleCart"]',
                 fallbackSelector: 'header',
-                title: '🧺 STEP 3: Your Cart',
-                text: '👆 This is your CART button! Tap here to view everything you\'ve added, then choose pickup or delivery at checkout.',
+                title: '🧺 STEP 3: Review & Checkout',
+                text: '👇 Tap the CART to see your order. Submit by 8pm and Wayne will send your invoice!',
                 position: 'left',
-                highlightLabel: 'CART'
+                highlightLabel: '👇 CART'
             }
         ];
     }
@@ -207,6 +216,47 @@ class GlengalaOnboarding {
         }
     }
 
+    showInfoStep(step) {
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.className = 'tour-overlay';
+        overlay.id = 'tourOverlay';
+        document.body.appendChild(overlay);
+        
+        // Create centered info modal
+        const infoModal = document.createElement('div');
+        infoModal.className = 'tour-info-modal';
+        infoModal.id = 'tourInfoModal';
+        infoModal.innerHTML = `
+            <div class="tour-info-content">
+                <div class="tour-info-icon">📅</div>
+                <h2>${step.title}</h2>
+                <p>${step.text}</p>
+                <div class="tour-info-schedule">
+                    <div class="schedule-row">
+                        <span class="schedule-days">Sun – Thu</span>
+                        <span class="schedule-arrow">→</span>
+                        <span class="schedule-result">Next Day</span>
+                    </div>
+                    <div class="schedule-cutoff">Order by 8pm</div>
+                </div>
+                <div class="tour-buttons">
+                    <button class="tour-btn-skip" onclick="glengalaOnboarding.skipTour()">Skip Tour</button>
+                    <button class="tour-btn-next tour-btn-primary" onclick="glengalaOnboarding.nextTourStep()">
+                        Let's Go! →
+                    </button>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(infoModal);
+        
+        // Animate in
+        requestAnimationFrame(() => {
+            overlay.classList.add('visible');
+            infoModal.classList.add('visible');
+        });
+    }
+
     startTour() {
         const tourCompleted = localStorage.getItem(this.storageKeys.tourCompleted);
         if (tourCompleted) return;
@@ -225,6 +275,12 @@ class GlengalaOnboarding {
         }
 
         const step = this.tourSteps[this.tourStep];
+        
+        // Check if this is an info-only step (centered modal, no highlight)
+        if (step.isInfoStep) {
+            this.showInfoStep(step);
+            return;
+        }
         
         // Find target element
         let target = document.querySelector(step.target);
@@ -368,7 +424,7 @@ class GlengalaOnboarding {
     }
 
     removeTourElements() {
-        ['tourOverlay', 'tourHighlight', 'tourTooltip', 'tourHighlightLabel'].forEach(id => {
+        ['tourOverlay', 'tourHighlight', 'tourTooltip', 'tourHighlightLabel', 'tourInfoModal'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.remove();
         });
