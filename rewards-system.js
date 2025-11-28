@@ -11,12 +11,39 @@ class GlengalaRewards {
         
         // Achievement definitions
         this.achievementDefs = [
+            // === EARLY WINS (Easy to achieve) ===
             {
                 id: 'first_order',
                 name: 'First Harvest',
                 description: 'Place your first order',
                 icon: '🌱',
                 condition: stats => stats.ordersCount >= 1,
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            {
+                id: 'getting_started',
+                name: 'Getting Started',
+                description: 'Spend $30 total',
+                icon: '🚀',
+                condition: stats => stats.totalSpent >= 30,
+                reward: { type: 'bonus', description: 'You\'re on your way!' }
+            },
+            {
+                id: 'try_three',
+                name: 'Explorer',
+                description: 'Order from 3 different categories',
+                icon: '🧭',
+                condition: stats => stats.categoriesOrdered >= 3,
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            
+            // === ORDER MILESTONES ===
+            {
+                id: 'third_order',
+                name: 'Coming Back',
+                description: 'Complete 3 orders',
+                icon: '🔄',
+                condition: stats => stats.ordersCount >= 3,
                 reward: { type: 'free_delivery', uses: 1 }
             },
             {
@@ -28,6 +55,58 @@ class GlengalaRewards {
                 reward: { type: 'free_delivery', uses: 1 }
             },
             {
+                id: 'glengala_regular',
+                name: 'Glengala Regular',
+                description: 'Complete 10 orders',
+                icon: '⭐',
+                condition: stats => stats.ordersCount >= 10,
+                reward: { type: 'free_delivery', uses: 2 }
+            },
+            {
+                id: 'glengala_champion',
+                name: 'Glengala Champion',
+                description: 'Complete 20 orders',
+                icon: '🏆',
+                condition: stats => stats.ordersCount >= 20,
+                reward: { type: 'vip', description: 'VIP Status unlocked!' }
+            },
+            
+            // === SPENDING MILESTONES ===
+            {
+                id: 'centurion',
+                name: 'Centurion',
+                description: 'Spend $100 total',
+                icon: '💯',
+                condition: stats => stats.totalSpent >= 100,
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            {
+                id: 'super_shopper',
+                name: 'Super Shopper',
+                description: 'Spend $250 total',
+                icon: '💎',
+                condition: stats => stats.totalSpent >= 250,
+                reward: { type: 'free_delivery', uses: 2 }
+            },
+            {
+                id: 'big_spender',
+                name: 'Big Spender',
+                description: 'Spend $500 total',
+                icon: '👑',
+                condition: stats => stats.totalSpent >= 500,
+                reward: { type: 'free_delivery', uses: 3 }
+            },
+            
+            // === ORDER SIZE ===
+            {
+                id: 'nice_haul',
+                name: 'Nice Haul',
+                description: 'Place an order over $40',
+                icon: '🛍️',
+                condition: stats => stats.largestOrder >= 40,
+                reward: { type: 'bonus', description: 'Great shopping!' }
+            },
+            {
                 id: 'big_basket',
                 name: 'Big Basket',
                 description: 'Place an order over $60',
@@ -36,12 +115,22 @@ class GlengalaRewards {
                 reward: { type: 'free_delivery', uses: 1 }
             },
             {
-                id: 'super_shopper',
-                name: 'Super Shopper',
-                description: 'Spend $200 total',
-                icon: '⭐',
-                condition: stats => stats.totalSpent >= 200,
-                reward: { type: 'free_delivery', uses: 2 }
+                id: 'mega_order',
+                name: 'Mega Order',
+                description: 'Place an order over $100',
+                icon: '🎉',
+                condition: stats => stats.largestOrder >= 100,
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            
+            // === CATEGORY ACHIEVEMENTS ===
+            {
+                id: 'veggie_starter',
+                name: 'Veggie Starter',
+                description: 'Buy 5 vegetable items',
+                icon: '🥕',
+                condition: stats => stats.veggiesBought >= 5,
+                reward: { type: 'bonus', description: 'Eating your greens!' }
             },
             {
                 id: 'veggie_lover',
@@ -49,7 +138,15 @@ class GlengalaRewards {
                 description: 'Buy 20 vegetable items',
                 icon: '🥬',
                 condition: stats => stats.veggiesBought >= 20,
-                reward: { type: 'bonus', description: 'Veggie connoisseur!' }
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            {
+                id: 'fruit_starter',
+                name: 'Fruit Starter',
+                description: 'Buy 5 fruit items',
+                icon: '🍊',
+                condition: stats => stats.fruitsBought >= 5,
+                reward: { type: 'bonus', description: 'Fruity!' }
             },
             {
                 id: 'fruit_fan',
@@ -57,39 +154,75 @@ class GlengalaRewards {
                 description: 'Buy 15 fruit items',
                 icon: '🍎',
                 condition: stats => stats.fruitsBought >= 15,
-                reward: { type: 'bonus', description: 'Fruit enthusiast!' }
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            {
+                id: 'herb_enthusiast',
+                name: 'Herb Enthusiast',
+                description: 'Buy 10 herb items',
+                icon: '🌿',
+                condition: stats => stats.herbsBought >= 10,
+                reward: { type: 'free_delivery', uses: 1 }
+            },
+            {
+                id: 'nutty',
+                name: 'Going Nutty',
+                description: 'Buy 5 nut items',
+                icon: '🥜',
+                condition: stats => stats.nutsBought >= 5,
+                reward: { type: 'bonus', description: 'Nutty for nuts!' }
             },
             {
                 id: 'variety_seeker',
                 name: 'Variety Seeker',
-                description: 'Order from 4 different categories',
+                description: 'Order from all 5 categories',
                 icon: '🌈',
-                condition: stats => stats.categoriesOrdered >= 4,
+                condition: stats => stats.categoriesOrdered >= 5,
                 reward: { type: 'free_delivery', uses: 1 }
+            },
+            
+            // === STREAKS ===
+            {
+                id: 'two_week_streak',
+                name: 'Twice in a Row',
+                description: 'Order 2 weeks in a row',
+                icon: '📆',
+                condition: stats => stats.weeklyStreak >= 2,
+                reward: { type: 'bonus', description: 'Keep it up!' }
             },
             {
                 id: 'weekly_regular',
                 name: 'Weekly Regular',
-                description: 'Order 3 weeks in a row',
+                description: 'Order 4 weeks in a row',
                 icon: '📅',
-                condition: stats => stats.weeklyStreak >= 3,
+                condition: stats => stats.weeklyStreak >= 4,
                 reward: { type: 'free_delivery', uses: 1 }
             },
             {
-                id: 'centurion',
-                name: 'Centurion',
-                description: 'Spend $500 total',
-                icon: '💯',
-                condition: stats => stats.totalSpent >= 500,
-                reward: { type: 'free_delivery', uses: 3 }
+                id: 'monthly_legend',
+                name: 'Monthly Legend',
+                description: 'Order 8 weeks in a row',
+                icon: '🗓️',
+                condition: stats => stats.weeklyStreak >= 8,
+                reward: { type: 'free_delivery', uses: 2 }
+            },
+            
+            // === SPECIAL ===
+            {
+                id: 'early_bird',
+                name: 'Early Bird',
+                description: 'Place an order before 10am',
+                icon: '🐦',
+                condition: stats => stats.earlyOrders >= 1,
+                reward: { type: 'bonus', description: 'Early shopper!' }
             },
             {
-                id: 'glengala_champion',
-                name: 'Glengala Champion',
-                description: 'Complete 10 orders',
-                icon: '🏆',
-                condition: stats => stats.ordersCount >= 10,
-                reward: { type: 'vip', description: 'VIP Status unlocked!' }
+                id: 'night_owl',
+                name: 'Night Owl',
+                description: 'Place an order after 7pm',
+                icon: '🦉',
+                condition: stats => stats.lateOrders >= 1,
+                reward: { type: 'bonus', description: 'Last minute shopper!' }
             }
         ];
 
@@ -119,9 +252,13 @@ class GlengalaRewards {
             fruitsBought: 0,
             herbsBought: 0,
             nutsBought: 0,
+            juicesBought: 0,
             categoriesOrdered: 0,
+            categoriesSet: [],
             weeklyStreak: 0,
             lastOrderWeek: null,
+            earlyOrders: 0,
+            lateOrders: 0,
             orderHistory: []
         };
     }
@@ -302,27 +439,60 @@ class GlengalaRewards {
             const earned = earnedIds.has(def.id);
             const earnedData = earnedAchievements.find(a => a.id === def.id);
             
-            // Calculate progress percentage (rough estimate based on condition)
+            // Calculate progress percentage based on achievement type
             let progress = 0;
             if (earned) {
                 progress = 100;
             } else {
-                // Estimate progress based on achievement type
-                if (def.id === 'first_order' || def.id === 'local_supporter' || def.id === 'glengala_champion') {
-                    const target = def.id === 'first_order' ? 1 : def.id === 'local_supporter' ? 5 : 10;
-                    progress = Math.min(100, (stats.ordersCount / target) * 100);
-                } else if (def.id === 'big_basket') {
-                    progress = Math.min(100, (stats.largestOrder / 60) * 100);
-                } else if (def.id === 'super_shopper') {
-                    progress = Math.min(100, (stats.totalSpent / 200) * 100);
-                } else if (def.id === 'centurion') {
-                    progress = Math.min(100, (stats.totalSpent / 500) * 100);
-                } else if (def.id === 'veggie_lover') {
-                    progress = Math.min(100, (stats.veggiesBought / 20) * 100);
-                } else if (def.id === 'fruit_fan') {
-                    progress = Math.min(100, (stats.fruitsBought / 15) * 100);
-                } else if (def.id === 'weekly_regular') {
-                    progress = Math.min(100, (stats.weeklyStreak / 3) * 100);
+                // Order count achievements
+                if (['first_order', 'third_order', 'local_supporter', 'glengala_regular', 'glengala_champion'].includes(def.id)) {
+                    const targets = { first_order: 1, third_order: 3, local_supporter: 5, glengala_regular: 10, glengala_champion: 20 };
+                    progress = Math.min(100, (stats.ordersCount / targets[def.id]) * 100);
+                }
+                // Spending achievements
+                else if (['getting_started', 'centurion', 'super_shopper', 'big_spender'].includes(def.id)) {
+                    const targets = { getting_started: 30, centurion: 100, super_shopper: 250, big_spender: 500 };
+                    progress = Math.min(100, (stats.totalSpent / targets[def.id]) * 100);
+                }
+                // Order size achievements
+                else if (['nice_haul', 'big_basket', 'mega_order'].includes(def.id)) {
+                    const targets = { nice_haul: 40, big_basket: 60, mega_order: 100 };
+                    progress = Math.min(100, (stats.largestOrder / targets[def.id]) * 100);
+                }
+                // Category achievements
+                else if (['try_three', 'variety_seeker'].includes(def.id)) {
+                    const targets = { try_three: 3, variety_seeker: 5 };
+                    progress = Math.min(100, (stats.categoriesOrdered / targets[def.id]) * 100);
+                }
+                // Veggie achievements
+                else if (['veggie_starter', 'veggie_lover'].includes(def.id)) {
+                    const targets = { veggie_starter: 5, veggie_lover: 20 };
+                    progress = Math.min(100, (stats.veggiesBought / targets[def.id]) * 100);
+                }
+                // Fruit achievements
+                else if (['fruit_starter', 'fruit_fan'].includes(def.id)) {
+                    const targets = { fruit_starter: 5, fruit_fan: 15 };
+                    progress = Math.min(100, (stats.fruitsBought / targets[def.id]) * 100);
+                }
+                // Herb achievement
+                else if (def.id === 'herb_enthusiast') {
+                    progress = Math.min(100, (stats.herbsBought / 10) * 100);
+                }
+                // Nut achievement
+                else if (def.id === 'nutty') {
+                    progress = Math.min(100, (stats.nutsBought / 5) * 100);
+                }
+                // Streak achievements
+                else if (['two_week_streak', 'weekly_regular', 'monthly_legend'].includes(def.id)) {
+                    const targets = { two_week_streak: 2, weekly_regular: 4, monthly_legend: 8 };
+                    progress = Math.min(100, (stats.weeklyStreak / targets[def.id]) * 100);
+                }
+                // Time-based achievements
+                else if (def.id === 'early_bird') {
+                    progress = stats.earlyOrders >= 1 ? 100 : 0;
+                }
+                else if (def.id === 'night_owl') {
+                    progress = stats.lateOrders >= 1 ? 100 : 0;
                 }
             }
 
