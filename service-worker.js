@@ -1,8 +1,8 @@
 // Glengala Fresh - Service Worker for PWA
 // Provides offline support and live price updates
 
-const CACHE_NAME = 'glengala-v4';
-const API_CACHE = 'glengala-api-v4';
+const CACHE_NAME = 'glengala-v5';
+const API_CACHE = 'glengala-api-v5';
 
 // Files to cache for offline use - critical assets only
 const STATIC_ASSETS = [
@@ -18,7 +18,13 @@ const STATIC_ASSETS = [
   '/live-pricing.js',
   '/admin.js',
   '/translations.js',
-  '/manifest.json'
+  '/manifest.json',
+  '/onboarding.js',
+  '/onboarding-styles.css',
+  '/rewards-system.js',
+  '/gamification.js',
+  '/gamification-styles.css',
+  '/in-app-notifications.js'
 ];
 
 // Install event - cache static assets

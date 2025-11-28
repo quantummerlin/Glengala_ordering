@@ -20,8 +20,8 @@ class GlengalaOnboarding {
                 isInfoStep: true
             },
             {
-                target: '.category-nav, .category-tabs, [class*="category"]',
-                fallbackSelector: 'header',
+                target: '.category-header-dynamic, .category-nav, .category-tabs, [class*="category"]',
+                fallbackSelector: '#categoriesContainer',
                 title: '📂 STEP 1: Pick a Category',
                 text: '👇 SEE THIS GREEN BAR? Tap any category to browse: Vegetables, Fruits, Herbs & more!',
                 position: 'bottom',
@@ -36,8 +36,8 @@ class GlengalaOnboarding {
                 highlightLabel: '👇 PRODUCT'
             },
             {
-                target: '#cartButton, .cart-button, [onclick*="toggleCart"]',
-                fallbackSelector: 'header',
+                target: '.view-cart-btn, #cartButton, .cart-button, [onclick*="openCart"]',
+                fallbackSelector: '.floating-subtotal-wrapper',
                 title: '🧺 STEP 3: Review & Checkout',
                 text: '👇 Tap the CART to see your order. Submit by 8pm and Wayne will send your invoice!',
                 position: 'left',
