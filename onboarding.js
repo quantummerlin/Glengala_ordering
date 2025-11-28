@@ -13,23 +13,26 @@ class GlengalaOnboarding {
             {
                 target: '.category-nav, .category-tabs, [class*="category"]',
                 fallbackSelector: 'header',
-                title: 'Browse Categories',
-                text: 'Tap a category to explore our fresh vegetables, fruits, herbs and more.',
-                position: 'bottom'
+                title: '📂 STEP 1: Category Tabs',
+                text: '👆 This is the CATEGORY bar! Tap any category (Vegetables, Fruits, Herbs, etc.) to see products in that section.',
+                position: 'bottom',
+                highlightLabel: 'CATEGORIES'
             },
             {
                 target: '.product-list-item, .product-card',
                 fallbackSelector: '.products-container',
-                title: 'Add to Cart',
-                text: 'Use + and − to select your quantity, then tap Add to put it in your basket.',
-                position: 'bottom'
+                title: '🛒 STEP 2: Product Card',
+                text: '👆 This is a PRODUCT! Use the + and − buttons to select quantity. The yellow price shows your total BEFORE adding. Tap "Add" when ready!',
+                position: 'bottom',
+                highlightLabel: 'PRODUCT'
             },
             {
                 target: '#cartButton, .cart-button, [onclick*="toggleCart"]',
                 fallbackSelector: 'header',
-                title: 'Your Basket',
-                text: 'View your items here. Choose pickup or delivery at checkout!',
-                position: 'left'
+                title: '🧺 STEP 3: Your Cart',
+                text: '👆 This is your CART button! Tap here to view everything you\'ve added, then choose pickup or delivery at checkout.',
+                position: 'left',
+                highlightLabel: 'CART'
             }
         ];
     }
@@ -175,6 +178,30 @@ class GlengalaOnboarding {
             height: ${rect.height + 16}px;
         `;
         document.body.appendChild(highlight);
+        
+        // Add floating label above the highlight
+        if (step.highlightLabel) {
+            const label = document.createElement('div');
+            label.className = 'tour-highlight-label';
+            label.id = 'tourHighlightLabel';
+            label.textContent = step.highlightLabel;
+            label.style.cssText = `
+                position: absolute;
+                top: ${rect.top + window.scrollY - 40}px;
+                left: ${rect.left + (rect.width / 2)}px;
+                transform: translateX(-50%);
+                background: #22c55e;
+                color: #fff;
+                font-weight: 700;
+                font-size: 0.9em;
+                padding: 6px 16px;
+                border-radius: 20px;
+                z-index: 10002;
+                box-shadow: 0 4px 15px rgba(34, 197, 94, 0.5);
+                animation: bounce-label 1s ease-in-out infinite;
+            `;
+            document.body.appendChild(label);
+        }
 
         // Create tooltip
         const tooltip = document.createElement('div');
@@ -262,7 +289,7 @@ class GlengalaOnboarding {
     }
 
     removeTourElements() {
-        ['tourOverlay', 'tourHighlight', 'tourTooltip'].forEach(id => {
+        ['tourOverlay', 'tourHighlight', 'tourTooltip', 'tourHighlightLabel'].forEach(id => {
             const el = document.getElementById(id);
             if (el) el.remove();
         });

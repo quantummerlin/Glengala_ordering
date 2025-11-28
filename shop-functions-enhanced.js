@@ -465,8 +465,13 @@ class GlengalaShop {
                         ${cartItem ? `<div id="in-cart-${product.id}" style="background:rgba(34,197,94,0.15); color:#22c55e; font-size:0.75em; font-weight:600; padding:3px 8px; border-radius:10px; white-space:nowrap; margin-left:8px;">${inCartDisplay} = ${inCartTotal}</div>` : `<div id="in-cart-${product.id}" style="display:none;"></div>`}
                     </div>
                     <div class="product-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-                        <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1em;">
-                            $${product.price.toFixed(2)} <span style="color: #888; font-size: 0.8em; font-weight: normal;">${unitInfo.display}</span>
+                        <div style="display: flex; flex-direction: column; gap: 2px;">
+                            <div class="product-price-list" style="color: #4ade80; font-weight: bold; font-size: 1em;">
+                                $${product.price.toFixed(2)} <span style="color: #888; font-size: 0.8em; font-weight: normal;">${unitInfo.display}</span>
+                            </div>
+                            <div id="preview-total-${product.id}" style="color: #fbbf24; font-size: 0.8em; font-weight: 600; display: flex; align-items: center; gap: 4px;">
+                                <span style="color: #888;">→</span> ${initialDisplay} = $${this.calculateItemTotal(product, quantityOptions.min).toFixed(2)}
+                            </div>
                         </div>
                         <div class="product-controls-list" style="display: flex; align-items: center; gap: 6px; flex-shrink: 0;">
                             <div class="quantity-compact" style="display: flex; align-items: center; background: #333; border-radius: 6px; overflow: hidden;">
@@ -712,6 +717,7 @@ class GlengalaShop {
     updateQuantity(productId, change) {
         const input = document.getElementById(`qty-${productId}`);
         const display = document.getElementById(`qty-display-${productId}`);
+        const previewTotal = document.getElementById(`preview-total-${productId}`);
         if (!input) return;
         
         // Use window.products for latest data
@@ -730,8 +736,15 @@ class GlengalaShop {
         input.value = newQuantity;
         
         // Update display to show human-readable format
+        const displayText = this.formatQuantityDisplay(newQuantity, options.increment, product.unit);
         if (display) {
-            display.textContent = this.formatQuantityDisplay(newQuantity, options.increment, product.unit);
+            display.textContent = displayText;
+        }
+        
+        // Update live preview total
+        if (previewTotal) {
+            const total = this.calculateItemTotal(product, newQuantity);
+            previewTotal.innerHTML = `<span style="color: #888;">→</span> ${displayText} = $${total.toFixed(2)}`;
         }
     }
 
