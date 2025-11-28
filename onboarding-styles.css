@@ -177,6 +177,24 @@
     color: #aaa;
 }
 
+.welcome-btn-info {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+}
+
+.welcome-btn-info:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+}
+
 .welcome-footer {
     color: #555;
     font-size: 0.75rem;
@@ -380,4 +398,98 @@
         min-width: 260px;
         padding: 16px 20px;
     }
+}
+
+/* ========================================
+   HOW IT WORKS MODAL
+   ======================================== */
+
+.how-it-works-modal .onboarding-modal-content {
+    max-width: 400px;
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #888;
+    font-size: 1.5rem;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+}
+
+.how-it-works-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin: 24px 0;
+    text-align: left;
+}
+
+.hiw-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 14px;
+    border-radius: 12px;
+    border-left: 3px solid #22c55e;
+}
+
+.hiw-icon {
+    font-size: 1.8em;
+    flex-shrink: 0;
+}
+
+.hiw-content h3 {
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin: 0 0 4px 0;
+}
+
+.hiw-content p {
+    color: #999;
+    font-size: 0.85rem;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.hiw-content strong {
+    color: #4ade80;
+}
+
+.hiw-highlight {
+    background: linear-gradient(135deg, rgba(34, 197, 94, 0.15), rgba(34, 197, 94, 0.05));
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.hiw-highlight-icon {
+    font-size: 1.3em;
+}
+
+.hiw-highlight span:last-child {
+    color: #4ade80;
+    font-weight: 600;
+    font-size: 0.95rem;
 }

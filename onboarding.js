@@ -77,24 +77,12 @@ class GlengalaOnboarding {
                         </div>
                     </div>
 
-                    <div class="welcome-steps">
-                        <div class="welcome-step">
-                            <div class="step-number">1</div>
-                            <div class="step-text">Browse categories</div>
-                        </div>
-                        <div class="welcome-step">
-                            <div class="step-number">2</div>
-                            <div class="step-text">Add items to cart</div>
-                        </div>
-                        <div class="welcome-step">
-                            <div class="step-number">3</div>
-                            <div class="step-text">Pickup or delivery</div>
-                        </div>
-                    </div>
-
                     <div class="welcome-buttons">
                         <button class="welcome-btn-primary" onclick="glengalaOnboarding.closeWelcome(false)">
                             👋 Show Me Around
+                        </button>
+                        <button class="welcome-btn-info" onclick="glengalaOnboarding.showHowItWorks()">
+                            ❓ How Does It Work?
                         </button>
                         <button class="welcome-btn-secondary" onclick="glengalaOnboarding.closeWelcome(true)">
                             Start Shopping
@@ -125,6 +113,97 @@ class GlengalaOnboarding {
         
         if (!skipTour) {
             setTimeout(() => this.startTour(), 400);
+        }
+    }
+
+    showHowItWorks(fromMenu = false) {
+        // Close welcome modal if open
+        const welcomeModal = document.getElementById('welcomeModal');
+        if (welcomeModal && !fromMenu) {
+            welcomeModal.style.display = 'none';
+        }
+        
+        const modal = document.createElement('div');
+        modal.id = 'howItWorksModal';
+        modal.className = 'onboarding-modal-overlay';
+        modal.innerHTML = `
+            <div class="onboarding-modal how-it-works-modal">
+                <div class="onboarding-modal-content">
+                    <button class="modal-close-btn" onclick="glengalaOnboarding.closeHowItWorks(${!fromMenu})">&times;</button>
+                    
+                    <div class="welcome-icon">📋</div>
+                    <h1>How It Works</h1>
+                    <p class="welcome-subtitle">Fresh from Epping Market to your door</p>
+                    
+                    <div class="how-it-works-steps">
+                        <div class="hiw-step">
+                            <div class="hiw-icon">📅</div>
+                            <div class="hiw-content">
+                                <h3>Order Sunday – Thursday</h3>
+                                <p>Build your order throughout the day. Submit by <strong>8pm</strong> for next-day pickup or delivery.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hiw-step">
+                            <div class="hiw-icon">👨‍💼</div>
+                            <div class="hiw-content">
+                                <h3>Wayne Reviews Your Order</h3>
+                                <p>Your order goes directly to Wayne who will personally review it and send you an invoice to confirm.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hiw-step">
+                            <div class="hiw-icon">💳</div>
+                            <div class="hiw-content">
+                                <h3>Pay Your Invoice</h3>
+                                <p>Once you pay, we head to the market early next morning to get your produce fresh!</p>
+                            </div>
+                        </div>
+                        
+                        <div class="hiw-step">
+                            <div class="hiw-icon">⭐</div>
+                            <div class="hiw-content">
+                                <h3>You Get The Best First</h3>
+                                <p>All orders are picked from the best produce in our cool room — you get premium quality <strong>BEFORE</strong> it hits the shelves!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hiw-highlight">
+                        <span class="hiw-highlight-icon">🕗</span>
+                        <span>Order by 8pm for next-day fulfillment</span>
+                    </div>
+                    
+                    <div class="welcome-buttons">
+                        <button class="welcome-btn-primary" onclick="glengalaOnboarding.closeHowItWorks(${!fromMenu})">
+                            Got It!
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(modal);
+        
+        // Animate in
+        requestAnimationFrame(() => {
+            modal.classList.add('visible');
+        });
+    }
+
+    closeHowItWorks(returnToWelcome = false) {
+        const modal = document.getElementById('howItWorksModal');
+        if (modal) {
+            modal.classList.remove('visible');
+            setTimeout(() => modal.remove(), 300);
+        }
+        
+        // Show welcome modal again if needed
+        if (returnToWelcome) {
+            const welcomeModal = document.getElementById('welcomeModal');
+            if (welcomeModal) {
+                welcomeModal.style.display = '';
+            }
         }
     }
 
